@@ -136,7 +136,7 @@
                                     <div class="col-md-9 mt-3">
                                         <label for="">Solicitud</label>
                                         <textarea name="solicitud" class="form-control pill-textarea"
-                                            rows="4"></textarea>
+                                            rows="4" required></textarea>
                                     </div>
                                 </div>
 
@@ -201,7 +201,7 @@
                                 <div class="row g-3 mt-4">
                                     <div class="col-md-3">
                                         <label>Archivado en</label>
-                                        <select name="folio_archivado" class="form-select pill-select" required>
+                                        <select name="folio_archivado" class="form-select pill-select">
                                             <option value="">Selección</option>
                                         </select>
                                     </div>
@@ -216,13 +216,13 @@
 
                                     <div class="col-md-3">
                                         <label>Atendido por</label>
-                                        <select name="folio_personal" class="form-select pill-select" required>
+                                        <select name="folio_personal" class="form-select pill-select">
                                             <option value="">Selección</option>
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Sección Responsable</label>
-                                        <select name="folio_seccion" class="form-select pill-select" required>
+                                        <select name="folio_seccion" class="form-select pill-select">
                                             <option value="">Selección</option>
                                         </select>
                                     </div>
