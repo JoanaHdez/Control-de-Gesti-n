@@ -1,0 +1,118 @@
+CREATE DATABASE IF NOT EXISTS controlgestion
+CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci;
+USE controlgestion;
+
+-- =========================
+-- CATÁLOGOS
+-- =========================
+
+CREATE TABLE cargo (
+  folio_cargo INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_cargo VARCHAR(300)
+) ENGINE=InnoDB;
+
+CREATE TABLE tipo_area (
+  folio_area INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_area VARCHAR(300)
+) ENGINE=InnoDB;
+
+CREATE TABLE tipo_tramite (
+  folio_tramite INT AUTO_INCREMENT PRIMARY KEY,
+  tramite VARCHAR(150)
+) ENGINE=InnoDB;
+
+CREATE TABLE estado (
+  folio_estado INT AUTO_INCREMENT PRIMARY KEY,
+  estado VARCHAR(300) NOT NULL
+) ENGINE=InnoDB;
+
+CREATE TABLE seccion (
+  folio_seccion INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_seccion VARCHAR(300)
+) ENGINE=InnoDB;
+
+CREATE TABLE archivado (
+  folio_archivado INT AUTO_INCREMENT PRIMARY KEY,
+  archivado VARCHAR(300)
+) ENGINE=InnoDB;
+
+-- =========================
+-- TABLAS PRINCIPALES
+-- =========================
+
+CREATE TABLE registro_oficio (
+  folio_registro VARCHAR(150) NOT NULL,
+  fecha_oficio DATE NOT NULL,
+  referencia VARCHAR(150) NOT NULL,
+  fecha_recepcion DATE NOT NULL,
+  PRIMARY KEY (folio_registro)
+) ENGINE=InnoDB;
+
+CREATE TABLE titular (
+  folio_titular INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_titular VARCHAR(150) NOT NULL,
+  folio_cargo INT NOT NULL,
+  folio_area INT NOT NULL,
+  FOREIGN KEY (folio_cargo) REFERENCES cargo(folio_cargo),
+  FOREIGN KEY (folio_area) REFERENCES tipo_area(folio_area)
+) ENGINE=InnoDB;
+
+CREATE TABLE remitente (
+  folio_remitente INT AUTO_INCREMENT PRIMARY KEY,
+  folio_titular INT NOT NULL,
+  FOREIGN KEY (folio_titular) REFERENCES titular(folio_titular)
+) ENGINE=InnoDB;
+
+CREATE TABLE solicitud (
+  folio_solicitud INT AUTO_INCREMENT PRIMARY KEY,
+  folio_tramite INT NOT NULL,
+  solicitud VARCHAR(300) NOT NULL,
+  FOREIGN KEY (folio_tramite) REFERENCES tipo_tramite(folio_tramite)
+) ENGINE=InnoDB;
+
+CREATE TABLE descripcion_atencion (
+  folio_atencion INT AUTO_INCREMENT PRIMARY KEY,
+  oficio_contestacion VARCHAR(150),
+  fecha_contestacion DATE,
+  asunto VARCHAR(300)
+) ENGINE=InnoDB;
+
+CREATE TABLE ponencia_reunion (
+  folio_pr INT AUTO_INCREMENT PRIMARY KEY,
+  ponencia VARCHAR(300),
+  reunion VARCHAR(300)
+) ENGINE=InnoDB;
+
+CREATE TABLE personal (
+  folio_personal INT AUTO_INCREMENT PRIMARY KEY,
+  nombre_responsable VARCHAR(300),
+  folio_seccion INT NOT NULL,
+  FOREIGN KEY (folio_seccion) REFERENCES seccion(folio_seccion)
+) ENGINE=InnoDB;
+
+CREATE TABLE seccion_responsable (
+  folio_sec_resp INT AUTO_INCREMENT PRIMARY KEY,
+  folio_personal INT NOT NULL,
+  FOREIGN KEY (folio_personal) REFERENCES personal(folio_personal)
+) ENGINE=InnoDB;
+
+-- =========================
+-- TABLA CENTRAL
+-- =========================
+
+CREATE TABLE oficio (
+  id_folio INT AUTO_INCREMENT PRIMARY KEY,
+  folio_registro VARCHAR(150) NOT NULL,
+  folio_remitente INT NOT NULL,
+  folio_solicitud INT NOT NULL,
+  folio_atencion INT,
+  folio_estado INT NOT NULL,
+  folio_pr INT,
+
+  FOREIGN KEY (folio_registro) REFERENCES registro_oficio(folio_registro),
+  FOREIGN KEY (folio_remitente) REFERENCES remitente(folio_remitente),
+  FOREIGN KEY (folio_solicitud) REFERENCES solicitud(folio_solicitud),
+  FOREIGN KEY (folio_atencion) REFERENCES descripcion_atencion(folio_atencion),
+  FOREIGN KEY (folio_estado) REFERENCES estado(folio_estado),
+  FOREIGN KEY (folio_pr) REFERENCES ponencia_reunion(folio_pr)
+) ENGINE=InnoDB;
