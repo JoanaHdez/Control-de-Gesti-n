@@ -104,7 +104,7 @@
                                                 <option value="">Seleccione</option>
 
                                                 <?php foreach ($cargos as $cargo): ?>
-                                                    <option value="<?= $cargo['folio_cargo'] ?>">
+                                                <option value="<?= $cargo['folio_cargo'] ?>">
                                                     <?= esc($cargo['nombre_cargo']) ?>
                                                 </option>
                                                 <?php endforeach; ?>
@@ -117,11 +117,11 @@
                                                 <option value="">Seleccione</option>
 
                                                 <?php foreach ($areas as $area): ?>
-                                                    <option value="<?= $area['folio_area'] ?>">
+                                                <option value="<?= $area['folio_area'] ?>">
                                                     <?= esc($area['nombre_area']) ?>
                                                 </option>
                                                 <?php endforeach; ?>
-                                                
+
                                             </select>
                                         </div>
 
@@ -145,12 +145,19 @@
                                         <label>Tipo de Tramite</label>
                                         <select name="folio_tramite" class="form-select pill-select" required>
                                             <option value=""> Seleccione</option>
+
+                                            <?php foreach ($tramites as $tramite): ?>
+                                            <option value="<?= $tramite['folio_tramite'] ?>">
+                                                <?=  esc($tramite['tramite']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+
                                         </select>
                                     </div>
                                     <div class="col-md-9 mt-3">
                                         <label for="">Solicitud</label>
-                                        <textarea name="solicitud" class="form-control pill-textarea"
-                                            rows="4" required></textarea>
+                                        <textarea name="solicitud" class="form-control pill-textarea" rows="4"
+                                            required></textarea>
                                     </div>
                                 </div>
 
@@ -217,12 +224,26 @@
                                         <label>Archivado en</label>
                                         <select name="folio_archivado" class="form-select pill-select">
                                             <option value="">Selección</option>
+
+                                            <?php foreach ($archivado as $archivado): ?>
+                                            <option value="<?= $archivado['folio_archivado'] ?>">
+                                                <?= esc($archivado['archivado']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Estatus</label>
                                         <select name="folio_estado" class="form-select pill-select" required>
                                             <option value="">Selección</option>
+
+                                            <?php foreach ($estados as $estado): ?>
+                                            <option value="<?= $estado['folio_estado'] ?>">
+                                                <?= esc($estado['estado']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+
                                         </select>
                                     </div>
 
@@ -232,12 +253,26 @@
                                         <label>Atendido por</label>
                                         <select name="folio_personal" class="form-select pill-select">
                                             <option value="">Selección</option>
+
+                                            <?php foreach ($personal as $personal): ?>
+                                            <option value="<?= $personal['folio_personal'] ?>">
+                                                <?= esc($personal['nombre_responsable']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Sección Responsable</label>
                                         <select name="folio_seccion" class="form-select pill-select">
                                             <option value="">Selección</option>
+
+                                            <?php foreach ($seccion as $seccion): ?>
+                                            <option value="<?= $seccion['folio_seccion'] ?>">
+                                                <?= esc($seccion['nombre_seccion']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+
                                         </select>
                                     </div>
                                 </div>
@@ -1649,12 +1684,9 @@
                             </div>
 
                         </div>
-
                     </div>
                 </div>
             </div>
-            </div>
-
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
