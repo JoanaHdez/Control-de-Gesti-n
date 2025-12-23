@@ -5,12 +5,26 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use Config\Database;
 
-class Oficios extends BaseController
+use App\Models\Oficio_Model;
+use App\Models\DescripcionAtencion_Model;
+use App\Models\PonenciaReunion_Model;
+
+class Oficios_Controller extends BaseController
 {
+    public function listar(){
+        $oficioModel = new Oficio_Model();
+        $data['oficios'] = $oficioModel->getOficiosConDatos();
+
+        echo '<pre>';
+        print_r($data['oficios']);
+        echo '</pre>';
+        die();
+    }
+ 
     public function guardar()
     {
         // ================= VALIDACIONES =================
-        
+
         $rules = [
             'folio_registro'   => 'required|min_length[3]|max_length[150]',
             'fecha_oficio'     => 'required|valid_date',
@@ -75,6 +89,7 @@ class Oficios extends BaseController
             'fecha_recepcion' => $this->request->getPost('fecha_recepcion'),
         ]);
 
+
         // ---------- DESCRIPCIÓN ATENCIÓN ----------
 
         $db->table('descripcion_atencion')->insert([
@@ -84,20 +99,42 @@ class Oficios extends BaseController
         ]);
         $folio_atencion = $db->insertID();
 
+        // ---------- PONENCIA / REUNION ----------
+
+        $db->table('ponencia_reunion')->insert([
+            'ponencia' => $this->request->getPost('ponencia') ?: null,
+            'reunion'  => $this->request->getPost('reunion') ?: null,
+        ]);
+
+        $folio_pr = $db->insertID();
+
+
         // ---------- OFICIO (RELACIÓN) ----------
 
+        // ========= DATOS POST =========
+
+        $folioRegistro   = $this->request->getPost('folio_registro');
+        $folioEstado     = $this->request->getPost('folio_estado');
+        $folioArchivado  = $this->request->getPost('folio_archivado') ?: null;
+        $folioPersonal   = $this->request->getPost('folio_personal') ?: null;
+        $folioSeccion    = $this->request->getPost('folio_seccion') ?: null;
+
+        // ========= INSERT OFICIO =========
+
         $db->table('oficio')->insert([
-            'folio_registro'  => $this->request->getPost('folio_registro'),
+            'folio_registro'  => $folioRegistro,
             'folio_remitente' => $folio_remitente,
             'folio_solicitud' => $folio_solicitud,
             'folio_atencion'  => $folio_atencion,
-            'folio_estado'    => $this->request->getPost('folio_estado'),
-            'folio_archivado' => $this->request->getPost('folio_archivado') ?: null,
-            'folio_personal'  => $this->request->getPost('folio_personal') ?: null,
-            'folio_seccion'   => $this->request->getPost('folio_seccion') ?: null,
+            'folio_estado'    => $folioEstado,
+            'folio_archivado' => $folioArchivado,
+            'folio_personal'  => $folioPersonal,
+            'folio_seccion'   => $folioSeccion,
+            'folio_pr'        => $folio_pr,
         ]);
 
         $db->transComplete();
+
 
         if ($db->transStatus() === false) {
             return redirect()->back()->with('error', 'Error al guardar el oficio');
