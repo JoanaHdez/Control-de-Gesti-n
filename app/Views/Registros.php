@@ -43,6 +43,22 @@
 
                     <!-- ----------------------------------------------------------------------- SECCION 1 REGISTRO ----------------------------------------------------------------------- -->
 
+                    <?php if(session()->getFlashdata('errors')): ?>
+                    <div class="alert alert-danger">
+                        <ul>
+                            <?php foreach(session()->getFlashdata('errors') as $error): ?>
+                            <li><?= esc($error) ?></li>
+                            <?php endforeach; ?>
+                        </ul>
+                    </div>
+                    <?php endif; ?>
+
+                    <?php if(session()->getFlashdata('success')): ?>
+                    <div class="alert alert-success">
+                        <?= session()->getFlashdata('success') ?>
+                    </div>
+                    <?php endif; ?>
+
                     <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
 
                         <div class="tab-pane fade show active" id="registro">

@@ -40,7 +40,7 @@ class Oficios_Controller extends BaseController
             'folio_tramite'    => 'required|integer',
             'solicitud'        => 'required|min_length[5]',
 
-            'folio_contestacion' => 'permit_empty|max_length[150]',
+            'oficio_contestacion' => 'permit_empty|max_length[150]',
             'fecha_contestacion' => 'permit_empty|valid_date',
             'asunto'             => 'permit_empty',
 
@@ -97,12 +97,12 @@ class Oficios_Controller extends BaseController
         $folio_atencion = null;
 
         if (
-            $this->request->getPost('folio_contestacion') ||
+            $this->request->getPost('oficio_contestacion') ||
             $this->request->getPost('fecha_contestacion') ||
             $this->request->getPost('asunto')
         ) {
             $db->table('descripcion_atencion')->insert([
-                'folio_contestacion' => $this->request->getPost('folio_contestacion') ?: null,
+                'oficio_contestacion' => $this->request->getPost('oficio_contestacion') ?: null,
                 'fecha_contestacion' => $this->request->getPost('fecha_contestacion') ?: null,
                 'asunto'             => $this->request->getPost('asunto') ?: null,
             ]);
