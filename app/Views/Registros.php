@@ -108,13 +108,20 @@
                                                     <?= esc($cargo['nombre_cargo']) ?>
                                                 </option>
                                                 <?php endforeach; ?>
-                                                
+
                                             </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Área</label>
                                             <select name="folio_area" class="form-select pill-select" required>
                                                 <option value="">Seleccione</option>
+
+                                                <?php foreach ($areas as $area): ?>
+                                                    <option value="<?= $area['folio_area'] ?>">
+                                                    <?= esc($area['nombre_area']) ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                                
                                             </select>
                                         </div>
 
