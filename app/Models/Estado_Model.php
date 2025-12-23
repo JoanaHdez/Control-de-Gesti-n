@@ -7,10 +7,10 @@ use CodeIgniter\Model;
 class Estado_Model extends Model {
     protected $table = 'estado';
     protected $primaryKey = 'folio_estado';
+    protected $returnType = 'array';
 
     protected$allowedFields = [
         'estado'
     ];
 
-    protected $returnType = 'array';
 }

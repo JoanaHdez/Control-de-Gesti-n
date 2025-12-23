@@ -102,6 +102,13 @@
                                             <label for="">Cargo</label>
                                             <select name="folio_cargo" class="form-select pill-select" required>
                                                 <option value="">Seleccione</option>
+
+                                                <?php foreach ($cargos as $cargo): ?>
+                                                    <option value="<?= $cargo['folio_cargo'] ?>">
+                                                    <?= esc($cargo['nombre_cargo']) ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                                
                                             </select>
                                         </div>
                                         <div class="col-md-3">

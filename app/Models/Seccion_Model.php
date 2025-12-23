@@ -8,10 +8,10 @@ class Seccion_Model extends Model{
 
     protected $table = 'seccion';
     protected $primaryKey = 'folio_seccion';
+    protected $returnType = 'array';
 
     protected $allowedFields = [
-        'seccion'
+        'nombre_seccion'
     ];
 
-    protected $returnType = 'array';
 }

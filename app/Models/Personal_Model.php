@@ -8,11 +8,11 @@ class Personal_Model extends Model{
 
     protected $table = 'personal';
     protected $primaryKey = 'folio_personal';
+    protected $returnType = 'array';
 
     protected $allowedFields = [
-        'nombre',
+        'nombre_responsable',
         'folio_seccion'
     ];
 
-    protected $returnType = 'array';
 }

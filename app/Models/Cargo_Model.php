@@ -8,10 +8,10 @@ class Cargo_Model extends Model{
 
     protected $table = 'cargo';
     protected $primaryKey = 'folio_cargo';
+    protected $returnType = 'array';
 
     protected $allowedFields = [
-        'cargo'
+        'nombre_cargo'
     ];
 
-    protected $returnType = 'array';
 }

@@ -5,12 +5,12 @@ namespace App\Models;
 use CodeIgniter\Model;
 
 class Area_Model extends Model{
-    protected $table = 'area';
+    protected $table = 'tipo_area';
     protected $primaryKey = 'folio_area';
+    protected $returnType = 'array';
 
-    protected$allowedFields = [
-        'area'
+    protected $allowedFields = [
+        'nombre_area'
     ];
 
-    protected $returnType = 'array';
  }

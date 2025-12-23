@@ -11,7 +11,9 @@ use App\Models\PonenciaReunion_Model;
 
 class Oficios_Controller extends BaseController
 {
-    public function listar(){
+
+    public function listar()
+    {
         $oficioModel = new Oficio_Model();
         $data['oficios'] = $oficioModel->getOficiosConDatos();
 
@@ -20,7 +22,7 @@ class Oficios_Controller extends BaseController
         echo '</pre>';
         die();
     }
- 
+
     public function guardar()
     {
         // ================= VALIDACIONES =================
@@ -92,22 +94,33 @@ class Oficios_Controller extends BaseController
 
         // ---------- DESCRIPCIÓN ATENCIÓN ----------
 
-        $db->table('descripcion_atencion')->insert([
-            'folio_contestacion' => $this->request->getPost('folio_contestacion') ?: null,
-            'fecha_contestacion' => $this->request->getPost('fecha_contestacion') ?: null,
-            'asunto'             => $this->request->getPost('asunto') ?: null,
-        ]);
-        $folio_atencion = $db->insertID();
+        $folio_atencion = null;
+
+        if (
+            $this->request->getPost('folio_contestacion') ||
+            $this->request->getPost('fecha_contestacion') ||
+            $this->request->getPost('asunto')
+        ) {
+            $db->table('descripcion_atencion')->insert([
+                'folio_contestacion' => $this->request->getPost('folio_contestacion') ?: null,
+                'fecha_contestacion' => $this->request->getPost('fecha_contestacion') ?: null,
+                'asunto'             => $this->request->getPost('asunto') ?: null,
+            ]);
+            $folio_atencion = $db->insertID();
+        }
 
         // ---------- PONENCIA / REUNION ----------
 
-        $db->table('ponencia_reunion')->insert([
-            'ponencia' => $this->request->getPost('ponencia') ?: null,
-            'reunion'  => $this->request->getPost('reunion') ?: null,
-        ]);
+        $folio_pr = null;
 
-        $folio_pr = $db->insertID();
+        if ($this->request->getPost('ponencia') || $this->request->getPost('reunion')) {
+            $db->table('ponencia_reunion')->insert([
+                'ponencia' => $this->request->getPost('ponencia') ?: null,
+                'reunion'  => $this->request->getPost('reunion') ?: null,
+            ]);
 
+            $folio_pr = $db->insertID();
+        }
 
         // ---------- OFICIO (RELACIÓN) ----------
 
