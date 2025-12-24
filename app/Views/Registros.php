@@ -111,34 +111,29 @@
                                     <div class="row g-3 mt-3">
                                         <div class="col-md-3">
                                             <label>Titular</label>
-                                            <input type="text" name="nombre_titular" class="form-control pill-input"
-                                                required>
+                                            <select name="folio_remitente" id="folio_remitente"
+                                                class="form-select pill-select" required>
+                                                <option value="">Seleccione</option>
+
+                                                <?php foreach($remitentes as $remitente): ?>
+                                                <option value="<?= $remitente['folio_remitente'] ?>"
+                                                    data-cargo="<?= esc($remitente['nombre_cargo']) ?>"
+                                                    data-area="<?= esc($remitente['nombre_area']) ?>">
+                                                    <?= esc($remitente['nombre_titular']) ?>
+                                                </option>
+                                                <?php endforeach; ?>
+                                            </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="">Cargo</label>
-                                            <select name="folio_cargo" class="form-select pill-select" required>
-                                                <option value="">Seleccione</option>
+                                            <input type="text" id="folio_cargo" class="form-control pill-input"
+                                                readonly>
 
-                                                <?php foreach ($cargos as $cargo): ?>
-                                                <option value="<?= $cargo['folio_cargo'] ?>">
-                                                    <?= esc($cargo['nombre_cargo']) ?>
-                                                </option>
-                                                <?php endforeach; ?>
-
-                                            </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Área</label>
-                                            <select name="folio_area" class="form-select pill-select" required>
-                                                <option value="">Seleccione</option>
+                                            <input type="text" id="folio_area" class="form-control pill-input" readonly>
 
-                                                <?php foreach ($areas as $area): ?>
-                                                <option value="<?= $area['folio_area'] ?>">
-                                                    <?= esc($area['nombre_area']) ?>
-                                                </option>
-                                                <?php endforeach; ?>
-
-                                            </select>
                                         </div>
 
                                     </div>
@@ -193,7 +188,7 @@
                                         <div class="row g-3">
                                             <label>Folio de contestación de Oficio</label>
                                             <div class="col-12">
-                                                <input type="text" name="folio_contestacion"
+                                                <input type="text" name="oficio_contestacion"
                                                     class="form-control pill-input">
                                             </div>
                                             <label for="">Fecha de Contestación</label>
@@ -267,29 +262,22 @@
 
                                     <div class="col-md-3">
                                         <label>Atendido por</label>
-                                        <select name="folio_personal" class="form-select pill-select">
+                                        <select name="folio_sec_resp" id="folio_sec_resp"
+                                            class="form-select pill-select">
                                             <option value="">Selección</option>
 
-                                            <?php foreach ($personal as $personal): ?>
-                                            <option value="<?= $personal['folio_personal'] ?>">
-                                                <?= esc($personal['nombre_responsable']) ?>
+                                            <?php foreach ($seccion_responsable as $sr): ?>
+                                            <option value="<?= $sr['folio_sec_resp'] ?>"
+                                        data-seccion="<?= esc($sr['nombre_seccion']) ?>">
+                                                <?= esc($sr['nombre_responsable']) ?>
+                                                
                                             </option>
                                             <?php endforeach; ?>
-
                                         </select>
                                     </div>
                                     <div class="col-md-3">
                                         <label>Sección Responsable</label>
-                                        <select name="folio_seccion" class="form-select pill-select">
-                                            <option value="">Selección</option>
-
-                                            <?php foreach ($seccion as $seccion): ?>
-                                            <option value="<?= $seccion['folio_seccion'] ?>">
-                                                <?= esc($seccion['nombre_seccion']) ?>
-                                            </option>
-                                            <?php endforeach; ?>
-
-                                        </select>
+                                        <input type="text" id="folio_seccion" class="form-control pill-input" readonly>
                                     </div>
                                 </div>
 
@@ -1706,7 +1694,7 @@
         </section>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="<?= base_url('/asset/js/Registro.js') ?>"></script>
+    <script src="<?= base_url('/assets/js/Registro.js') ?>"></script>
 </body>
 
 </html>

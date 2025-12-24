@@ -6,8 +6,6 @@ use App\Controllers\BaseController;
 use Config\Database;
 
 use App\Models\Oficio_Model;
-use App\Models\DescripcionAtencion_Model;
-use App\Models\PonenciaReunion_Model;
 
 class Oficios_Controller extends BaseController
 {
@@ -33,9 +31,7 @@ class Oficios_Controller extends BaseController
             'referencia'       => 'required|max_length[150]',
             'fecha_recepcion'  => 'required|valid_date',
 
-            'nombre_titular'   => 'required|min_length[3]',
-            'folio_cargo'      => 'required|integer',
-            'folio_area'       => 'required|integer',
+            'folio_remitente'  => 'required|integer',
 
             'folio_tramite'    => 'required|integer',
             'solicitud'        => 'required|min_length[5]',
@@ -45,8 +41,7 @@ class Oficios_Controller extends BaseController
             'asunto'             => 'permit_empty',
 
             'folio_archivado' => 'permit_empty|integer',
-            'folio_personal'  => 'permit_empty|integer',
-            'folio_seccion'   => 'permit_empty|integer',
+            'folio_sec_resp'  => 'permit_empty|integer',
 
             'ponencia'        => 'permit_empty|max_length[150]',
             'reunion'         => 'permit_empty|max_length[150]',
@@ -67,12 +62,7 @@ class Oficios_Controller extends BaseController
 
         // ---------- TITULAR ----------
 
-        $db->table('titular')->insert([
-            'nombre_titular' => $this->request->getPost('nombre_titular'),
-            'folio_cargo'    => $this->request->getPost('folio_cargo'),
-            'folio_area'     => $this->request->getPost('folio_area'),
-        ]);
-        $folio_remitente = $db->insertID();
+        $folio_remitente = $this->request->getPost('folio_remitente');
 
         // ---------- SOLICITUD ----------
 
@@ -128,9 +118,7 @@ class Oficios_Controller extends BaseController
 
         $folioRegistro   = $this->request->getPost('folio_registro');
         $folioEstado     = $this->request->getPost('folio_estado');
-        $folioArchivado  = $this->request->getPost('folio_archivado') ?: null;
-        $folioPersonal   = $this->request->getPost('folio_personal') ?: null;
-        $folioSeccion    = $this->request->getPost('folio_seccion') ?: null;
+        $folio_sec_resp  = $this->request->getPost('folio_sec_resp') ?: null;
 
         // ========= INSERT OFICIO =========
 
@@ -139,11 +127,10 @@ class Oficios_Controller extends BaseController
             'folio_remitente' => $folio_remitente,
             'folio_solicitud' => $folio_solicitud,
             'folio_atencion'  => $folio_atencion,
-            'folio_estado'    => $folioEstado,
-            'folio_archivado' => $folioArchivado,
-            'folio_personal'  => $folioPersonal,
-            'folio_seccion'   => $folioSeccion,
             'folio_pr'        => $folio_pr,
+            'folio_sec_resp'  => $folio_sec_resp,
+            'folio_estado'    => $folioEstado,
+
         ]);
 
         $db->transComplete();
@@ -153,6 +140,7 @@ class Oficios_Controller extends BaseController
             return redirect()->back()->with('error', 'Error al guardar el oficio');
         }
 
-        return redirect()->to('/oficios')->with('success', 'Oficio guardado correctamente');
+        return redirect()->to('/Registros')->with('success', 'Oficio guardado correctamente');
+
     }
 }
