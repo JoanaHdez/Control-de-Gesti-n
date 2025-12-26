@@ -21,7 +21,7 @@ class Oficios_Controller extends BaseController
         die();
     } */
 
-    public function listarGeneral()
+    /* public function listarGeneral()
     {
         $oficioModel = new Oficio_Model();
         $data['general'] = $oficioModel->getGeneral();
@@ -35,7 +35,7 @@ class Oficios_Controller extends BaseController
         $data['pendientes'] = $oficioModel->getPendientes();
 
         return view('Registros', $data);
-    }
+    } */
 
 
     public function guardar()
@@ -133,13 +133,13 @@ class Oficios_Controller extends BaseController
 
         // ========= DATOS POST =========
 
-        $folioRegistro   = $this->request->getPost('folio_registro');
+        /* $folioRegistro   = $this->request->getPost('folio_registro');
         $folioEstado     = $this->request->getPost('folio_estado');
-        $folio_sec_resp  = $this->request->getPost('folio_sec_resp') ?: null;
+        $folio_sec_resp  = $this->request->getPost('folio_sec_resp') ?: null; */
 
         // ========= INSERT OFICIO =========
 
-        $db->table('oficio')->insert([
+        /* $db->table('oficio')->insert([
             'folio_registro'  => $folioRegistro,
             'folio_remitente' => $folio_remitente,
             'folio_solicitud' => $folio_solicitud,
@@ -148,6 +148,16 @@ class Oficios_Controller extends BaseController
             'folio_sec_resp'  => $folio_sec_resp,
             'folio_estado'    => $folioEstado,
 
+        ]); */
+
+         $db->table('oficio')->insert([
+            'folio_registro'  => $this->request->getPost('folio_registro'),
+            'folio_remitente' => $this->request->getPost('folio_remitente'),
+            'folio_solicitud' => $folio_solicitud,
+            'folio_atencion'  => $folio_atencion,
+            'folio_pr'        => $folio_pr,
+            'folio_sec_resp'  => $this->request->getPost('folio_sec_resp') ?: null,
+            'folio_estado'    => $this->request->getPost('folio_estado'),
         ]);
 
         $db->transComplete();
@@ -157,10 +167,16 @@ class Oficios_Controller extends BaseController
             return redirect()->back()->with('error', 'Error al guardar el oficio');
         }
 
-        return redirect()->to('/Registros')->with('success', 'Oficio guardado correctamente');
-    }
+/*         return redirect()->to('/Registros')->with('success', 'Oficio guardado correctamente'); */    
 
-    public function general()
+        return redirect()->to('/oficios/crear')
+            ->with('success', 'Oficio guardado correctamente');
+        }
+
+
+
+
+    /* public function general()
     {
         $oficioModel = new Oficio_Model();
 
@@ -176,5 +192,5 @@ class Oficios_Controller extends BaseController
         $data['pendientes'] = $oficioModel->getPendientes();
 
         return view('Registros', $data);
-    }
+    } */
 }

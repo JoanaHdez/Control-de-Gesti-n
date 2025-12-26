@@ -54,7 +54,7 @@ class Registros_Controller extends BaseController
             'personal' => $personalModel->findAll(),
             'seccion' => $seccionModel->findAll(),
             'remitentes' => $remitentes,
-            'seccion_responsable' => $seccion_responsable,
+            'seccion_responsable' => $seccionresponsableModel->getSeccionesResponsables(),
 
             'general' => $oficioModel->getGeneral(),
             'pendientes' => $oficioModel->getPendientes(),

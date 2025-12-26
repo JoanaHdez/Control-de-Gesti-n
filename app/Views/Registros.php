@@ -394,7 +394,7 @@
                                             <?php endforeach; ?>
                                             <?php else: ?>
                                             <tr>
-                                                <td colspan="8">No hay oficios pendientes</td>
+                                                <td colspan="6">No hay oficios pendientes</td>
                                             </tr>
                                             <?php endif; ?>
                                         </tbody>
