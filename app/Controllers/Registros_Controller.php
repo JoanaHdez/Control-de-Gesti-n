@@ -56,6 +56,7 @@ class Registros_Controller extends BaseController
             'remitentes' => $remitentes,
             'seccion_responsable' => $seccion_responsable,
 
+            'general' => $oficioModel->getGeneral(),
             'pendientes' => $oficioModel->getPendientes(),
         ];
 

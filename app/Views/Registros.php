@@ -348,134 +348,55 @@
                                                 <th>Editar</th>
                                             </tr>
                                         </thead>
+                                        
                                         <tbody class="text-center align-middle">
-                                            <tr>
-                                                <td>1080</td>
-                                                <td>9/12/2025</td>
-                                                <td>SA/9672/2025</td>
-                                                <td>Conocimiento</td>
-                                                <td>EN ATENCION AL OFICIO 233001003A00000/704/2025 ENVIADO A LA
-                                                    SRIA.
-                                                    GRAL. DE
-                                                    GOBIERNO DEL EDO. MEX. EN EL CUAL SE INDICAN LAS NECESIDADES DE
-                                                    CAPACITACION
-                                                    IDENTIFICADAS POR LOS MUNICIPIOS, SE RECIBE RESPUESTA CON
-                                                    PROPUESTAS
-                                                    DE
-                                                    CAPACITACIONES DE ENERO DE 2026 A JUNIO DE 2027, BAJO EL
-                                                    CALENDARIO
-                                                    REMITIDO.</td>
+
+                                            <?php if (!empty($general)): ?>
+                                            <?php foreach ($general as $row): ?>
+                                            <tr>                                                
+                                                <!-- Folio -->
+                                                <td><?= esc($row['folio_registro']) ?></td>
+
+                                                <!-- Fecha -->
+                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+
+                                                <!-- Referencia -->
+                                                <td><?= esc($row['referencia']) ?></td>
+
+                                                <!-- Trámite -->
+                                                <td><?= esc($row['tramite']) ?></td>
+
+                                                <!-- Solicitud -->
+                                                <td><?= esc($row['solicitud']) ?></td>
+
+                                                <!-- Estado -->
                                                 <td>
-                                                    <button type="button" class="btn btn-danger">Pendiente</button>
+                                                    <span class="badge bg-danger">
+                                                        <?= esc($row['estado']) ?>
+                                                    </span>
                                                 </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning"
-                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor" class="bi bi-pencil"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                            </svg>
-                                                        </button>
-                                                        <button type="button" class="btn btn-info"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor"
-                                                                class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>1079</td>
-                                                <td>11/12/2025</td>
-                                                <td>CGSC/12/606/2025</td>
-                                                <td>Conocimiento</td>
-                                                <td>INFORMA QUE EL DIA 04 DE DICIEMBRE DE LOS CORRIENTES LOS
-                                                    TRIPUANTES
-                                                    DE LAS
-                                                    UNIDADES V-123 Y V-124 BRINDARON UN APOYO DEL CUAL SE GENERO UNA
-                                                    DETENCION
-                                                    POR FEMINICIDIO, POR LO QUE SOLICITA SE TOME EN CUENTA PARA QUE
-                                                    SEAN
-                                                    ACREEDORES A UN ASCENSO, ASI COMO ESTIMULOS Y RECOMPENSAS.</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Pendiente</button>
-                                                </td>
+
+                                                <!-- Acciones -->
                                                 <td>
                                                     <div class="d-flex justify-content-center gap-3">
                                                         <button type="button" class="btn btn-warning"
                                                             data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor" class="bi bi-pencil"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                            </svg>
+                                                            ✏️
                                                         </button>
                                                         <button type="button" class="btn btn-info"
                                                             data-bs-toggle="modal" data-bs-target="#modalDetalles">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor"
-                                                                class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9z" />
-                                                            </svg>
+                                                            📄
                                                         </button>
                                                     </div>
                                                 </td>
+
                                             </tr>
+                                            <?php endforeach; ?>
+                                            <?php else: ?>
                                             <tr>
-                                                <td>1078</td>
-                                                <td>10/12/2025</td>
-                                                <td>CIRCULAR 55</td>
-                                                <td>Conocimiento</td>
-                                                <td>SE INFORMAN LAS FECHAS Y HORARIOS EN QUE SE DARAN A FIRMAR LOS
-                                                    RECIBOS DE
-                                                    NOMINA CORRESPONDIENTES A LA 2A QUINCENA DE DICIEMBRE, EL JUEVES
-                                                    11
-                                                    DE
-                                                    DICIEMBRE DE 08:00 A 18:00 HRS Y VIERNES 12 DE 08:00 A 10:OO HRS
-                                                    EN
-                                                    EL
-                                                    AGRUPAMIENTO TITANES</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Pendiente</button>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning"
-                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor" class="bi bi-pencil"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                            </svg>
-                                                        </button>
-                                                        <button type="button" class="btn btn-info"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor"
-                                                                class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                <td colspan="8">No hay oficios pendientes</td>
                                             </tr>
+                                            <?php endif; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -498,196 +419,6 @@
                             </nav>
                             <div class="container-fluid pt-5">
                                 <div class="table-responsive">
-                                    <!-- <table class="table table-striped table-hover">
-                                        <colgroup>
-                                            <col style="width: 3%;">
-                                            <col style="width: 15%;">
-                                            <col style="width: 5%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 40%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                        </colgroup>
-                                        <thead class="table-1 text-center">
-                                            <tr>
-                                                <th></th>
-                                                <th>Nombre</th>
-                                                <th>Folio</th>
-                                                <th>Fecha de Oficio</th>
-                                                <th>Referencia</th>
-                                                <th>Solicitud</th>
-                                                <th>Estatus</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text-center align-middle">
-                                            <tr>
-                                                <td>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                                        fill="currentColor" class="bi bi-person-circle"
-                                                        viewBox="0 0 16 16">
-                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                                                    </svg>
-                                                </td>
-                                                <td>
-                                                    <p>Andrés Barragán Corona</p>
-                                                    <p>Área</p>
-                                                </td>
-                                                <td>1080</td>
-                                                <td>9/12/2025</td>
-                                                <td>SA/9672/2025</td>
-                                                <td>EN ATENCION AL OFICIO 233001003A00000/704/2025 ENVIADO A LA
-                                                    SRIA.
-                                                    GRAL. DE
-                                                    GOBIERNO DEL EDO. MEX. EN EL CUAL SE INDICAN LAS NECESIDADES DE
-                                                    CAPACITACION
-                                                    IDENTIFICADAS POR LOS MUNICIPIOS, SE RECIBE RESPUESTA CON
-                                                    PROPUESTAS
-                                                    DE
-                                                    CAPACITACIONES DE ENERO DE 2026 A JUNIO DE 2027, BAJO EL
-                                                    CALENDARIO
-                                                    REMITIDO.</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Pendiente</button>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning"
-                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor" class="bi bi-pencil"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                            </svg>
-                                                        </button>
-                                                        <button type="button" class="btn btn-info"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor"
-                                                                class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                                        fill="currentColor" class="bi bi-person-circle"
-                                                        viewBox="0 0 16 16">
-                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                                                    </svg>
-                                                </td>
-                                                <td>
-                                                    <p>Brenda Castro Yescas</p>
-                                                    <p>Área</p>
-                                                </td>
-                                                <td>1079</td>
-                                                <td>11/12/2025</td>
-                                                <td>CGSC/12/606/2025</td>
-                                                <td>INFORMA QUE EL DIA 04 DE DICIEMBRE DE LOS CORRIENTES LOS
-                                                    TRIPUANTES
-                                                    DE LAS
-                                                    UNIDADES V-123 Y V-124 BRINDARON UN APOYO DEL CUAL SE GENERO UNA
-                                                    DETENCION
-                                                    POR FEMINICIDIO, POR LO QUE SOLICITA SE TOME EN CUENTA PARA QUE
-                                                    SEAN
-                                                    ACREEDORES A UN ASCENSO, ASI COMO ESTIMULOS Y RECOMPENSAS.</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Pendiente</button>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning"
-                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor" class="bi bi-pencil"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                            </svg>
-                                                        </button>
-                                                        <button type="button" class="btn btn-info"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor"
-                                                                class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                                        fill="currentColor" class="bi bi-person-circle"
-                                                        viewBox="0 0 16 16">
-                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1" />
-                                                    </svg>
-                                                </td>
-                                                <td>
-                                                    <p>Emilia Maribel Corona Hernández</p>
-                                                    <p>Área</p>
-                                                </td>
-                                                <td>1078</td>
-                                                <td>10/12/2025</td>
-                                                <td>CIRCULAR 55</td>
-                                                <td>SE INFORMAN LAS FECHAS Y HORARIOS EN QUE SE DARAN A FIRMAR LOS
-                                                    RECIBOS DE
-                                                    NOMINA CORRESPONDIENTES A LA 2A QUINCENA DE DICIEMBRE, EL JUEVES
-                                                    11
-                                                    DE
-                                                    DICIEMBRE DE 08:00 A 18:00 HRS Y VIERNES 12 DE 08:00 A 10:OO HRS
-                                                    EN
-                                                    EL
-                                                    AGRUPAMIENTO TITANES</td>
-                                                <td>
-                                                    <button type="button" class="btn btn-danger">Pendiente</button>
-                                                </td>
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning"
-                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor" class="bi bi-pencil"
-                                                                viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325" />
-                                                            </svg>
-                                                        </button>
-                                                        <button type="button" class="btn btn-info"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="25"
-                                                                height="25" fill="currentColor"
-                                                                class="bi bi-layout-text-sidebar" viewBox="0 0 16 16">
-                                                                <path
-                                                                    d="M3.5 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zm0 3a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1zM3 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m.5 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1z" />
-                                                                <path
-                                                                    d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm12-1v14h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm-1 0H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h9z" />
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table> -->
-
                                     <table class="table table-striped table-hover">
                                         <colgroup>
                                             <col style="width: 3%;">
@@ -718,8 +449,8 @@
                                             <?php if (!empty($pendientes)): ?>
                                             <?php foreach ($pendientes as $row): ?>
                                             <tr>
-
-                                                <!-- Ícono -->
+                                                
+                                            <!-- Ícono -->
                                                 <td>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                                                         fill="currentColor" class="bi bi-person-circle"
@@ -730,6 +461,9 @@
                                                     </svg>
                                                 </td>
 
+                                                <!-- Responsable -->
+                                                <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
+
                                                 <!-- Folio -->
                                                 <td><?= esc($row['folio_registro']) ?></td>
 
@@ -739,11 +473,8 @@
                                                 <!-- Referencia -->
                                                 <td><?= esc($row['referencia']) ?></td>
 
-                                                <!-- Trámite -->
-                                                <td><?= esc($row['tramite']) ?></td>
-
                                                 <!-- Solicitud -->
-                                                <td class="text-start"><?= esc($row['solicitud']) ?></td>
+                                                <td><?= esc($row['solicitud']) ?></td>
 
                                                 <!-- Estado -->
                                                 <td>
@@ -770,13 +501,12 @@
                                             <?php endforeach; ?>
                                             <?php else: ?>
                                             <tr>
-                                                <td colspan="8">No hay oficios pendientes</td>
+                                                <td colspan="8">No hay oficios registrados</td>
                                             </tr>
                                             <?php endif; ?>
 
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -1618,84 +1348,6 @@
                     </div>
 
                     <!-- ----------------------------------------------------------------------- DASHBOARD ----------------------------------------------------------------------- -->
-
-                    <!-- <div class="tab-pane fade" id="dashboard">
-                        <div class="container-fluid mt-4">
-                            <div class="row text-center">
-                                <div class="col-md-3">
-                                    <div class="card p-3">
-                                        <h6>Pendientes</h6>
-                                        <h3 id="kpiPendientes">0</h3>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card p-3">
-                                        <h6>Atendidos</h6>
-                                        <h3 id="kpiAtendidos">0</h3>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card p-3">
-                                        <h6>Sección 2</h6>
-                                        <h3 id="kpiSeccion2">0</h3>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="card p-3">
-                                        <h6>Internos / Externos</h6>
-                                        <h3>
-                                            <span id="kpiInternos">0</span> /
-                                            <span id="kpiExternos">0</span>
-                                        </h3>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <div class="card p-3">
-                                        <h5 class="text-center">Pendientes por persona</h5>
-                                        <canvas id="pendientesPorPersona"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card p-3">
-                                        <h5 class="text-center">Internos vs Externos</h5>
-                                        <canvas id="internosExternos"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-md-12">
-                                    <div class="card p-3">
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <h5>Oficios atendidos por mes</h5>
-
-                                            <select id="filtroAnio" class="form-select w-auto">
-                                                <option value="2025">2025</option>
-                                                <option value="2024">2024</option>
-                                            </select>
-                                        </div>
-
-                                        <canvas id="atendidosPorMes"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mt-4">
-                                <div class="col-md-6">
-                                    <div class="card p-3">
-                                        <h5 class="text-center">Oficios registrados por área</h5>
-                                        <canvas id="oficiosPorArea"></canvas>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card p-3">
-                                        <h5 class="text-center">Tipos de trámite</h5>
-                                        <canvas id="tramitesPorTipo"></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
 
                     <div class="tab-pane fade" id="dashboard">
                         <div class="dashboard-bg container-fluid py-4">

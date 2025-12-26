@@ -21,6 +21,14 @@ class Oficios_Controller extends BaseController
         die();
     } */
 
+    public function listarGeneral()
+    {
+        $oficioModel = new Oficio_Model();
+        $data['general'] = $oficioModel->getGeneral();
+
+        return view('Registros', $data);
+    }
+
     public function listar()
     {
         $oficioModel = new Oficio_Model();
@@ -150,6 +158,15 @@ class Oficios_Controller extends BaseController
         }
 
         return redirect()->to('/Registros')->with('success', 'Oficio guardado correctamente');
+    }
+
+    public function general()
+    {
+        $oficioModel = new Oficio_Model();
+
+        $data['general'] = $oficioModel->getGeneral();
+
+        return view('Registros', $data);
     }
 
     public function pendientes()

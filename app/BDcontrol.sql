@@ -129,9 +129,8 @@ INSERT INTO cargo (nombre_cargo) VALUES *
 ('Secretaria');
 
 INSERT INTO tipo_area (nombre_area) VALUES *
-('Recursos Humanos'),
-('Administracion'),
-('C4');
+('Interna'),
+('Externa');
 
 INSERT INTO tipo_tramite (tramite) VALUES*
 ('Conocimiento'),
@@ -161,7 +160,8 @@ INSERT INTO registro_oficio (folio_registro, fecha_oficio, referencia, fecha_rec
 INSERT INTO titular (nombre_titular, folio_cargo, folio_area) VALUES
 ('Juan', 1, 1),
 ('Roberto', 2, 2),
-('Anna', 3, 3);
+('Anna', 3, 1);
+('Alejandro', 3, 1);
 
 INSERT INTO remitente (folio_titular) VALUES
 (1),
