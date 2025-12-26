@@ -10,7 +10,7 @@ use App\Models\Oficio_Model;
 class Oficios_Controller extends BaseController
 {
 
-    public function listar()
+    /* public function listar()
     {
         $oficioModel = new Oficio_Model();
         $data['oficios'] = $oficioModel->getOficiosConDatos();
@@ -19,7 +19,16 @@ class Oficios_Controller extends BaseController
         print_r($data['oficios']);
         echo '</pre>';
         die();
+    } */
+
+    public function listar()
+    {
+        $oficioModel = new Oficio_Model();
+        $data['pendientes'] = $oficioModel->getPendientes();
+
+        return view('Registros', $data);
     }
+
 
     public function guardar()
     {
@@ -141,6 +150,14 @@ class Oficios_Controller extends BaseController
         }
 
         return redirect()->to('/Registros')->with('success', 'Oficio guardado correctamente');
+    }
 
+    public function pendientes()
+    {
+        $oficioModel = new Oficio_Model();
+
+        $data['pendientes'] = $oficioModel->getPendientes();
+
+        return view('Registros', $data);
     }
 }

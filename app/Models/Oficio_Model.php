@@ -6,8 +6,8 @@ use CodeIgniter\Model;
 
 class Oficio_Model extends Model{
 
-    protected $table =  'oficio';
-    protected $primaryKey = 'id_folio';
+    protected $table      = 'oficio';
+    protected $primaryKey = 'folio_registro';
 
     protected $allowedFields = [
         'folio_registro',
@@ -15,36 +15,27 @@ class Oficio_Model extends Model{
         'folio_solicitud',
         'folio_atencion',
         'folio_estado',
-        'folio_archivado',
-        'folio_personal',
-        'folio_seccion',
-        'folio_pr'
+        'folio_pr',
+        'folio_sec_resp'
     ];
 
-    public function getOficiosConDatos(){
-        return $this->select([
-            'oficio.id_folio',
-            'oficio.folio_registro',
-
-            't.nombre_titular',
-
-            's.solicitud',
-
-            'da.asunto',
-            'da.fecha_contestacion',
-
-            'e.estado',
-
-            'pr.ponencia',
-            'pr.reunion',
+    public function getPendientes()
+    {
+       return $this->select([
+            'ro.folio_registro',
+        'ro.fecha_oficio',
+        'ro.referencia',
+        'tt.tramite AS tramite',
+        's.solicitud',
+        'e.estado'
         ])
-
-        ->join('titular t', 'oficio.folio_remitente = t.folio_titular')
-        ->join('solicitud s', 'oficio.folio_solicitud = s.folio_solicitud')
-        ->join('descripcion_atencion da', 'oficio.folio_atencion = da.folio_atencion')
-        ->join('estado e', 'oficio.folio_estado = e.folio_estado')
-        ->join('ponencia_reunion pr', 'oficio.folio_pr = pr.folio_pr', 'left')
-        ->orderBy('oficio.id_folio', 'DESC')
-        ->findAll();
+        ->join('registro_oficio ro', 'ro.folio_registro = oficio.folio_registro')
+    ->join('solicitud s', 's.folio_solicitud = oficio.folio_solicitud')
+    ->join('tipo_tramite tt', 'tt.folio_tramite = s.folio_tramite') // 👈 nombre real
+    ->join('estado e', 'e.folio_estado = oficio.folio_estado')
+    ->orderBy('ro.folio_registro', 'DESC')
+    ->findAll();
     }
+
+
 }

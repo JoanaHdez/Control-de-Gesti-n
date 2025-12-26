@@ -12,6 +12,8 @@ use App\Models\Personal_Model;
 use App\Models\Seccion_Model;
 use App\Models\Remitente_Model;
 use App\Models\Seccion_Responsable_Model;
+use App\Models\Oficio_Model;
+
 
 class Registros_Controller extends BaseController
 {
@@ -32,6 +34,7 @@ class Registros_Controller extends BaseController
         $seccionModel = new Seccion_Model();
         $remitenteModel = new Remitente_Model();
         $seccionresponsableModel = new Seccion_Responsable_Model();
+        $oficioModel = new Oficio_Model();
         
         $remitentes = $remitenteModel
             ->select('remitente.folio_remitente, titular.nombre_titular, cargo.nombre_cargo, tipo_area.nombre_area')
@@ -52,6 +55,8 @@ class Registros_Controller extends BaseController
             'seccion' => $seccionModel->findAll(),
             'remitentes' => $remitentes,
             'seccion_responsable' => $seccion_responsable,
+
+            'pendientes' => $oficioModel->getPendientes(),
         ];
 
         $css = [

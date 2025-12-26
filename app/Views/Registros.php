@@ -498,7 +498,7 @@
                             </nav>
                             <div class="container-fluid pt-5">
                                 <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
+                                    <!-- <table class="table table-striped table-hover">
                                         <colgroup>
                                             <col style="width: 3%;">
                                             <col style="width: 15%;">
@@ -686,7 +686,97 @@
                                                 </td>
                                             </tr>
                                         </tbody>
+                                    </table> -->
+
+                                    <table class="table table-striped table-hover">
+                                        <colgroup>
+                                            <col style="width: 3%;">
+                                            <col style="width: 15%;">
+                                            <col style="width: 5%;">
+                                            <col style="width: 10%;">
+                                            <col style="width: 10%;">
+                                            <col style="width: 40%;">
+                                            <col style="width: 10%;">
+                                            <col style="width: 10%;">
+                                        </colgroup>
+
+                                        <thead class="table-1 text-center">
+                                            <tr>
+                                                <th></th>
+                                                <th>Nombre</th>
+                                                <th>Folio</th>
+                                                <th>Fecha de Oficio</th>
+                                                <th>Referencia</th>
+                                                <th>Solicitud</th>
+                                                <th>Estatus</th>
+                                                <th>Editar</th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody class="text-center align-middle">
+
+                                            <?php if (!empty($pendientes)): ?>
+                                            <?php foreach ($pendientes as $row): ?>
+                                            <tr>
+
+                                                <!-- Ícono -->
+                                                <td>
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
+                                                        fill="currentColor" class="bi bi-person-circle"
+                                                        viewBox="0 0 16 16">
+                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                                        <path fill-rule="evenodd"
+                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
+                                                    </svg>
+                                                </td>
+
+                                                <!-- Folio -->
+                                                <td><?= esc($row['folio_registro']) ?></td>
+
+                                                <!-- Fecha -->
+                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+
+                                                <!-- Referencia -->
+                                                <td><?= esc($row['referencia']) ?></td>
+
+                                                <!-- Trámite -->
+                                                <td><?= esc($row['tramite']) ?></td>
+
+                                                <!-- Solicitud -->
+                                                <td class="text-start"><?= esc($row['solicitud']) ?></td>
+
+                                                <!-- Estado -->
+                                                <td>
+                                                    <span class="badge bg-danger">
+                                                        <?= esc($row['estado']) ?>
+                                                    </span>
+                                                </td>
+
+                                                <!-- Acciones -->
+                                                <td>
+                                                    <div class="d-flex justify-content-center gap-3">
+                                                        <button type="button" class="btn btn-warning"
+                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                                            ✏️
+                                                        </button>
+                                                        <button type="button" class="btn btn-info"
+                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles">
+                                                            📄
+                                                        </button>
+                                                    </div>
+                                                </td>
+
+                                            </tr>
+                                            <?php endforeach; ?>
+                                            <?php else: ?>
+                                            <tr>
+                                                <td colspan="8">No hay oficios pendientes</td>
+                                            </tr>
+                                            <?php endif; ?>
+
+                                        </tbody>
                                     </table>
+
                                 </div>
                             </div>
                         </div>
