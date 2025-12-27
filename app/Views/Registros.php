@@ -348,12 +348,12 @@
                                                 <th>Editar</th>
                                             </tr>
                                         </thead>
-                                        
+
                                         <tbody class="text-center align-middle">
 
                                             <?php if (!empty($general)): ?>
                                             <?php foreach ($general as $row): ?>
-                                            <tr>                                                
+                                            <tr>
                                                 <!-- Folio -->
                                                 <td><?= esc($row['folio_registro']) ?></td>
 
@@ -394,7 +394,7 @@
                                             <?php endforeach; ?>
                                             <?php else: ?>
                                             <tr>
-                                                <td colspan="6">No hay oficios pendientes</td>
+                                                <td colspan="10">No hay oficios pendientes</td>
                                             </tr>
                                             <?php endif; ?>
                                         </tbody>
@@ -449,8 +449,8 @@
                                             <?php if (!empty($pendientes)): ?>
                                             <?php foreach ($pendientes as $row): ?>
                                             <tr>
-                                                
-                                            <!-- Ícono -->
+
+                                                <!-- Ícono -->
                                                 <td>
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
                                                         fill="currentColor" class="bi bi-person-circle"
@@ -939,411 +939,240 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="Formulario container-fluid pt-5">
-                                        <div class="row g-3">
-                                            <div class="col-md-3">
-                                                <label for="">Número de Oficio</label>
-                                                <input type="text" name="num_oficio" class="form-control pill-input"
-                                                    placeholder="Folio">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="">Fecha del Oficio</label>
-                                                <input type="date" name="fecha_oficio" class="form-control pill-input"
-                                                    placeholder="Fecha">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="">Referencia</label>
-                                                <input type="text" name="num_referencia_oficio"
-                                                    class="form-control pill-input" placeholder="Número de Oficio">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="">Fecha de Recepción</label>
-                                                <input type="date" name="fecha_recepcion"
-                                                    class="form-control pill-input" placeholder="Fecha de recepción">
-                                            </div>
-                                        </div>
+                                    <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
 
-                                        <!-- ------------------------- SOLICITANTE/REMITENTE ------------------------- -->
+                                        <div class="Registro">
+                                            <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
 
-                                        <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
-                                            Solicitante /
-                                            Remitente
-                                        </h5>
-
-                                        <div class="d-flex justify-content-center pt-3">
-                                            <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                        </div>
-
-                                        <div class="row g-3 mt-3">
-                                            <div class="col-md-3">
-                                                <label for="">Titular</label>
-                                                <input type="text" name="titular" class="form-control pill-input"
-                                                    placeholder="Titular">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="">Cargo</label>
-                                                <input type="text" name="cargo" class="form-control pill-input"
-                                                    placeholder="Cargo">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Tipo de área</label>
-                                                <select name="tipo_area" class="form-select pill-select" required>
-                                                    <option value="">Selección</option>
-                                                    <option value="interna">Interna</option>
-                                                    <option value="externa">Externa</option>
-                                                </select>
+                                            <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                Datos del
+                                                Oficio
+                                            </h5>
+                                            <div class="d-flex justify-content-center pt-3">
+                                                <div class="SPD-line-1 border-top border-4 border-muted"></div>
                                             </div>
 
-                                        </div>
-
-                                        <!-- ------------------------- SOLICITUD/INFORMACIÓN ------------------------- -->
-
-                                        <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
-                                            Solicitud /
-                                            Información
-                                        </h5>
-
-                                        <div class="d-flex justify-content-center pt-3">
-                                            <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                        </div>
-
-                                        <div class="row g-3 mt-3">
-                                            <div class="col-md-3">
-                                                <label>Tipo de Tramite</label>
-                                                <select name="tipo_archivo" class="form-select pill-select">
-                                                    <option value="">Selección</option>
-                                                    <option value="atencion_t_t">Atención</option>
-                                                    <option value="aten_sol_inf_t_t">Atención a Solicitud de
-                                                        Información
-                                                    </option>
-                                                    <option value="conocimiento_t_t">Conocimiento</option>
-                                                    <option value="tramite_t_t">Trámite</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-9 mt-3">
-                                                <label for="">Solicitud</label>
-                                                <textarea name="solicitud" class="form-control pill-textarea" rows="4"
-                                                    placeholder="Solicitud/Información"></textarea>
-                                            </div>
-                                        </div>
-
-                                        <!-- ------------------------- DESCRIPCIÓN DE LA ATENCIÓN ------------------------- -->
-
-                                        <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
-                                            Descripción
-                                            de la
-                                            Atención</h5>
-
-                                        <div class="d-flex justify-content-center pt-3">
-                                            <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                        </div>
-
-                                        <div class="row g-3 mt-3">
-                                            <div class="col-md-3">
+                                            <div class="Formulario container-fluid pt-5">
                                                 <div class="row g-3">
-                                                    <label for="">Número de Oficio</label>
-                                                    <div class="col-12">
-                                                        <input type="text" name="num_oficio_2"
-                                                            class="form-control pill-input"
-                                                            placeholder="Número de Oficio">
+                                                    <div class="col-md-3">
+                                                        <label>Folio de Oficio</label>
+                                                        <input type="text" name="folio_registro"
+                                                            class="form-control pill-input" required>
                                                     </div>
-                                                    <label for="">Fecha de Contestación</label>
-                                                    <div class="col-12">
-                                                        <input type="date" name="fecha_contestacion"
-                                                            class="form-control pill-input"
-                                                            placeholder="Fecha de contestación">
+                                                    <div class="col-md-3">
+                                                        <label>Fecha del Oficio</label>
+                                                        <input type="date" name="fecha_oficio"
+                                                            class="form-control pill-input" required>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Referencia</label>
+                                                        <input type="text" name="referencia"
+                                                            class="form-control pill-input" required>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="">Fecha de Recepción</label>
+                                                        <input type="date" name="fecha_recepcion"
+                                                            class="form-control pill-input" required>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-9">
-                                                <label for="">Asunto</label>
-                                                <textarea name="asunto" class="form-control pill-textarea h-100"
-                                                    rows="4" placeholder="Asunto"></textarea>
-                                            </div>
-                                        </div>
 
-                                        <!-- ------------------------- ESTADO DEL ARCHIVO/SECCION QUE ATENDIO ------------------------- -->
 
-                                        <div class="row g-3 mt-5">
-                                            <div class="col-md-6">
+
+                                                <!-- ------------------------- SOLICITANTE/REMITENTE ------------------------- -->
+
                                                 <h5
-                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-3">
-                                                    Estado del
-                                                    Archivo</h5>
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Solicitante /
+                                                    Remitente
+                                                </h5>
 
                                                 <div class="d-flex justify-content-center pt-3">
                                                     <div class="SPD-line-1 border-top border-4 border-muted"></div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <label>Titular</label>
+                                                        <select name="folio_remitente" id="folio_remitente"
+                                                            class="form-select pill-select" required>
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="">Cargo</label>
+                                                        <input type="text" id="folio_cargo"
+                                                            class="form-control pill-input" readonly>
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Área</label>
+                                                        <input type="text" id="folio_area"
+                                                            class="form-control pill-input" readonly>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- ------------------------- SOLICITUD/INFORMACIÓN ------------------------- -->
+
                                                 <h5
-                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-3">
-                                                    Seccion que
-                                                    Atendio</h5>
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Solicitud
+                                                    /
+                                                    Información
+                                                </h5>
 
                                                 <div class="d-flex justify-content-center pt-3">
                                                     <div class="SPD-line-1 border-top border-4 border-muted"></div>
                                                 </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <label>Tipo de Tramite</label>
+                                                        <select name="folio_tramite" class="form-select pill-select"
+                                                            required>
+                                                            <option value=""> Seleccione</option>
+
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-9 mt-3">
+                                                        <label for="">Solicitud</label>
+                                                        <textarea name="solicitud" class="form-control pill-textarea"
+                                                            rows="4" required></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- DESCRIPCIÓN DE LA ATENCIÓN ------------------------- -->
+
+                                                <h5
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Descripción
+                                                    de la
+                                                    Atención</h5>
+
+                                                <div class="d-flex justify-content-center pt-3">
+                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                                </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <div class="row g-3">
+                                                            <label>Folio de contestación de Oficio</label>
+                                                            <div class="col-12">
+                                                                <input type="text" name="oficio_contestacion"
+                                                                    class="form-control pill-input">
+                                                            </div>
+                                                            <label for="">Fecha de Contestación</label>
+                                                            <div class="col-12">
+                                                                <input type="date" name="fecha_contestacion"
+                                                                    class="form-control pill-input">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <label>Asunto</label>
+                                                        <textarea name="asunto" class="form-control pill-textarea h-100"
+                                                            rows="4"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- ESTADO DEL ARCHIVO/SECCION QUE ATENDIO ------------------------- -->
+
+                                                <div class="row g-3 mt-5">
+                                                    <div class="col-md-6">
+                                                        <h5
+                                                            class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-3">
+                                                            Estado del
+                                                            Archivo</h5>
+
+                                                        <div class="d-flex justify-content-center pt-3">
+                                                            <div class="SPD-line-1 border-top border-4 border-muted">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5
+                                                            class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-3">
+                                                            Seccion que
+                                                            Atendio</h5>
+
+                                                        <div class="d-flex justify-content-center pt-3">
+                                                            <div class="SPD-line-1 border-top border-4 border-muted">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- ESTADO DEL ARCHIVO ------------------------- -->
+
+                                                <div class="row g-3 mt-4">
+                                                    <div class="col-md-3">
+                                                        <label>Archivado en</label>
+                                                        <select name="folio_archivado" class="form-select pill-select">
+                                                            <option value="">Selección</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Estatus</label>
+                                                        <select name="folio_estado" class="form-select pill-select"
+                                                            required>
+                                                            <option value="">Selección</option>
+
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- ------------------------- SECCION QUE ATENDIO ------------------------- -->
+
+                                                    <div class="col-md-3">
+                                                        <label>Atendido por</label>
+                                                        <select name="folio_sec_resp" id="folio_sec_resp"
+                                                            class="form-select pill-select">
+                                                            <option value="">Selección</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Sección Responsable</label>
+                                                        <input type="text" id="folio_seccion"
+                                                            class="form-control pill-input" readonly>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- PONENCIA/REUNION ------------------------- -->
+
+                                                <h5
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Ponencia
+                                                    /
+                                                    Reunión
+                                                </h5>
+
+                                                <div class="d-flex justify-content-center pt-3">
+                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                                </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <label>Ponencia</label>
+                                                        <input type="text" name="ponencia"
+                                                            class="form-control pill-input">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Reunión de coordinación</label>
+                                                        <input type="text" name="reunion"
+                                                            class="form-control pill-input">
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center mt-5">
+                                                    <button type="submit" class="btn btn-submit">
+                                                        Guardar Oficio
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-
-                                        <!-- ------------------------- ESTADO DEL ARCHIVO ------------------------- -->
-
-                                        <div class="row g-3 mt-4">
-                                            <div class="col-md-3">
-                                                <label>Archivado en</label>
-                                                <select name="archivado" class="form-select pill-select">
-                                                    <option value="">Selección</option>
-                                                    <option value="acciones_humanitarias">Acciones Humanitarias
-                                                    </option>
-                                                    <option value="comite_seguridad_publica_inegi">
-                                                        Actividades del Comité Técnico Especializado de Informática
-                                                        de
-                                                        Seguridad
-                                                        Pública
-                                                        (Inegi)
-                                                    </option>
-                                                    <option value="comite_seguridad_publica_inegi">
-                                                        Actividades del Comité Técnico Especializado de Informática
-                                                        de
-                                                        Seguridad
-                                                        Pública
-                                                    </option>
-                                                    <option value="coordinacion_secretaria_tecnica">
-                                                        Actividades en Coordinación con la Secretaría Técnica del
-                                                        Consejo
-                                                        Municipal de
-                                                        Seguridad Pública
-                                                    </option>
-                                                    <option value="coordinacion_emergencias">
-                                                        Actividades en Coordinación con los Cuerpos de Emergencia
-                                                    </option>
-                                                    <option value="atencion">Atención</option>
-                                                    <option value="bitacora_vuelos">Bitácora de Vuelos</option>
-                                                    <option value="contraloria">Contraloría</option>
-                                                    <option value="control_recursos_unidad">Control de Recursos
-                                                        Asignados a la
-                                                        Unidad
-                                                    </option>
-                                                    <option value="convenios_sector_social_privado">
-                                                        Convenios de Concentración con el Sector Social o Privado
-                                                    </option>
-                                                    <option value="convocatorias_buenas_practicas">Convocatorias
-                                                        (Buenas
-                                                        Prácticas)
-                                                    </option>
-                                                    <option value="coordinacion_institucional">Coordinación
-                                                        Institucional
-                                                    </option>
-                                                    <option value="datos_personales">Datos Personales</option>
-                                                    <option value="ejercicio_presupuestal_2025_2027">Ejercicio
-                                                        Presupuestal
-                                                        2025–2027
-                                                    </option>
-                                                    <option value="estimulos_recompensas_2025_i">Estímulos y
-                                                        Recompensas
-                                                        2025 I
-                                                    </option>
-                                                    <option value="expediente_laboral_personal">Expediente Laboral
-                                                        Personal
-                                                    </option>
-                                                    <option value="guia_consultiva_desempeno">Guía Consultiva de
-                                                        Desempeño
-                                                        Municipal
-                                                    </option>
-                                                    <option value="inegi">Inegi</option>
-                                                    <option value="informe_actividades">Informe de Actividades
-                                                    </option>
-                                                    <option value="ipomex">Ipomex</option>
-                                                    <option value="mapas_georreferenciales">Mapas Georreferenciales
-                                                    </option>
-                                                    <option value="matriz_riesgos">Matriz de Riesgos</option>
-                                                    <option value="mejora_regulatoria">Mejora Regulatoria</option>
-                                                    <option value="permisos_escolares">Permisos Escolares</option>
-                                                    <option value="planes_programas_seguridad">Planes y Programas de
-                                                        Seguridad
-                                                        Ciudadana
-                                                    </option>
-                                                    <option value="ponencias_foros_conferencias">
-                                                        Ponencias, Foros y Conferencias acerca del Modelo de
-                                                        Seguridad
-                                                        Ciudadana
-                                                    </option>
-                                                    <option value="pbr_municipal">Presupuesto Basado en Resultados
-                                                        Municipal
-                                                    </option>
-                                                    <option value="programa_guia_consultiva">Programa Guía
-                                                        Consultiva de
-                                                        Desempeño
-                                                        Municipal</option>
-                                                    <option value="programa_control_interno">Programa Municipal de
-                                                        Control
-                                                        Interno
-                                                    </option>
-                                                    <option value="programa_operativo_anual">Programa Operativo
-                                                        Anual
-                                                    </option>
-                                                    <option value="redatosem">Redatosem</option>
-                                                    <option value="registros_administrativos_igecem">
-                                                        Registros Administrativos Municipales (Igecem)
-                                                    </option>
-                                                    <option value="reingenieria">Reingeniería</option>
-                                                    <option value="reingenieria_iii">Reingeniería III</option>
-                                                    <option value="reportes_avances_metas">Reportes de Avances de
-                                                        Metas
-                                                        Físicas
-                                                        por
-                                                        Proyecto Presupuestario</option>
-                                                    <option value="reporte_estado_fuerza">Reporte Estado de Fuerza
-                                                    </option>
-                                                    <option value="reportes_trimestrales">Reportes Trimestrales
-                                                    </option>
-                                                    <option value="sarcoem">Sarcoem</option>
-                                                    <option value="turnado_analisis_contexto">Se Turnó a Análisis y
-                                                        Contexto
-                                                    </option>
-                                                    <option value="turnado_spc">Se Turnó a Servicio Profesional de
-                                                        Carrera
-                                                    </option>
-                                                    <option value="turnado_spcp">Se Turnó a Servicio Profesional de
-                                                        Carrera
-                                                        Policial
-                                                    </option>
-                                                    <option value="spcp">Servicio Profesional de Carrera Policial
-                                                    </option>
-                                                    <option value="spc">Servicio Profesional de Carrera</option>
-                                                    <option value="solicitudes_busqueda_localizacion">
-                                                        Solicitudes de Búsqueda y Localización de Personas
-                                                    </option>
-                                                    <option value="solicitudes_info_procedimientos">
-                                                        Solicitudes de Información para la Sustentación de
-                                                        Procedimientos
-                                                        Administrativos y/o Judiciales
-                                                    </option>
-                                                    <option value="solicitudes_diversas">Solicitudes Diversas
-                                                    </option>
-                                                    <option value="tarjetas_informativas">Tarjetas Informativas
-                                                    </option>
-                                                    <option value="unidad_transparencia">Unidad de Transparencia y
-                                                        Acceso a la
-                                                        Información</option>
-                                                    <option value="unidad_transparencia_i">Unidad de Transparencia y
-                                                        Acceso a la
-                                                        Información I</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Estatus</label>
-                                                <select name="estatus" class="form-select pill-select">
-                                                    <option value="">Selección</option>
-                                                    <option value="archivado">Archivado</option>
-                                                    <option value="en_tramite">En Trámite</option>
-                                                    <option value="pendiente">Pendiente</option>
-                                                </select>
-                                            </div>
-
-                                            <!-- ------------------------- SECCION QUE ATENDIO ------------------------- -->
-
-                                            <div class="col-md-3">
-                                                <label>Atendido por</label>
-                                                <select name="atendido" class="form-select pill-select">
-                                                    <option value="">Selección</option>
-                                                    <option value="nombre_1">Andrés Barragán Corona</option>
-                                                    <option value="nombre_2">Armando García Meza</option>
-                                                    <option value="nombre_3">Brenda Castro Yescas</option>
-                                                    <option value="nombre_4">Efrén Jiménez Chávez</option>
-                                                    <option value="nombre_5">Emilia Maribel Corona Hernández
-                                                    </option>
-                                                    <option value="nombre_6">Ing. Miriam López Pérez</option>
-                                                    <option value="nombre_7">Tlahuiz Cuevas</option>
-                                                    <option value="nombre_8">Monserrath Cervantes Guillén</option>
-                                                    <option value="seccion_2">Sección 2</option>
-                                                    <option value="nombre_9">Sergio Iván Méndez Torres</option>
-                                                    <option value="nombre_10">Teresa Gabriela Ramírez Márquez
-                                                    </option>
-                                                    <option value="nombre_11">Claudia Rojas</option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label>Sección Responsable</label>
-                                                <select name="seccion" class="form-select pill-select">
-                                                    <option value="">Selección</option>
-                                                    <option value="geomatica">Geomática</option>
-                                                    <option value="jefatura_departamento_spc">Jefatura de
-                                                        Departamento
-                                                        del
-                                                        Servicio
-                                                        Profesional de Carrera</option>
-                                                    <option value="jefatura_spc">Jefatura del Servicio Profesional
-                                                        de
-                                                        Carrera
-                                                    </option>
-                                                    <option value="seccion_1_desarrollo_organizacional_transparencia">
-                                                        Sección 1. Desarrollo Organizacional y Transparencia
-                                                    </option>
-                                                    <option value="seccion_2_planeacion_control">Sección 2.
-                                                        Planeación y
-                                                        Control
-                                                    </option>
-                                                    <option value="seccion_3_procesos_informacion">Sección 3.
-                                                        Procesos
-                                                        de
-                                                        Información
-                                                    </option>
-                                                    <option value="seccion_4_mapas_analisis">
-                                                        Sección 4. Mapas Georreferenciales y Análisis Estadístico
-                                                    </option>
-                                                    <option value="seccion_5_procesos_informacion">Sección 5.
-                                                        Procesos
-                                                        de
-                                                        Información
-                                                    </option>
-                                                    <option value="servicio_profesional_carrera">Servicio
-                                                        Profesional de
-                                                        Carrera
-                                                    </option>
-                                                    <option value="unidad_analisis_contexto">Unidad de Análisis y
-                                                        Contexto
-                                                    </option>
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <!-- ------------------------- PONENCIA/REUNION ------------------------- -->
-
-                                        <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
-                                            Ponencia /
-                                            Reunión
-                                        </h5>
-
-                                        <div class="d-flex justify-content-center pt-3">
-                                            <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                        </div>
-
-                                        <div class="row g-3 mt-3">
-                                            <div class="col-md-3">
-                                                <label for="">Ponencia</label>
-                                                <input type="text" name="ponencia" class="form-control pill-input"
-                                                    placeholder="Ponencia">
-                                            </div>
-                                            <div class="col-md-3">
-                                                <label for="">Reunión de coordinación</label>
-                                                <input type="text" name="coordinacion" class="form-control pill-input"
-                                                    placeholder="Reunion de coordinación">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Cerrar</button>
-                                        </div>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
 
