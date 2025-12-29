@@ -597,13 +597,13 @@
 
                                                     <div class="col-md-3">
                                                         <label>Atendido por</label>
-                                                        <input id="atendido_por" class="form-select pill-select"
+                                                        <input id="nombre_responsable" class="form-select pill-select"
                                                             readonly>
                                                         </input>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Sección Responsable</label>
-                                                        <input type="text" id="seccion_responsable"
+                                                        <input type="text" id="nombre_seccion"
                                                             class="form-control pill-input" readonly>
                                                     </div>
                                                 </div>
