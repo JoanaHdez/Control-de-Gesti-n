@@ -130,4 +130,24 @@ class Oficios_Controller extends BaseController
             ->with('success', 'Oficio guardado correctamente');
     }
 
+    public function detalles($folio)
+{
+    $folio = trim(urldecode($folio));
+
+    $model = new \App\Models\Oficio_Model();
+    $data = $model->obtenerDetallesPorFolio($folio);
+
+    if (!$data) {
+        return $this->response
+            ->setStatusCode(404)
+            ->setJSON(['error' => 'Registro no encontrado']);
+    }
+
+    return $this->response->setJSON($data);
+}
+
+
+
+
+
 }

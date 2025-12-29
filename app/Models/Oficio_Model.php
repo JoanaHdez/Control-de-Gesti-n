@@ -57,4 +57,69 @@ class Oficio_Model extends Model
             ->orderBy('ro.folio_registro', 'DESC')
             ->findAll();
     }
+
+    public function obtenerDetallesPorFolio($folio)
+{
+    return $this->db->table('oficio o')
+        ->select('
+            ro.folio_registro,
+            ro.fecha_oficio,
+            ro.referencia,
+            ro.fecha_recepcion,
+
+            t.nombre_titular,
+            c.nombre_cargo,
+            a.nombre_area,
+
+            tt.tramite,
+            s.solicitud,
+
+            da.oficio_contestacion,
+            da.fecha_contestacion,
+            da.asunto,
+
+            e.estado,
+
+            p.nombre_responsable,
+            sec.nombre_seccion,
+
+            pr.ponencia,
+            pr.reunion
+        ')
+
+        /* ===== REGISTRO ===== */
+        ->join('registro_oficio ro', 'ro.folio_registro = o.folio_registro')
+
+        /* ===== REMITENTE ===== */
+        ->join('remitente r', 'r.folio_remitente = o.folio_remitente')
+        ->join('titular t', 't.folio_titular = r.folio_titular')
+        ->join('cargo c', 'c.folio_cargo = t.folio_cargo')
+        ->join('tipo_area a', 'a.folio_area = t.folio_area')
+
+        /* ===== SOLICITUD ===== */
+        ->join('solicitud s', 's.folio_solicitud = o.folio_solicitud')
+        ->join('tipo_tramite tt', 'tt.folio_tramite = s.folio_tramite')
+
+        /* ===== DESCRIPCIÓN ===== */
+        ->join('descripcion_atencion da', 'da.folio_atencion = o.folio_atencion', 'left')
+
+        /* ===== ESTADO ===== */
+        ->join('estado e', 'e.folio_estado = o.folio_estado')
+
+        /* ===== SECCIÓN ===== */
+        ->join('seccion_responsable sr', 'sr.folio_sec_resp = o.folio_sec_resp', 'left')
+        ->join('personal p', 'p.folio_personal = sr.folio_personal', 'left')
+        ->join('seccion sec', 'sec.folio_seccion = p.folio_seccion', 'left')
+
+        /* ===== PONENCIA ===== */
+        ->join('ponencia_reunion pr', 'pr.folio_pr = o.folio_pr', 'left')
+
+        ->where('o.folio_registro', $folio)
+        ->get()
+        ->getRowArray();
+}
+
+
+
+
 }
