@@ -16,128 +16,191 @@ use App\Models\Seccion_Responsable_Model;
 class Oficios_Controller extends BaseController
 {
 
-    public function guardar()
-    {
+   public function guardar()
+{
+    $folio_original = $this->request->getPost('folio_original');
+    $esEdicion = !empty($folio_original);
+    
+    $rules = [
+        'folio_registro'   => 'required|min_length[3]|max_length[150]',
+        'fecha_oficio'     => 'required|valid_date',
+        'referencia'       => 'required|max_length[150]',
+        'fecha_recepcion'  => 'required|valid_date',
+        'folio_remitente'  => 'required|integer',
+        'folio_tramite'    => 'required|integer',
+        'solicitud'        => 'required|min_length[5]',
+        'oficio_contestacion' => 'permit_empty|max_length[150]',
+        'fecha_contestacion'  => 'permit_empty|valid_date',
+        'asunto'             => 'permit_empty',
+        'folio_sec_resp'      => 'permit_empty|integer',
+        'ponencia'            => 'permit_empty|max_length[150]',
+        'reunion'             => 'permit_empty|max_length[150]',
+        'folio_estado'        => 'required|integer',
+    ];
 
-        $rules = [
-            'folio_original'   => 'required',
-            'folio_registro'   => 'required|min_length[3]|max_length[150]',
-            'fecha_oficio'     => 'required|valid_date',
-            'referencia'       => 'required|max_length[150]',
-            'fecha_recepcion'  => 'required|valid_date',
-            'folio_remitente'  => 'required|integer',
-            'folio_tramite'    => 'required|integer',
-            'solicitud'        => 'required|min_length[5]',
-            'oficio_contestacion' => 'permit_empty|max_length[150]',
-            'fecha_contestacion'  => 'permit_empty|valid_date',
-            'asunto'             => 'permit_empty',
-            'folio_archivado'     => 'permit_empty|integer',
-            'folio_sec_resp'      => 'permit_empty|integer',
-            'ponencia'           => 'permit_empty|max_length[150]',
-            'reunion'            => 'permit_empty|max_length[150]',
-            'folio_estado'       => 'required|integer',
-        ];
+    if ($esEdicion) {
+        $rules['folio_original'] = 'required';
+    }
 
-        if (!$this->validate($rules)) {
+    if (!$this->validate($rules)) {
+        return redirect()->back()
+            ->withInput()
+            ->with('errors', $this->validator->getErrors());
+    }
+
+    $db = Database::connect();
+    $db->transStart();
+
+    // ================= SOLO EN EDICIÓN =================
+    if ($esEdicion) {
+        $db->query('SET FOREIGN_KEY_CHECKS = 0');
+    }
+
+    $folio_nuevo = $this->request->getPost('folio_registro');
+
+    // ================= VALIDAR FOLIO DUPLICADO =================
+    if ($esEdicion && $folio_original !== $folio_nuevo) {
+        $existe = $db->table('registro_oficio')
+            ->where('folio_registro', $folio_nuevo)
+            ->countAllResults();
+
+        if ($existe > 0) {
+            $db->transRollback();
             return redirect()->back()
                 ->withInput()
-                ->with('errors', $this->validator->getErrors());
+                ->with('error', 'El folio ya existe');
         }
+    }
 
-        $db = Database::connect();
-        $db->transStart();
+    if (!$esEdicion) {
+        $existe = $db->table('registro_oficio')
+            ->where('folio_registro', $folio_nuevo)
+            ->countAllResults();
 
-        $folio_original = $this->request->getPost('folio_original');
-        $folio_nuevo    = $this->request->getPost('folio_registro');
-
-        // Verificar si el registro ya existe
-        if ($folio_original !== $folio_nuevo) {
-            $existe = $db->table('oficio')
-                ->where('folio_registro', $folio_nuevo)
-                ->where('folio_registro !=', $folio_original)
-                ->countAllResults();
-
-            if ($existe > 0) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'El folio ya existe, intenta con otro');
-            }
+        if ($existe > 0) {
+            $db->transRollback();
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'El folio ya existe');
         }
-        // ---------- SOLICITUD ----------
-        $folio_solicitud = $this->request->getPost('folio_solicitud'); // Para edición, mandamos el id oculto
-        $solicitudData = [
-            'folio_tramite' => $this->request->getPost('folio_tramite'),
-            'solicitud'     => $this->request->getPost('solicitud'),
-        ];
+    }
 
-        if ($folio_solicitud) {
-            $db->table('solicitud')->where('folio_solicitud', $folio_solicitud)->update($solicitudData);
-        } else {
-            $db->table('solicitud')->insert($solicitudData);
-            $folio_solicitud = $db->insertID();
-        }
+    // ================= SOLICITUD =================
+    $folio_solicitud = $this->request->getPost('folio_solicitud');
 
-        // ---------- REGISTRO OFICIO ----------
-        $db->table('registro_oficio')
-            ->where('folio_registro', $folio_original)
-            ->update([
-                'folio_registro' => $folio_nuevo,
-                'fecha_oficio'   => $this->request->getPost('fecha_oficio'),
-                'referencia'     => $this->request->getPost('referencia'),
-                'fecha_recepcion' => $this->request->getPost('fecha_recepcion'),
-            ]);
+    $solicitudData = [
+        'folio_tramite' => $this->request->getPost('folio_tramite'),
+        'solicitud'     => $this->request->getPost('solicitud'),
+    ];
 
-        // ---------- DESCRIPCIÓN ATENCIÓN ----------
-        $folio_atencion = $this->request->getPost('folio_atencion');
-        $descripcionData = [
-            'oficio_contestacion' => $this->request->getPost('oficio_contestacion') ?: null,
-            'fecha_contestacion'  => $this->request->getPost('fecha_contestacion') ?: null,
-            'asunto'              => $this->request->getPost('asunto') ?: null,
-        ];
+    if ($folio_solicitud) {
+        $db->table('solicitud')
+            ->where('folio_solicitud', $folio_solicitud)
+            ->update($solicitudData);
+    } else {
+        $db->table('solicitud')->insert($solicitudData);
+        $folio_solicitud = $db->insertID();
+    }
 
-        if ($folio_atencion) {
-            $db->table('descripcion_atencion')->where('folio_atencion', $folio_atencion)->update($descripcionData);
-        } elseif ($descripcionData['oficio_contestacion'] || $descripcionData['fecha_contestacion'] || $descripcionData['asunto']) {
-            $db->table('descripcion_atencion')->insert($descripcionData);
-            $folio_atencion = $db->insertID();
-        }
+    // ================= DESCRIPCIÓN ATENCIÓN =================
+    $folio_atencion = $this->request->getPost('folio_atencion');
 
-        // ---------- PONENCIA / REUNION ----------
-        $folio_pr = $this->request->getPost('folio_pr');
-        $ponenciaData = [
-            'ponencia' => $this->request->getPost('ponencia') ?: null,
-            'reunion'  => $this->request->getPost('reunion') ?: null,
-        ];
+    $descripcionData = [
+        'oficio_contestacion' => $this->request->getPost('oficio_contestacion') ?: null,
+        'fecha_contestacion'  => $this->request->getPost('fecha_contestacion') ?: null,
+        'asunto'              => $this->request->getPost('asunto') ?: null,
+    ];
 
-        if ($folio_pr) {
-            $db->table('ponencia_reunion')->where('folio_pr', $folio_pr)->update($ponenciaData);
-        } elseif ($ponenciaData['ponencia'] || $ponenciaData['reunion']) {
-            $db->table('ponencia_reunion')->insert($ponenciaData);
-            $folio_pr = $db->insertID();
-        }
+    if ($folio_atencion) {
+        $db->table('descripcion_atencion')
+            ->where('folio_atencion', $folio_atencion)
+            ->update($descripcionData);
+    } elseif (array_filter($descripcionData)) {
+        $db->table('descripcion_atencion')->insert($descripcionData);
+        $folio_atencion = $db->insertID();
+    }
 
-        // ---------- OFICIO ----------
+    // ================= PONENCIA / REUNIÓN =================
+    $folio_pr = $this->request->getPost('folio_pr');
+
+    $ponenciaData = [
+        'ponencia' => $this->request->getPost('ponencia') ?: null,
+        'reunion'  => $this->request->getPost('reunion') ?: null,
+    ];
+
+    if ($folio_pr) {
+        $db->table('ponencia_reunion')
+            ->where('folio_pr', $folio_pr)
+            ->update($ponenciaData);
+    } elseif (array_filter($ponenciaData)) {
+        $db->table('ponencia_reunion')->insert($ponenciaData);
+        $folio_pr = $db->insertID();
+    }
+
+    // ================= CREAR =================
+    if (!$esEdicion) {
+
+        $db->table('registro_oficio')->insert([
+            'folio_registro' => $folio_nuevo,
+            'fecha_oficio'   => $this->request->getPost('fecha_oficio'),
+            'referencia'     => $this->request->getPost('referencia'),
+            'fecha_recepcion'=> $this->request->getPost('fecha_recepcion'),
+        ]);
+
+        $db->table('oficio')->insert([
+            'folio_registro' => $folio_nuevo,
+            'folio_remitente'=> $this->request->getPost('folio_remitente'),
+            'folio_solicitud'=> $folio_solicitud,
+            'folio_atencion' => $folio_atencion,
+            'folio_pr'       => $folio_pr,
+            'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
+            'folio_estado'   => $this->request->getPost('folio_estado'),
+        ]);
+    }
+
+    // ================= EDITAR =================
+    if ($esEdicion) {
+
+        // HIJA
         $db->table('oficio')
             ->where('folio_registro', $folio_original)
             ->update([
                 'folio_registro' => $folio_nuevo,
-                'folio_remitente' => $this->request->getPost('folio_remitente'),
-                'folio_solicitud' => $folio_solicitud,
+                'folio_remitente'=> $this->request->getPost('folio_remitente'),
+                'folio_solicitud'=> $folio_solicitud,
                 'folio_atencion' => $folio_atencion,
                 'folio_pr'       => $folio_pr,
                 'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
                 'folio_estado'   => $this->request->getPost('folio_estado'),
             ]);
 
-        $db->transComplete();
+        // PADRE
+        $db->table('registro_oficio')
+            ->where('folio_registro', $folio_original)
+            ->update([
+                'folio_registro' => $folio_nuevo,
+                'fecha_oficio'   => $this->request->getPost('fecha_oficio'),
+                'referencia'     => $this->request->getPost('referencia'),
+                'fecha_recepcion'=> $this->request->getPost('fecha_recepcion'),
+            ]);
 
-        if ($db->transStatus() === false) {
-            return redirect()->back()->with('error', 'Error al actualizar el oficio');
-        }
-
-        return redirect()->to('/oficios/crear')
-            ->with('success', 'Oficio actualizado correctamente');
+        $db->query('SET FOREIGN_KEY_CHECKS = 1');
     }
+
+    $db->transComplete();
+
+    if ($db->transStatus() === false) {
+        return redirect()->back()
+            ->with('error', 'Error al guardar el oficio');
+    }
+
+    return redirect()->to('/oficios/crear')
+        ->with('success', $esEdicion
+            ? 'Oficio actualizado correctamente'
+            : 'Oficio creado correctamente'
+        );
+    }
+
 
     public function detalles($folio)
     {
