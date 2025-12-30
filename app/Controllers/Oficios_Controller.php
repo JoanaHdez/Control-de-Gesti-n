@@ -114,8 +114,9 @@ class Oficios_Controller extends BaseController
             'folio_pr'        => $folio_pr,
             'folio_sec_resp'  => $this->request->getPost('folio_sec_resp') ?: null,
             'folio_estado'    => $this->request->getPost('folio_estado'),
-/*             'folio_archivado' => $this->request->getPost('folio_archivado') ?: null,
- */        ];
+            /*             'folio_archivado' => $this->request->getPost('folio_archivado') ?: null,
+ */
+        ];
 
         if ($existe) {
             $db->table('oficio')->where('folio_registro', $folio_registro)->update($oficioData);

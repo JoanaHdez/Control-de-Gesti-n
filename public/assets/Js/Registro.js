@@ -55,8 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
           document.getElementById("nombre_responsable").value =
             d.nombre_responsable;
-          document.getElementById("nombre_seccion").value =
-            d.nombre_seccion;
+          document.getElementById("nombre_seccion").value = d.nombre_seccion;
 
           document.getElementById("ponencia").value = d.ponencia ?? "No aplica";
           document.getElementById("reunion").value = d.reunion ?? "No aplica";
@@ -71,7 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
 console.log("Registro.js cargado correctamente");
 
 document.addEventListener("click", function (e) {
-
   const btn = e.target.closest(".btn-editar");
   if (!btn) return;
 
@@ -79,21 +77,23 @@ document.addEventListener("click", function (e) {
   console.log("FOLIO:", folio);
 
   fetch(BASE_URL_EDITAR + encodeURIComponent(folio))
-    .then(response => {
+    .then((response) => {
       console.log("STATUS:", response.status);
 
       if (!response.ok) throw new Error("Error en la respuesta");
 
       return response.json();
     })
-    .then(d => {
+    .then((d) => {
       console.log("Datos recibidos:", d);
 
       // ================= DATOS GENERALES =================
-      document.getElementById("folio_registro_edit").value = d.folio_registro ?? "";
+      document.getElementById("folio_registro_edit").value =
+        d.folio_registro ?? "";
       document.getElementById("fecha_oficio_edit").value = d.fecha_oficio ?? "";
       document.getElementById("referencia_edit").value = d.referencia ?? "";
-      document.getElementById("fecha_recepcion_edit").value = d.fecha_recepcion ?? "";
+      document.getElementById("fecha_recepcion_edit").value =
+        d.fecha_recepcion ?? "";
 
       // ================= REMITENTE =================
       const remitenteSelect = document.getElementById("folio_remitente_edit");
@@ -105,8 +105,10 @@ document.addEventListener("click", function (e) {
       document.getElementById("solicitud_edit").value = d.solicitud ?? "";
 
       // ================= DESCRIPCIÓN =================
-      document.getElementById("oficio_contestacion_edit").value = d.oficio_contestacion ?? "";
-      document.getElementById("fecha_contestacion_edit").value = d.fecha_contestacion ?? "";
+      document.getElementById("oficio_contestacion_edit").value =
+        d.oficio_contestacion ?? "";
+      document.getElementById("fecha_contestacion_edit").value =
+        d.fecha_contestacion ?? "";
       document.getElementById("asunto_edit").value = d.asunto ?? "";
 
       // ================= ESTADO =================
@@ -118,32 +120,38 @@ document.addEventListener("click", function (e) {
       secRespSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
 
       // ================= PONENCIA / REUNIÓN =================
-      document.getElementById("ponencia_edit").value = d.ponencia ?? "No aplica";
+      document.getElementById("ponencia_edit").value =
+        d.ponencia ?? "No aplica";
       document.getElementById("reunion_edit").value = d.reunion ?? "No aplica";
 
       // ================= ABRIR MODAL =================
       const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
       modal.show();
     })
-    .catch(err => {
+    .catch((err) => {
       console.error("ERROR:", err);
       alert("No se pudieron cargar los datos");
     });
 });
 
-
 // ================= DEPENDENCIAS =================
 
 // Cargo / Área desde Remitente
-document.getElementById("folio_remitente_edit").addEventListener("change", function () {
-  const selected = this.selectedOptions[0];
-  document.getElementById("folio_cargo_edit").value = selected?.dataset.cargo || "";
-  document.getElementById("folio_area_edit").value = selected?.dataset.area || "";
-});
+document
+  .getElementById("folio_remitente_edit")
+  .addEventListener("change", function () {
+    const selected = this.selectedOptions[0];
+    document.getElementById("folio_cargo_edit").value =
+      selected?.dataset.cargo || "";
+    document.getElementById("folio_area_edit").value =
+      selected?.dataset.area || "";
+  });
 
 // Sección desde Responsable
-document.getElementById("folio_sec_resp_edit").addEventListener("change", function () {
-  const selected = this.selectedOptions[0];
-  document.getElementById("folio_seccion_edit").value = selected?.dataset.seccion || "";
-});
-
+document
+  .getElementById("folio_sec_resp_edit")
+  .addEventListener("change", function () {
+    const selected = this.selectedOptions[0];
+    document.getElementById("folio_seccion_edit").value =
+      selected?.dataset.seccion || "";
+  });

@@ -35,7 +35,7 @@ class Registros_Controller extends BaseController
         $remitenteModel = new Remitente_Model();
         $seccionresponsableModel = new Seccion_Responsable_Model();
         $oficioModel = new Oficio_Model();
-        
+
         $remitentes = $remitenteModel
             ->select('remitente.folio_remitente, titular.nombre_titular, cargo.nombre_cargo, tipo_area.nombre_area')
             ->join('titular', 'titular.folio_titular = remitente.folio_titular')
@@ -61,9 +61,9 @@ class Registros_Controller extends BaseController
         ];
 
         $css = [
-            'style'=>'assets/css/Registros.css'
+            'style' => 'assets/css/Registros.css'
         ];
         return view('head', $css)
-          . view('Registros', $data);
-   }
+            . view('Registros', $data);
+    }
 }
