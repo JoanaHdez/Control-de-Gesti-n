@@ -18,7 +18,9 @@ class Oficios_Controller extends BaseController
 
     public function guardar()
     {
+
         $rules = [
+            'folio_original'   => 'required',
             'folio_registro'   => 'required|min_length[3]|max_length[150]',
             'fecha_oficio'     => 'required|valid_date',
             'referencia'       => 'required|max_length[150]',
@@ -45,11 +47,22 @@ class Oficios_Controller extends BaseController
         $db = Database::connect();
         $db->transStart();
 
-        $folio_registro = $this->request->getPost('folio_registro');
+        $folio_original = $this->request->getPost('folio_original');
+        $folio_nuevo    = $this->request->getPost('folio_registro');
 
         // Verificar si el registro ya existe
-        $existe = $db->table('oficio')->where('folio_registro', $folio_registro)->countAllResults(false);
+        if ($folio_original !== $folio_nuevo) {
+            $existe = $db->table('oficio')
+                ->where('folio_registro', $folio_nuevo)
+                ->where('folio_registro !=', $folio_original)
+                ->countAllResults();
 
+            if ($existe > 0) {
+                return redirect()->back()
+                    ->withInput()
+                    ->with('error', 'El folio ya existe, intenta con otro');
+            }
+        }
         // ---------- SOLICITUD ----------
         $folio_solicitud = $this->request->getPost('folio_solicitud'); // Para edición, mandamos el id oculto
         $solicitudData = [
@@ -65,17 +78,14 @@ class Oficios_Controller extends BaseController
         }
 
         // ---------- REGISTRO OFICIO ----------
-        $registroData = [
-            'fecha_oficio'    => $this->request->getPost('fecha_oficio'),
-            'referencia'      => $this->request->getPost('referencia'),
-            'fecha_recepcion' => $this->request->getPost('fecha_recepcion'),
-        ];
-
-        if ($existe) {
-            $db->table('registro_oficio')->where('folio_registro', $folio_registro)->update($registroData);
-        } else {
-            $db->table('registro_oficio')->insert(array_merge(['folio_registro' => $folio_registro], $registroData));
-        }
+        $db->table('registro_oficio')
+            ->where('folio_registro', $folio_original)
+            ->update([
+                'folio_registro' => $folio_nuevo,
+                'fecha_oficio'   => $this->request->getPost('fecha_oficio'),
+                'referencia'     => $this->request->getPost('referencia'),
+                'fecha_recepcion' => $this->request->getPost('fecha_recepcion'),
+            ]);
 
         // ---------- DESCRIPCIÓN ATENCIÓN ----------
         $folio_atencion = $this->request->getPost('folio_atencion');
@@ -107,33 +117,27 @@ class Oficios_Controller extends BaseController
         }
 
         // ---------- OFICIO ----------
-        $oficioData = [
-            'folio_remitente' => $this->request->getPost('folio_remitente'),
-            'folio_solicitud' => $folio_solicitud,
-            'folio_atencion'  => $folio_atencion,
-            'folio_pr'        => $folio_pr,
-            'folio_sec_resp'  => $this->request->getPost('folio_sec_resp') ?: null,
-            'folio_estado'    => $this->request->getPost('folio_estado'),
-            /*             'folio_archivado' => $this->request->getPost('folio_archivado') ?: null,
- */
-        ];
-
-        if ($existe) {
-            $db->table('oficio')->where('folio_registro', $folio_registro)->update($oficioData);
-        } else {
-            $db->table('oficio')->insert(array_merge(['folio_registro' => $folio_registro], $oficioData));
-        }
+        $db->table('oficio')
+            ->where('folio_registro', $folio_original)
+            ->update([
+                'folio_registro' => $folio_nuevo,
+                'folio_remitente' => $this->request->getPost('folio_remitente'),
+                'folio_solicitud' => $folio_solicitud,
+                'folio_atencion' => $folio_atencion,
+                'folio_pr'       => $folio_pr,
+                'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
+                'folio_estado'   => $this->request->getPost('folio_estado'),
+            ]);
 
         $db->transComplete();
 
         if ($db->transStatus() === false) {
-            return redirect()->back()->with('error', 'Error al guardar el oficio');
+            return redirect()->back()->with('error', 'Error al actualizar el oficio');
         }
 
-        $msg = $existe ? 'Oficio actualizado correctamente' : 'Oficio guardado correctamente';
-        return redirect()->to('/oficios/crear')->with('success', $msg);
+        return redirect()->to('/oficios/crear')
+            ->with('success', 'Oficio actualizado correctamente');
     }
-
 
     public function detalles($folio)
     {
