@@ -20,8 +20,6 @@ document
 
 console.log("JS cargado");
 
-console.log("JS cargado");
-
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll(".btn-detalles").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -69,3 +67,83 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+console.log("Registro.js cargado correctamente");
+
+document.addEventListener("click", function (e) {
+
+  const btn = e.target.closest(".btn-editar");
+  if (!btn) return;
+
+  const folio = btn.dataset.folio.trim();
+  console.log("FOLIO:", folio);
+
+  fetch(BASE_URL_EDITAR + encodeURIComponent(folio))
+    .then(response => {
+      console.log("STATUS:", response.status);
+
+      if (!response.ok) throw new Error("Error en la respuesta");
+
+      return response.json();
+    })
+    .then(d => {
+      console.log("Datos recibidos:", d);
+
+      // ================= DATOS GENERALES =================
+      document.getElementById("folio_registro_edit").value = d.folio_registro ?? "";
+      document.getElementById("fecha_oficio_edit").value = d.fecha_oficio ?? "";
+      document.getElementById("referencia_edit").value = d.referencia ?? "";
+      document.getElementById("fecha_recepcion_edit").value = d.fecha_recepcion ?? "";
+
+      // ================= REMITENTE =================
+      const remitenteSelect = document.getElementById("folio_remitente_edit");
+      remitenteSelect.value = d.folio_remitente ?? "";
+      remitenteSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
+
+      // ================= TRÁMITE =================
+      document.getElementById("tramite_edit").value = d.folio_tramite ?? "";
+      document.getElementById("solicitud_edit").value = d.solicitud ?? "";
+
+      // ================= DESCRIPCIÓN =================
+      document.getElementById("oficio_contestacion_edit").value = d.oficio_contestacion ?? "";
+      document.getElementById("fecha_contestacion_edit").value = d.fecha_contestacion ?? "";
+      document.getElementById("asunto_edit").value = d.asunto ?? "";
+
+      // ================= ESTADO =================
+      document.getElementById("estado_edit").value = d.folio_estado ?? "";
+
+      // ================= SECCIÓN RESPONSABLE =================
+      const secRespSelect = document.getElementById("folio_sec_resp_edit");
+      secRespSelect.value = d.folio_sec_resp ?? "";
+      secRespSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
+
+      // ================= PONENCIA / REUNIÓN =================
+      document.getElementById("ponencia_edit").value = d.ponencia ?? "No aplica";
+      document.getElementById("reunion_edit").value = d.reunion ?? "No aplica";
+
+      // ================= ABRIR MODAL =================
+      const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
+      modal.show();
+    })
+    .catch(err => {
+      console.error("ERROR:", err);
+      alert("No se pudieron cargar los datos");
+    });
+});
+
+
+// ================= DEPENDENCIAS =================
+
+// Cargo / Área desde Remitente
+document.getElementById("folio_remitente_edit").addEventListener("change", function () {
+  const selected = this.selectedOptions[0];
+  document.getElementById("folio_cargo_edit").value = selected?.dataset.cargo || "";
+  document.getElementById("folio_area_edit").value = selected?.dataset.area || "";
+});
+
+// Sección desde Responsable
+document.getElementById("folio_sec_resp_edit").addEventListener("change", function () {
+  const selected = this.selectedOptions[0];
+  document.getElementById("folio_seccion_edit").value = selected?.dataset.seccion || "";
+});
+

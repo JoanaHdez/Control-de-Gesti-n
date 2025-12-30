@@ -379,8 +379,10 @@
                                                 <!-- Acciones -->
                                                 <td>
                                                     <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning"
-                                                            data-bs-toggle="modal" data-bs-target="#modalEditar">
+                                                        <button type="button" class="btn btn-warning btn-editar"
+                                                            
+                                                            data-folio="<?= esc($row['folio_registro']) ?>"
+                                                            >
                                                             ✏️
                                                         </button>
                                                         <button type="button" class="btn btn-info btn-detalles"
@@ -533,22 +535,22 @@
                                                             <label>Folio de contestación de Oficio</label>
                                                             <div class="col-12">
                                                                 <input type="text" id="oficio_contestacion"
-       name="oficio_contestacion"
+                                                                    name="oficio_contestacion"
                                                                     class="form-control pill-input" readonly>
                                                             </div>
                                                             <label for="">Fecha de Contestación</label>
                                                             <div class="col-12">
                                                                 <input type="date" id="fecha_contestacion"
-       name="fecha_contestacion"
+                                                                    name="fecha_contestacion"
                                                                     class="form-control pill-input" readonly>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-9">
                                                         <label>Asunto</label>
-                                                        <textarea id="asunto"
-          name="asunto" class="form-control pill-textarea h-100"
-                                                            rows="4" readonly></textarea>
+                                                        <textarea id="asunto" name="asunto"
+                                                            class="form-control pill-textarea h-100" rows="4"
+                                                            readonly></textarea>
                                                     </div>
                                                 </div>
 
@@ -645,6 +647,281 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- ----------------------------------------------------------------------- MODAL EDITAR ----------------------------------------------------------------------- -->
+
+                    <div class="modal fade" id="modalEditar" tabindex="-1" aria-hidden="true">
+                        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Registro de Oficio</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
+
+                                        <div class="Registro">
+                                            <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
+
+                                            <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                Datos del
+                                                Oficio
+                                            </h5>
+                                            <div class="d-flex justify-content-center pt-3">
+                                                <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                            </div>
+
+                                            <div class="Formulario container-fluid pt-5">
+                                                <div class="row g-3">
+                                                    <div class="col-md-3">
+                                                        <label>Folio de Oficio</label>
+                                                        <input type="text" id="folio_registro_edit" name="folio_registro"
+                                                            class="form-control pill-input">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Fecha del Oficio</label>
+                                                        <input type="date" id="fecha_oficio_edit" name="fecha_oficio"
+                                                            class="form-control pill-input">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Referencia</label>
+                                                        <input type="text" id="referencia_edit" name="referencia"
+                                                            class="form-control pill-input">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="">Fecha de Recepción</label>
+                                                        <input type="date" id="fecha_recepcion_edit" name="fecha_recepcion"
+                                                            class="form-control pill-input">
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!-- ------------------------- SOLICITANTE/REMITENTE ------------------------- -->
+
+                                                <h5
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Solicitante /
+                                                    Remitente
+                                                </h5>
+
+                                                <div class="d-flex justify-content-center pt-3">
+                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                                </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <label>Titular</label>
+                                                        <select name="folio_remitente" id="folio_remitente_edit"
+                                                            class="form-select pill-select" required>
+                                                            <option value="">Seleccione</option>
+                                                            <?php if(!empty($remitentes) && is_array($estados)): ?>
+                                                            <?php foreach($remitentes as $remitente): ?>
+                                                            <option value="<?= $remitente['folio_remitente'] ?>"
+                                                                data-cargo="<?= esc($remitente['nombre_cargo']) ?>"
+                                                                data-area="<?= esc($remitente['nombre_area']) ?>">
+                                                                <?= esc($remitente['nombre_titular']) ?>
+                                                            </option>
+                                                            <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="">Cargo</label>
+                                                        <input type="text" id="folio_cargo_edit"
+                                                            class="form-control pill-input" readonly>
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Área</label>
+                                                        <input type="text" id="folio_area_edit"
+                                                            class="form-control pill-input" readonly>
+
+                                                    </div>
+
+                                                </div>
+
+
+                                                <!-- ------------------------- SOLICITUD/INFORMACIÓN ------------------------- -->
+
+                                                <h5
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Solicitud
+                                                    /
+                                                    Información
+                                                </h5>
+
+                                                <div class="d-flex justify-content-center pt-3">
+                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                                </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <label>Tipo de Tramite</label>
+                                                        <select name="folio_tramite" id="tramite_edit"
+                                                            class="form-select pill-select" required>
+                                                            <option value="">Seleccione</option>
+                                                            <?php if(!empty($tramites) && is_array($estados)): ?>
+                                                            <?php foreach($tramites as $tramite): ?>
+                                                            <option value="<?= $tramite['folio_tramite'] ?>">
+                                                                <?= esc($tramite['tramite']) ?></option>
+                                                            <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-9 mt-3">
+                                                        <label for="">Solicitud</label>
+                                                        <textarea id="solicitud_edit" name="solicitud" class="form-control pill-textarea"
+                                                            rows="4" required></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- DESCRIPCIÓN DE LA ATENCIÓN ------------------------- -->
+
+                                                <h5
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Descripción
+                                                    de la
+                                                    Atención</h5>
+
+                                                <div class="d-flex justify-content-center pt-3">
+                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                                </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <div class="row g-3">
+                                                            <label>Folio de contestación de Oficio</label>
+                                                            <div class="col-12">
+                                                                <input type="text" id="oficio_contestacion_edit" name="oficio_contestacion"
+                                                                    
+                                                                    class="form-control pill-input" required>
+                                                            </div>
+                                                            <label for="">Fecha de Contestación</label>
+                                                            <div class="col-12">
+                                                                <input type="date" id="fecha_contestacion_edit" name="fecha_contestacion"
+                                                                    
+                                                                    class="form-control pill-input" required>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <label>Asunto</label>
+                                                        <textarea id="asunto_edit" name="asunto"
+                                                            class="form-control pill-textarea h-100" rows="4"
+                                                            ></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- ESTADO DEL ARCHIVO/SECCION QUE ATENDIO ------------------------- -->
+
+                                                <div class="row g-3 mt-5">
+                                                    <div class="col-md-6">
+                                                        <h5
+                                                            class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-3">
+                                                            Estado del
+                                                            Archivo</h5>
+
+                                                        <div class="d-flex justify-content-center pt-3">
+                                                            <div class="SPD-line-1 border-top border-4 border-muted">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <h5
+                                                            class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-3">
+                                                            Seccion que
+                                                            Atendio</h5>
+
+                                                        <div class="d-flex justify-content-center pt-3">
+                                                            <div class="SPD-line-1 border-top border-4 border-muted">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- ESTADO DEL ARCHIVO ------------------------- -->
+
+                                                <div class="row g-3 mt-4">
+                                                    <div class="col-md-3">
+                                                        <label>Archivado en</label>
+                                                        
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Estatus</label>
+                                                        <select id="estado_edit" name="folio_estado"
+                                                            class="form-select pill-select" required>
+                                                            <option value="">Seleccione</option>
+                                                            <?php if(!empty($estados) && is_array($estados)): ?>
+                                                            <?php foreach($estados as $estado): ?>
+                                                            <option value="<?= $estado['folio_estado'] ?>">
+                                                                <?= esc($estado['estado']) ?></option>
+                                                            <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+
+                                                    <!-- ------------------------- SECCION QUE ATENDIO ------------------------- -->
+
+                                                    <div class="col-md-3">
+                                                        <label>Atendido por</label>
+                                                        <select id="folio_sec_resp_edit" name="folio_sec_resp"
+                                                            class="form-select pill-select">
+                                                            <option value="">Seleccione</option>
+                                                            <?php if(!empty($seccion_responsable) && is_array($estados)): ?>
+                                                            <?php foreach($seccion_responsable as $sr): ?>
+                                                            <option value="<?= $sr['folio_sec_resp'] ?>"
+                                                                data-seccion="<?= esc($sr['nombre_seccion']) ?>">
+                                                                <?= esc($sr['nombre_responsable']) ?>
+                                                            </option>
+                                                            <?php endforeach; ?>
+                                                            <?php endif; ?>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Sección Responsable</label>
+                                                        <input type="text" id="folio_seccion_edit"
+                                                            class="form-control pill-input" readonly>
+                                                    </div>
+                                                </div>
+
+                                                <!-- ------------------------- PONENCIA/REUNION ------------------------- -->
+
+                                                <h5
+                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
+                                                    Ponencia
+                                                    /
+                                                    Reunión
+                                                </h5>
+
+                                                <div class="d-flex justify-content-center pt-3">
+                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
+                                                </div>
+
+                                                <div class="row g-3 mt-3">
+                                                    <div class="col-md-3">
+                                                        <label>Ponencia</label>
+                                                        <input type="text" id="ponencia_edit" name="ponencia" class="form-control pill-input"
+                                                            required>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label>Reunión de coordinación</label>
+                                                        <input type="text" id="reunion_edit" name="reunion" class="form-control pill-input"
+                                                            required>
+                                                    </div>
+                                                </div>
+                                                <div class="d-flex justify-content-center mt-5">
+                                                    <button type="submit" class="btn btn-submit">
+                                                        Guardar Oficio
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -652,6 +929,7 @@
 
     <script>
     const BASE_URL_DETALLES = "<?= base_url('oficios/detalles/') ?>";
+        const BASE_URL_EDITAR   = "<?= base_url('oficios/editar/') ?>";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="<?= base_url('/assets/js/Registro.js') ?>"></script>
