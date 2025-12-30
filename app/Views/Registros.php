@@ -59,6 +59,13 @@
                         </div>
                         <?php endif; ?>
 
+                        <?php if (session()->getFlashdata('error')): ?>
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <?= session()->getFlashdata('error') ?>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                        <?php endif; ?>
+
                         <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
 
                             <div class="Registro">
@@ -75,9 +82,16 @@
                                     <div class="row g-3">
                                         <div class="col-md-3">
                                             <label>Folio de Oficio</label>
-                                            <input type="text" name="folio_registro" class="form-control pill-input"
+                                            <input type="text" name="folio_registro"
+                                                class="form-control pill-input <?= session()->getFlashdata('error') ? 'is-invalid' : '' ?>"
                                                 required>
+                                            <?php if (session()->getFlashdata('error')): ?>
+                                            <div class="invalid-feedback">
+                                                <?= session()->getFlashdata('error') ?>
+                                            </div>
+                                            <?php endif; ?>
                                         </div>
+
                                         <div class="col-md-3">
                                             <label>Fecha del Oficio</label>
                                             <input type="date" name="fecha_oficio" class="form-control pill-input"
@@ -94,8 +108,6 @@
                                                 required>
                                         </div>
                                     </div>
-
-
 
                                     <!-- ------------------------- SOLICITANTE/REMITENTE ------------------------- -->
 
@@ -553,7 +565,6 @@
                         </div>
                     </div>
 
-
                     <!-- ----------------------------------------------------------------------- MODAL DETALLES ----------------------------------------------------------------------- -->
 
                     <div class="modal fade" id="modalDetalles" tabindex="-1" aria-hidden="true">
@@ -805,9 +816,24 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
+
+                                    <?php if (session()->getFlashdata('error')): ?>
+                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <?= session()->getFlashdata('error') ?>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <?php endif; ?>
+
+                                    <?php if (session()->getFlashdata('error')): ?>
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            <?= session()->getFlashdata('error') ?>
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                        <?php endif; ?>
+
                                     <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
                                         <input type="hidden" id="folio_original" name="folio_original">
-
 
                                         <div class="Registro">
                                             <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
@@ -825,8 +851,13 @@
                                                     <div class="col-md-3">
                                                         <label>Folio de Oficio</label>
                                                         <input type="text" id="folio_registro_edit"
-                                                            name="folio_registro" class="form-control pill-input"
-                                                            required>
+                                                            name="folio_registro" class="form-control pill-input<?= session()->getFlashdata('error') ? 'is-invalid' : '' ?>"
+                                                required>
+                                            <?php if (session()->getFlashdata('error')): ?>
+                                            <div class="invalid-feedback">
+                                                <?= session()->getFlashdata('error') ?>
+                                            </div>
+                                            <?php endif; ?>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Fecha del Oficio</label>
