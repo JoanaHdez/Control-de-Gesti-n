@@ -167,4 +167,27 @@ document
       selected?.dataset.seccion || "";
   });
 
-  
+
+  document.addEventListener("DOMContentLoaded", function () {
+  const folioInput = document.querySelector('input[name="folio_registro"]');
+  const form = folioInput.closest("form");
+
+  // ================= CAMBIO EN FOLIO =================
+  folioInput.addEventListener("input", function () {
+    // Quitar mensaje de error inline
+    const errorDiv = form.querySelector(".invalid-feedback");
+    if (errorDiv) errorDiv.remove();
+
+    // Quitar alert de Bootstrap si existe
+    const alertDiv = form.querySelector(".alert-danger");
+    if (alertDiv) alertDiv.remove();
+
+    // Quitar clase de error
+    folioInput.classList.remove("is-invalid");
+  });
+
+  // ================= OPCIONAL: Si ya vino con error desde backend =================
+  if (folioInput && folioInput.value && form.querySelector(".invalid-feedback")) {
+    folioInput.value = "";
+  }
+});
