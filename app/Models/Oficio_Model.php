@@ -35,7 +35,7 @@ class Oficio_Model extends Model
             ->join('solicitud s', 's.folio_solicitud = oficio.folio_solicitud')
             ->join('tipo_tramite tt', 'tt.folio_tramite = s.folio_tramite') // 👈 nombre real
             ->join('estado e', 'e.folio_estado = oficio.folio_estado')
-            ->orderBy('ro.folio_registro', 'DESC')
+            ->orderBy('CAST(ro.folio_registro AS UNSIGNED)', 'DESC')
             ->findAll();
     }
 
@@ -54,7 +54,7 @@ class Oficio_Model extends Model
             ->join('registro_oficio ro', 'ro.folio_registro = oficio.folio_registro')
             ->join('solicitud s', 's.folio_solicitud = oficio.folio_solicitud')
             ->join('estado e', 'e.folio_estado = oficio.folio_estado')
-            ->orderBy('ro.folio_registro', 'DESC')
+            ->orderBy('CAST(ro.folio_registro AS UNSIGNED)', 'DESC')
             ->findAll();
     }
 

@@ -20,9 +20,9 @@ class Oficios_Controller extends BaseController
 {
     $folio_original = $this->request->getPost('folio_original');
     $esEdicion = !empty($folio_original);
-    
+
     $rules = [
-        'folio_registro'   => 'required|min_length[3]|max_length[150]',
+        'folio_registro' => 'required|integer',
         'fecha_oficio'     => 'required|valid_date',
         'referencia'       => 'required|max_length[150]',
         'fecha_recepcion'  => 'required|valid_date',
