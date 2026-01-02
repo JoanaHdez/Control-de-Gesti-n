@@ -199,6 +199,163 @@ INSERT INTO oficio (folio_registro, folio_remitente, folio_solicitud, folio_aten
 ('48fh89', 3, 3, 3, 3, 3);
 
 -- =========================
+-- CONSULTAS
+-- =========================
+
+-- ==== TOTAL ARCHIVADOS ==== --
+
+SELECT COUNT(*) AS total_atendidos
+FROM oficio o
+JOIN estado e ON o.folio_estado = e.folio_estado
+WHERE e.estado = 'Atendido';
+
+-- ==== TOTAL ARCHIVADOS POR PERSONA ==== --
+
+SELECT 
+    p.nombre_responsable,
+    COUNT(*) AS total
+FROM oficio o
+JOIN estado e ON o.folio_estado = e.folio_estado
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+WHERE e.estado = 'Atendido'
+GROUP BY p.nombre_responsable;
+
+-- ==== TOTAL TRAMITE ==== --
+
+SELECT COUNT(*) AS total_tramite
+FROM oficio o
+JOIN estado e ON o.folio_estado = e.folio_estado
+WHERE e.estado = 'En trámite';
+
+-- ==== TOTAL TRAMITE POR PERSONA ==== --
+
+SELECT 
+    p.nombre_responsable,
+    COUNT(*) AS total
+FROM oficio o
+JOIN estado e ON o.folio_estado = e.folio_estado
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+WHERE e.estado = 'Tramite' 
+GROUP BY p.nombre_responsable;
+
+-- ==== TOTAL PENDIENTES ==== --
+
+SELECT COUNT(*) AS total_pendientes
+FROM oficio o
+JOIN estado e ON o.folio_estado = e.folio_estado
+WHERE e.estado = 'Pendiente';
+
+-- ==== TOTAL PENDIENTES POR PERSONA ==== --
+
+SELECT 
+    p.nombre_responsable,
+    COUNT(*) AS total
+FROM oficio o
+JOIN estado e ON o.folio_estado = e.folio_estado
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+WHERE e.estado = 'Pendiente'
+GROUP BY p.nombre_responsable;
+
+-- ==== TOTAL OFICIOS POR MES ==== --
+
+SELECT 
+    DATE_FORMAT(ro.fecha_recepcion, '%Y-%m') AS mes,
+    COUNT(*) AS total
+FROM oficio o
+JOIN registro_oficio ro ON o.folio_registro = ro.folio_registro
+GROUP BY mes
+ORDER BY mes;
+
+-- ==== TOTAL OFICIOS POR MES POR PERSONA ==== --
+
+SELECT 
+    DATE_FORMAT(ro.fecha_recepcion, '%Y-%m') AS mes,
+    p.nombre_responsable,
+    COUNT(*) AS total
+FROM oficio o
+JOIN registro_oficio ro ON o.folio_registro = ro.folio_registro
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+GROUP BY mes, p.nombre_responsable
+ORDER BY mes;
+
+-- ==== TOTAL OFICIOS INTERNOS ==== --
+
+SELECT COUNT(*) AS total_internos
+FROM oficio o
+JOIN remitente r ON o.folio_remitente = r.folio_remitente
+JOIN titular t ON r.folio_titular = t.folio_titular
+JOIN tipo_area ta ON t.folio_area = ta.folio_area
+WHERE ta.nombre_area = 'Interna';
+
+-- ==== TOTAL OFICIOS INTERNOS POR AREA ==== --
+
+SELECT 
+    s.nombre_seccion,
+    COUNT(*) AS total_internos
+FROM oficio o
+JOIN remitente r ON o.folio_remitente = r.folio_remitente
+JOIN titular t ON r.folio_titular = t.folio_titular
+JOIN tipo_area ta ON t.folio_area = ta.folio_area
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+JOIN seccion s ON p.folio_seccion = s.folio_seccion
+WHERE ta.nombre_area = 'Interna'
+GROUP BY s.nombre_seccion;
+
+-- ==== TOTAL OFICIOS EXTERNOS ==== --
+
+SELECT COUNT(*) AS total_externos
+FROM oficio o
+JOIN remitente r ON o.folio_remitente = r.folio_remitente
+JOIN titular t ON r.folio_titular = t.folio_titular
+JOIN tipo_area ta ON t.folio_area = ta.folio_area
+WHERE ta.nombre_area = 'Externa';
+
+-- ==== TOTAL OFICIOS EXTERNOS POR AREA ==== --
+
+SELECT 
+    s.nombre_seccion,
+    COUNT(*) AS total_externos
+FROM oficio o
+JOIN remitente r ON o.folio_remitente = r.folio_remitente
+JOIN titular t ON r.folio_titular = t.folio_titular
+JOIN tipo_area ta ON t.folio_area = ta.folio_area
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+JOIN seccion s ON p.folio_seccion = s.folio_seccion
+WHERE ta.nombre_area = 'Externa'
+GROUP BY s.nombre_seccion;
+
+-- ==== TOTAL OFICIOS SECCION II ==== --
+
+SELECT COUNT(*) AS total_seccion_2
+FROM oficio o
+JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+JOIN personal p ON sr.folio_personal = p.folio_personal
+JOIN seccion s ON p.folio_seccion = s.folio_seccion
+WHERE s.nombre_seccion = 'Sección II';
+
+-- ==== TOTAL POR SOLICITUD ==== --
+
+SELECT 
+  CASE
+    WHEN s.solicitud LIKE '%enlace%' THEN 'Enlaces'
+    WHEN s.solicitud LIKE '%capacit%' THEN 'Capacitaciones'
+    WHEN s.solicitud LIKE '%curso%' THEN 'Cursos'
+    WHEN s.solicitud LIKE '%reunion%' THEN 'Reuniones'
+    WHEN s.solicitud LIKE '%mesa%' THEN 'Mesas de trabajo'
+    ELSE 'Otros'
+  END AS categoria,
+  COUNT(*) AS total
+FROM oficio o
+JOIN solicitud s ON o.folio_solicitud = s.folio_solicitud
+GROUP BY categoria;
+
+-- =========================
 -- JOINS
 -- =========================
 
