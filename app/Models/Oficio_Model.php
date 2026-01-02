@@ -50,7 +50,7 @@ class Oficio_Model extends Model
             'e.estado'
         ])
             ->join('seccion_responsable sr', 'sr.folio_sec_resp = oficio.folio_sec_resp')
-            ->join('personal p', 'p.folio_personal = sr.folio_personal', 'left')
+            ->join('personal p', 'p.folio_personal = sr.folio_personal')
             ->join('registro_oficio ro', 'ro.folio_registro = oficio.folio_registro')
             ->join('solicitud s', 's.folio_solicitud = oficio.folio_solicitud')
             ->join('estado e', 'e.folio_estado = oficio.folio_estado')

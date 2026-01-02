@@ -32,7 +32,7 @@ class Oficios_Controller extends BaseController
         'oficio_contestacion' => 'permit_empty|max_length[150]',
         'fecha_contestacion'  => 'permit_empty|valid_date',
         'asunto'             => 'permit_empty',
-        'folio_sec_resp'      => 'permit_empty|integer',
+        'folio_sec_resp'      => 'required|integer',
         'ponencia'            => 'permit_empty|max_length[150]',
         'reunion'             => 'permit_empty|max_length[150]',
         'folio_estado'        => 'required|integer',
