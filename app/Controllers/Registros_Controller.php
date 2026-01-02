@@ -45,6 +45,9 @@ class Registros_Controller extends BaseController
 
         $seccion_responsable = $seccionresponsableModel->getSeccionesResponsables();
 
+        $tramiteOficios = $oficioModel->getPorEstado(2); // Trámite
+        $pendientes = $oficioModel->getPorEstado(3); // Pendiente
+
         $data = [
             'cargos'   => $cargoModel->findAll(),
             'areas'    => $areaModel->findAll(),
@@ -57,8 +60,10 @@ class Registros_Controller extends BaseController
             'seccion_responsable' => $seccionresponsableModel->getSeccionesResponsables(),
 
             'general' => $oficioModel->getGeneral(),
-            'pendientes' => $oficioModel->getPendientes(),
+            'pendientes' => $pendientes,
+            'tramiteOficio'    => $tramiteOficios,
         ];
+
 
         $css = [
             'style' => 'assets/css/Registros.css'

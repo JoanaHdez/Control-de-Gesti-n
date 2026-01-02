@@ -201,7 +201,6 @@ class Oficios_Controller extends BaseController
         );
     }
 
-
     public function detalles($folio)
     {
         $folio = trim(urldecode($folio));

@@ -10,6 +10,8 @@ class Oficio_Model extends Model
     protected $table      = 'oficio';
     protected $primaryKey = 'folio_registro';
 
+    public const ESTADO_TRAMITE   = 2;
+    public const ESTADO_PENDIENTE = 3;
 
     protected $allowedFields = [
         'folio_registro',
@@ -39,7 +41,7 @@ class Oficio_Model extends Model
             ->findAll();
     }
 
-    public function getPendientes()
+    public function getPorEstado(int $folioEstado)
     {
         return $this->select([
             'p.nombre_responsable AS responsable',
@@ -54,6 +56,7 @@ class Oficio_Model extends Model
             ->join('registro_oficio ro', 'ro.folio_registro = oficio.folio_registro')
             ->join('solicitud s', 's.folio_solicitud = oficio.folio_solicitud')
             ->join('estado e', 'e.folio_estado = oficio.folio_estado')
+            ->where('oficio.folio_estado', $folioEstado)
             ->orderBy('CAST(ro.folio_registro AS UNSIGNED)', 'DESC')
             ->findAll();
     }
@@ -175,4 +178,5 @@ class Oficio_Model extends Model
             ->get()
             ->getRowArray();
     }
+
 }
