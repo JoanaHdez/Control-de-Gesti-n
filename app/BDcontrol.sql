@@ -343,17 +343,40 @@ WHERE s.nombre_seccion = 'Sección II';
 
 SELECT 
   CASE
-    WHEN s.solicitud LIKE '%enlace%' THEN 'Enlaces'
-    WHEN s.solicitud LIKE '%capacit%' THEN 'Capacitaciones'
-    WHEN s.solicitud LIKE '%curso%' THEN 'Cursos'
-    WHEN s.solicitud LIKE '%reunion%' THEN 'Reuniones'
-    WHEN s.solicitud LIKE '%mesa%' THEN 'Mesas de trabajo'
+    WHEN LOWER(s.solicitud) LIKE '%enlace%' 
+      OR LOWER(s.solicitud) LIKE '%vincul%' 
+      OR LOWER(s.solicitud) LIKE '%coordina%' 
+      THEN 'Enlaces'
+
+    WHEN LOWER(s.solicitud) LIKE '%capacit%' 
+      OR LOWER(s.solicitud) LIKE '%taller%' 
+      OR LOWER(s.solicitud) LIKE '%adiestra%' 
+      THEN 'Capacitaciones'
+
+    WHEN LOWER(s.solicitud) LIKE '%curso%' 
+      OR LOWER(s.solicitud) LIKE '%seminar%' 
+      THEN 'Cursos'
+
+    WHEN LOWER(s.solicitud) LIKE '%reunion%' 
+      OR LOWER(s.solicitud) LIKE '%reunión%' 
+      OR LOWER(s.solicitud) LIKE '%junta%' 
+      OR LOWER(s.solicitud) LIKE '%sesion%' 
+      OR LOWER(s.solicitud) LIKE '%sesión%' 
+      THEN 'Reuniones'
+
+    WHEN LOWER(s.solicitud) LIKE '%mesa%' 
+      OR LOWER(s.solicitud) LIKE '%foro%' 
+      OR LOWER(s.solicitud) LIKE '%encuentro%' 
+      THEN 'Mesas de trabajo'
+
     ELSE 'Otros'
   END AS categoria,
   COUNT(*) AS total
 FROM oficio o
 JOIN solicitud s ON o.folio_solicitud = s.folio_solicitud
-GROUP BY categoria;
+GROUP BY categoria
+ORDER BY total DESC;
+
 
 -- =========================
 -- JOINS
