@@ -30,7 +30,9 @@ class Dashboard_Controller extends BaseController
         $data['total_pendientes'] = $this->dashboardModel->totalPendientes() ?? 0;
         $data['pendientes_por_persona'] = $this->dashboardModel->pendientesPorPersona() ?? [];
         $data['oficios_por_mes'] = $this->dashboardModel->oficiosPorMes() ?? [];
-        $data['oficios_por_mes_persona'] = $this->dashboardModel->oficiosPorMesPorPersona() ?? [];
+/*         $data['oficios_por_mes_persona'] = $this->dashboardModel->oficiosPorMesPorPersona() ?? [];
+ */        $data['oficios_persona_anio_mes'] = $this->dashboardModel->oficiosPorPersonaAnioMes() ?? [];
+
         $data['total_internos'] = $this->dashboardModel->totalInternos() ?? 0;
         $data['internos_por_area'] = $this->dashboardModel->internosPorArea() ?? [];
         $data['total_externos'] = $this->dashboardModel->totalExternos() ?? 0;

@@ -1,3 +1,29 @@
+
+<?php
+$estructura = [];
+
+foreach ($oficios_persona_anio_mes as $row) {
+    $persona = $row['nombre_responsable'];
+    $anio = $row['anio'];
+    $mes = $row['mes_nombre'];
+    $total = $row['total'];
+
+    if (!isset($estructura[$persona])) {
+        $estructura[$persona] = [
+            'total' => 0,
+            'anios' => []
+        ];
+    }
+
+    if (!isset($estructura[$persona]['anios'][$anio])) {
+        $estructura[$persona]['anios'][$anio] = [];
+    }
+
+    $estructura[$persona]['anios'][$anio][$mes] = $total;
+    $estructura[$persona]['total'] += $total;
+}
+?>
+
 <div class="container-fluid">
     <div class="container-fluid py-4 dashboard-bg">
 
@@ -139,18 +165,45 @@
             </div>
 
             <div class="col-md-6">
-                <div class="panel-card">
-                    <div class="panel-title">Oficios por mes y por persona</div>
-                    <ul class="list-group list-group-flush">
-                        <?php foreach ($oficios_por_mes_persona as $row): ?>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <?= esc($row['mes']) ?> - <?= esc($row['nombre_responsable']) ?>
-                            <span class="badge bg-primary"><?= $row['total'] ?></span>
-                        </li>
+    <div class="panel-card">
+        <div class="panel-title">📂 Oficios por persona / año / mes</div>
+
+        <ul class="list-group list-group-flush">
+
+            <?php foreach ($estructura as $persona => $dataPersona): ?>
+                <li class="list-group-item">
+                    <button class="btn btn-link fw-bold toggle-persona">
+                        <?= esc($persona) ?> 
+                        <span class="badge bg-primary ms-2"><?= $dataPersona['total'] ?></span>
+                    </button>
+
+                    <div class="ms-3 d-none persona-content">
+
+                        <?php foreach ($dataPersona['anios'] as $anio => $meses): ?>
+                            <div class="mb-2">
+                                <button class="btn btn-sm btn-outline-secondary toggle-anio">
+                                    <?= $anio ?>
+                                </button>
+
+                                <ul class="list-group list-group-flush ms-3 mt-2 d-none anio-content">
+                                    <?php foreach ($meses as $mes => $totalMes): ?>
+                                        <li class="list-group-item d-flex justify-content-between">
+                                            <?= esc($mes) ?>
+                                            <span class="badge bg-success"><?= $totalMes ?></span>
+                                        </li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
                         <?php endforeach; ?>
-                    </ul>
-                </div>
-            </div>
+
+                    </div>
+                </li>
+            <?php endforeach; ?>
+
+        </ul>
+    </div>
+</div>
+
 
         </div>
 

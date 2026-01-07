@@ -94,7 +94,7 @@ class Dashboard_Model extends Model
         ")->getResultArray();
     }
 
-    public function oficiosPorMesPorPersona()
+    /* public function oficiosPorMesPorPersona()
     {
         return $this->db->query("
             SELECT DATE_FORMAT(ro.fecha_recepcion, '%Y-%m') AS mes, p.nombre_responsable, COUNT(*) AS total
@@ -105,7 +105,32 @@ class Dashboard_Model extends Model
             GROUP BY mes, p.nombre_responsable
             ORDER BY mes
         ")->getResultArray();
-    }
+    } */
+
+    public function oficiosPorPersonaAnioMes()
+{
+    return $this->db->query("
+        SELECT 
+            p.nombre_responsable,
+            YEAR(ro.fecha_recepcion) AS anio,
+            MONTH(ro.fecha_recepcion) AS mes_num,
+            DATE_FORMAT(MIN(ro.fecha_recepcion), '%M') AS mes_nombre,
+            COUNT(*) AS total
+        FROM oficio o
+        JOIN registro_oficio ro ON o.folio_registro = ro.folio_registro
+        JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
+        JOIN personal p ON sr.folio_personal = p.folio_personal
+        GROUP BY 
+            p.nombre_responsable,
+            anio,
+            mes_num
+        ORDER BY 
+            p.nombre_responsable,
+            anio DESC,
+            mes_num
+    ")->getResultArray();
+}
+
 
     public function totalInternos()
     {

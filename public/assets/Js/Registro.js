@@ -203,3 +203,20 @@ document.getElementById('btnDashboard').addEventListener('click', function () {
             new bootstrap.Modal(document.getElementById('dashboardModal')).show();
         });
 });
+
+
+document.addEventListener("click", function(e) {
+
+    // Toggle persona
+    if (e.target.classList.contains("toggle-persona")) {
+        const content = e.target.nextElementSibling;
+        content.classList.toggle("d-none");
+    }
+
+    // Toggle año
+    if (e.target.classList.contains("toggle-anio")) {
+        const content = e.target.nextElementSibling;
+        content.classList.toggle("d-none");
+    }
+
+});
