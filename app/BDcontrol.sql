@@ -209,7 +209,7 @@ FROM oficio o
 JOIN estado e ON o.folio_estado = e.folio_estado
 WHERE e.estado = 'Atendido';
 
--- ==== TOTAL ARCHIVADOS POR PERSONA ==== --
+-- ==== TOTAL ARCHIVADOS POR PERSONA checar ==== --
 
 SELECT 
     p.nombre_responsable,
@@ -218,7 +218,7 @@ FROM oficio o
 JOIN estado e ON o.folio_estado = e.folio_estado
 JOIN seccion_responsable sr ON o.folio_sec_resp = sr.folio_sec_resp
 JOIN personal p ON sr.folio_personal = p.folio_personal
-WHERE e.estado = 'Atendido'
+WHERE e.estado = 'Archivado'
 GROUP BY p.nombre_responsable;
 
 -- ==== TOTAL TRAMITE ==== --

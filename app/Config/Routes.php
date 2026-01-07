@@ -18,7 +18,7 @@ $routes->post('oficios/guardar', 'Oficios_Controller::guardar');
 $routes->get('oficios/detalles/(:any)', 'Oficios_Controller::detalles/$1');
 $routes->get('oficios/editar/(:any)', 'Oficios_Controller::editar/$1');
 
-
+$routes->get('dashboard', 'Dashboard_Controller::index');
 
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php')) {
     require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';

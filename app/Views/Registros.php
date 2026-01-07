@@ -36,10 +36,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" data-bs-toggle="tab" href="#dashboard">
-                                    Dashboard
-                                </a>
-                            </li>
+    <a class="nav-link" href="<?= base_url('dashboard') ?>">
+        Dashboard
+    </a>
+</li>
+
                         </ul>
                     </div>
                 </div>
