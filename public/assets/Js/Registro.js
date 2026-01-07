@@ -192,6 +192,7 @@ document
   }
 });
 
+/* --------------------------------------- REPORTE --------------------------------------- */
 
 document.getElementById('btnDashboard').addEventListener('click', function () {
     const url = this.dataset.url;
@@ -204,19 +205,26 @@ document.getElementById('btnDashboard').addEventListener('click', function () {
         });
 });
 
-
 document.addEventListener("click", function(e) {
 
-    // Toggle persona
-    if (e.target.classList.contains("toggle-persona")) {
-        const content = e.target.nextElementSibling;
-        content.classList.toggle("d-none");
+    // PERSONA
+    const btnPersona = e.target.closest(".toggle-persona");
+    if (btnPersona) {
+        const content = btnPersona.nextElementSibling;
+        if (content) {
+            content.classList.toggle("d-none");
+        }
+        return;
     }
 
-    // Toggle año
-    if (e.target.classList.contains("toggle-anio")) {
-        const content = e.target.nextElementSibling;
-        content.classList.toggle("d-none");
+    // AÑO
+    const btnAnio = e.target.closest(".toggle-anio");
+    if (btnAnio) {
+        const content = btnAnio.nextElementSibling;
+        if (content) {
+            content.classList.toggle("d-none");
+        }
+        return;
     }
 
 });

@@ -1,4 +1,3 @@
-
 <?php
 $estructura = [];
 
@@ -27,7 +26,7 @@ foreach ($oficios_persona_anio_mes as $row) {
 <div class="container-fluid">
     <div class="container-fluid py-4 dashboard-bg">
 
-        <h2 class="mb-4 fw-bold">📊 Dashboard de Oficios</h2>
+        <h2 class="mb-4 fw-bold">📊 Estadistica</h2>
 
         <!-- FILA 1 - KPIs -->
         <div class="row g-3 mb-4">
@@ -64,7 +63,7 @@ foreach ($oficios_persona_anio_mes as $row) {
         <div class="row g-3 mb-4">
             <div class="col-md-4">
                 <div class="panel-card">
-                    <div class="panel-title">Atendidos por persona</div>
+                    <div class="panel-title">✅ Atendidos por persona</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($atendidos_por_persona as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
@@ -78,7 +77,7 @@ foreach ($oficios_persona_anio_mes as $row) {
 
             <div class="col-md-4">
                 <div class="panel-card">
-                    <div class="panel-title">Trámite por persona</div>
+                    <div class="panel-title">⚠️ Trámite por persona</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($tramite_por_persona as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
@@ -92,7 +91,7 @@ foreach ($oficios_persona_anio_mes as $row) {
 
             <div class="col-md-4">
                 <div class="panel-card">
-                    <div class="panel-title">Pendientes por persona</div>
+                    <div class="panel-title">🚫 Pendientes por persona</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($pendientes_por_persona as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
@@ -112,7 +111,7 @@ foreach ($oficios_persona_anio_mes as $row) {
 
             <div class="col-md-6">
                 <div class="panel-card">
-                    <div class="panel-title">Internos por sección</div>
+                    <div class="panel-title">🚓 Internos por sección</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($internos_por_area as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
@@ -129,7 +128,7 @@ foreach ($oficios_persona_anio_mes as $row) {
 
             <div class="col-md-6">
                 <div class="panel-card">
-                    <div class="panel-title">Externos por sección</div>
+                    <div class="panel-title">🏢 Externos por sección</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($externos_por_area as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
@@ -152,7 +151,7 @@ foreach ($oficios_persona_anio_mes as $row) {
         <div class="row g-3 mb-4">
             <div class="col-md-6">
                 <div class="panel-card">
-                    <div class="panel-title">Oficios por mes</div>
+                    <div class="panel-title">🗓️ Oficios por mes</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($oficios_por_mes as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
@@ -165,45 +164,46 @@ foreach ($oficios_persona_anio_mes as $row) {
             </div>
 
             <div class="col-md-6">
-    <div class="panel-card">
-        <div class="panel-title">📂 Oficios por persona / año / mes</div>
+                <div class="panel-card">
+                    <div class="panel-title">👤 Oficios por persona / año / mes</div>
 
-        <ul class="list-group list-group-flush">
+                    <ul class="list-group list-group-flush">
 
-            <?php foreach ($estructura as $persona => $dataPersona): ?>
-                <li class="list-group-item">
-                    <button class="btn btn-link fw-bold toggle-persona">
-                        <?= esc($persona) ?> 
-                        <span class="badge bg-primary ms-2"><?= $dataPersona['total'] ?></span>
-                    </button>
+                        <?php foreach ($estructura as $persona => $dataPersona): ?>
+                        <li class="list-group-item">
+                            <button
+                                class="btn w-100 fw-bold toggle-persona d-flex justify-content-between align-items-center">
+                                <span><?= esc($persona) ?></span>
+                                <span class="badge bg-primary"><?= $dataPersona['total'] ?></span>
+                            </button>
 
-                    <div class="ms-3 d-none persona-content">
 
-                        <?php foreach ($dataPersona['anios'] as $anio => $meses): ?>
-                            <div class="mb-2">
-                                <button class="btn btn-sm btn-outline-secondary toggle-anio">
-                                    <?= $anio ?>
-                                </button>
+                            <div class="ms-3 d-none persona-content">
 
-                                <ul class="list-group list-group-flush ms-3 mt-2 d-none anio-content">
-                                    <?php foreach ($meses as $mes => $totalMes): ?>
+                                <?php foreach ($dataPersona['anios'] as $anio => $meses): ?>
+                                <div class="mb-2">
+                                    <button class="btn btn-sm btn-outline-secondary toggle-anio">
+                                        <?= $anio ?>
+                                    </button>
+
+                                    <ul class="list-group list-group-flush ms-3 mt-2 d-none anio-content">
+                                        <?php foreach ($meses as $mes => $totalMes): ?>
                                         <li class="list-group-item d-flex justify-content-between">
                                             <?= esc($mes) ?>
                                             <span class="badge bg-success"><?= $totalMes ?></span>
                                         </li>
-                                    <?php endforeach; ?>
-                                </ul>
+                                        <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                                <?php endforeach; ?>
+
                             </div>
+                        </li>
                         <?php endforeach; ?>
 
-                    </div>
-                </li>
-            <?php endforeach; ?>
-
-        </ul>
-    </div>
-</div>
-
+                    </ul>
+                </div>
+            </div>
 
         </div>
 
@@ -215,7 +215,7 @@ foreach ($oficios_persona_anio_mes as $row) {
 
             <div class="col-md-6">
                 <div class="panel-card">
-                    <div class="panel-title">Solicitudes por categoría</div>
+                    <div class="panel-title">🗃️ Solicitudes por categoría</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($total_por_solicitud as $row): ?>
                         <li class="list-group-item d-flex justify-content-between">
