@@ -207,7 +207,7 @@ INSERT INTO oficio (folio_registro, folio_remitente, folio_solicitud, folio_aten
 SELECT COUNT(*) AS total_atendidos
 FROM oficio o
 JOIN estado e ON o.folio_estado = e.folio_estado
-WHERE e.estado = 'Atendido';
+WHERE e.estado = 'Archivado';
 
 -- ==== TOTAL ARCHIVADOS POR PERSONA checar ==== --
 

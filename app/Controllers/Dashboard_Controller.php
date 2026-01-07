@@ -39,6 +39,10 @@ class Dashboard_Controller extends BaseController
             'total_por_solicitud'        => $this->dashboardModel->totalPorSolicitud()
         ];
 
-        return view('dashboard', $data);
+        $css = [
+            'style' => 'assets/css/Dashboard.css'
+        ];
+        return view('head', $css)
+               .view('dashboard', $data);
     }
 }
