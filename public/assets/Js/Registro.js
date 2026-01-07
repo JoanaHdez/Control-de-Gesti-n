@@ -191,3 +191,15 @@ document
     folioInput.value = "";
   }
 });
+
+
+document.getElementById('btnDashboard').addEventListener('click', function () {
+    const url = this.dataset.url;
+
+    fetch(url)
+        .then(res => res.text())
+        .then(html => {
+            document.getElementById('dashboardContent').innerHTML = html;
+            new bootstrap.Modal(document.getElementById('dashboardModal')).show();
+        });
+});

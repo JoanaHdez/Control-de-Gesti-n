@@ -36,11 +36,10 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-    <a class="nav-link" href="<?= base_url('dashboard') ?>">
-        Dashboard
-    </a>
-</li>
-
+                                <a class="nav-link" href="<?= base_url('dashboard') ?>">
+                                    Reporte
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -440,6 +439,12 @@
                                 </div>
                             </div>
                         </div>
+
+                        <button id="btnDashboard" data-url="<?= base_url('dashboard/modal') ?>">
+    Abrir Dashboard
+</button>
+
+
                     </div>
 
                     <!-- ----------------------------------------------------------------------- SECCION 3 PENDIENTES ----------------------------------------------------------------------- -->
@@ -516,7 +521,8 @@
 
                                                 <!-- Estado -->
                                                 <td>
-                                                    <span class="bg-danger badge <?= $clase ?> d-inline-block text-center"
+                                                    <span
+                                                        class="bg-danger badge <?= $clase ?> d-inline-block text-center"
                                                         style="width:80px;">
                                                         <?= esc($row['estado']) ?>
                                                     </span>
@@ -626,7 +632,8 @@
 
                                                 <!-- Estado -->
                                                 <td>
-                                                    <span class="bg-warning text-dark badge <?= $clase ?> d-inline-block text-center"
+                                                    <span
+                                                        class="bg-warning text-dark badge <?= $clase ?> d-inline-block text-center"
                                                         style="width:80px;">
                                                         <?= esc($row['estado']) ?>
                                                     </span>
@@ -1183,7 +1190,27 @@
                         </div>
                     </div>
 
-                    
+
+
+                    <div class="modal fade" id="dashboardModal" tabindex="-1">
+  <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title">Dashboard de Oficios</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <div class="modal-body" id="dashboardContent">
+        <div class="text-center py-5">
+            <div class="spinner-border text-primary"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
                 </div>
             </div>
         </section>
@@ -1192,6 +1219,7 @@
     <script>
     const BASE_URL_DETALLES = "<?= base_url('oficios/detalles/') ?>";
     const BASE_URL_EDITAR = "<?= base_url('oficios/editar/') ?>";
+    
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="<?= base_url('/assets/js/Registro.js') ?>"></script>
