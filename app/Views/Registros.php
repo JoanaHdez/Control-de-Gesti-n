@@ -47,8 +47,6 @@
                     </div>
                 </div>
 
-
-
                 <div class="tab-content mt-3">
                     <!-- ----------------------------------------------------------------------- SECCION 1 REGISTRO ----------------------------------------------------------------------- -->
 
@@ -340,8 +338,8 @@
                             <nav class="nav-2 navbar">
                                 <div class="container-fluid">
                                     <form class="d-flex w-50 mt-3">
-                                        <input class="form-control me-3 flex-grow-1" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                        <input id="buscadorGeneral" class="form-control me-3 flex-grow-1" type="search"
+                                            placeholder="Buscar..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
@@ -469,8 +467,8 @@
                             <nav class="nav-2 navbar">
                                 <div class="container-fluid">
                                     <form class="d-flex w-50 mt-3">
-                                        <input class="form-control me-3 flex-grow-1" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                        <input id="buscadorGeneral" class="form-control me-3 flex-grow-1" type="search"
+                                            placeholder="Buscar..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
@@ -597,8 +595,8 @@
                             <nav class="nav-2 navbar">
                                 <div class="container-fluid">
                                     <form class="d-flex w-50 mt-3">
-                                        <input class="form-control me-3 flex-grow-1" type="search" placeholder="Search"
-                                            aria-label="Search">
+                                        <input id="buscadorGeneral" class="form-control me-3 flex-grow-1" type="search"
+                                            placeholder="Buscar..." aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
@@ -634,15 +632,15 @@
                                         <div class="tbody-scroll">
                                             <table class="table table-striped table-hover mb-0">
                                                 <colgroup>
-                                                <col style="width: 3%;">
-                                                <col style="width: 15%;">
-                                                <col style="width: 5%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 40%;">
-                                                <col style="width: 10%;">
-                                                <col style="width: 10%;">
-                                            </colgroup>
+                                                    <col style="width: 3%;">
+                                                    <col style="width: 15%;">
+                                                    <col style="width: 5%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                </colgroup>
                                                 <tbody class="text-center align-middle">
 
                                                     <?php if (!empty($tramiteOficio)): ?>

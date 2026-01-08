@@ -20,6 +20,25 @@ document
 
 console.log("JS cargado");
 
+/* --------------------------------------- BUSCADOR --------------------------------------- */
+
+document.addEventListener("input", function (e) {
+    if (e.target.id === "buscadorGeneral") {
+        const filtro = e.target.value.toLowerCase();
+        const filas = document.querySelectorAll(".tbody-scroll tbody tr");
+
+        filas.forEach(function (fila) {
+            const textoFila = fila.textContent.toLowerCase();
+
+            if (textoFila.includes(filtro)) {
+                fila.style.display = "";
+            } else {
+                fila.style.display = "none";
+            }
+        });
+    }
+});
+
 /* --------------------------------------- DETALLES --------------------------------------- */
 
 document.addEventListener("DOMContentLoaded", () => {
