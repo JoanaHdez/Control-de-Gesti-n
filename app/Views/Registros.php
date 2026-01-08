@@ -36,13 +36,18 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="<?= base_url('dashboard') ?>">
+                                <a class="nav-link" id="btnDashboard" data-url="<?= base_url('dashboard/modal') ?>">
                                     Reporte
                                 </a>
+                                <!-- <button id="btnDashboard" data-url="<?= base_url('dashboard/modal') ?>">
+                                            Abrir Dashboard
+                                        </button> -->
                             </li>
                         </ul>
                     </div>
                 </div>
+
+
 
                 <div class="tab-content mt-3">
                     <!-- ----------------------------------------------------------------------- SECCION 1 REGISTRO ----------------------------------------------------------------------- -->
@@ -340,7 +345,7 @@
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
-                            </nav>
+                            </nav>                            
                             <div class="container-fluid pt-5">
                                 <div class="table-responsive">
                                     <table class="table table-striped table-hover">
@@ -438,13 +443,7 @@
                                     </table>
                                 </div>
                             </div>
-                        </div>
-
-                        <button id="btnDashboard" data-url="<?= base_url('dashboard/modal') ?>">
-                            Abrir Dashboard
-                        </button>
-
-
+                        </div>                        
                     </div>
 
                     <!-- ----------------------------------------------------------------------- SECCION 3 PENDIENTES ----------------------------------------------------------------------- -->
@@ -1207,6 +1206,7 @@
                             </div>
                         </div>
                     </div>
+                
                 </div>
             </div>
         </section>

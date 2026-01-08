@@ -31,28 +31,32 @@ foreach ($oficios_persona_anio_mes as $row) {
         <!-- FILA 1 - KPIs -->
         <div class="row g-3 mb-4">
             <div class="col-md-3">
-                <div class="kpi-card kpi-green">
+                <div class="kpi-card kpi-green" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios archivados correctamente">
                     <div class="kpi-title">Archivados</div>
                     <div class="kpi-value"><?= $total_atendidos ?></div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="kpi-card kpi-yellow">
+                <div class="kpi-card kpi-yellow" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de ficios que se encuentran en proceso">
                     <div class="kpi-title">En trámite</div>
                     <div class="kpi-value"><?= $total_tramite ?></div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="kpi-card kpi-red">
+                <div class="kpi-card kpi-red" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios pendientes por atender">
                     <div class="kpi-title">Pendientes</div>
                     <div class="kpi-value"><?= $total_pendientes ?></div>
                 </div>
             </div>
 
             <div class="col-md-3">
-                <div class="kpi-card kpi-blue">
+                <div class="kpi-card kpi-blue" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios atendidos por la Sección II">
                     <div class="kpi-title">Sección II</div>
                     <div class="kpi-value"><?= $total_seccion_2 ?></div>
                 </div>
@@ -60,6 +64,7 @@ foreach ($oficios_persona_anio_mes as $row) {
         </div>
 
         <!-- FILA 2 - POR PERSONA -->
+
         <div class="row g-3 mb-4">
             <div class="col-md-4">
                 <div class="panel-card">
@@ -148,6 +153,7 @@ foreach ($oficios_persona_anio_mes as $row) {
         <!-- =========================
                                     OFICIOS POR MES
                                 ========================= -->
+
         <div class="row g-3 mb-4">
             <div class="col-md-6">
                 <div class="panel-card">
@@ -227,5 +233,8 @@ foreach ($oficios_persona_anio_mes as $row) {
                 </div>
             </div>
         </div>
+
+
     </div>
+
 </div>

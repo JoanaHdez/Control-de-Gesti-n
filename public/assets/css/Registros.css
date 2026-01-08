@@ -197,3 +197,34 @@ td svg {
     background: #f9fafb;
     border-bottom: 1px solid #e5e7eb;
 }
+
+.kpi-card {
+    overflow: visible !important;
+    position: relative;
+    z-index: 10;
+}
+
+.tooltip {
+    z-index: 9999 !important;
+}
+
+
+/* Limitar altura de listas a 5 items aprox y activar scroll */
+.panel-card .list-group {
+    max-height: 260px;   /* ajusta si tus filas son más altas */
+    overflow-y: auto;
+}
+
+/* Scroll bonito (opcional) */
+.panel-card .list-group::-webkit-scrollbar {
+    width: 6px;
+}
+
+.panel-card .list-group::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 10px;
+}
+
+.panel-card .list-group::-webkit-scrollbar-thumb:hover {
+    background: #999;
+}

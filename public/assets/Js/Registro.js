@@ -205,6 +205,22 @@ document.getElementById('btnDashboard').addEventListener('click', function () {
         });
 });
 
+function initTooltips() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipTriggerList.forEach(function (el) {
+        new bootstrap.Tooltip(el);
+    });
+}
+
+// Ejecutar al cargar
+initTooltips();
+
+// Y volver a ejecutar cada vez que se cargue el dashboard en modal
+document.addEventListener("shown.bs.modal", function () {
+    initTooltips();
+});
+
+
 document.addEventListener("click", function(e) {
 
     // PERSONA
