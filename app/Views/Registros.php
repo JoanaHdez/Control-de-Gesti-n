@@ -171,7 +171,7 @@
 
                                     <div class="row g-3 mt-3">
                                         <div class="col-md-3">
-                                            <label>Tipo de Tramite</label>
+                                            <label>Solicitud</label>
                                             <select name="folio_tramite" class="form-select pill-select" required>
                                                 <option value=""> Seleccione</option>
 
@@ -184,7 +184,7 @@
                                             </select>
                                         </div>
                                         <div class="col-md-9 mt-3">
-                                            <label for="">Solicitud</label>
+                                            <label for="">Asunto</label>
                                             <textarea name="solicitud" class="form-control pill-textarea" rows="4"
                                                 required></textarea>
                                         </div>
@@ -217,7 +217,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-9">
-                                            <label>Asunto</label>
+                                            <label>Respuesta</label>
                                             <textarea name="asunto" class="form-control pill-textarea h-100"
                                                 rows="4"></textarea>
                                         </div>

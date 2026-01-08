@@ -108,8 +108,8 @@ class Dashboard_Model extends Model
     } */
 
     public function oficiosPorPersonaAnioMes()
-{
-    return $this->db->query("
+    {
+        return $this->db->query("
         SELECT 
             p.nombre_responsable,
             YEAR(ro.fecha_recepcion) AS anio,
@@ -129,7 +129,7 @@ class Dashboard_Model extends Model
             anio DESC,
             mes_num
     ")->getResultArray();
-}
+    }
 
 
     public function totalInternos()
@@ -229,7 +229,16 @@ class Dashboard_Model extends Model
                 WHEN LOWER(s.solicitud) LIKE '%mesa%' 
                   OR LOWER(s.solicitud) LIKE '%foro%' 
                   OR LOWER(s.solicitud) LIKE '%encuentro%' 
+                  OR LOWER(s.solicitud) LIKE '%comite%' 
+                  OR LOWER(s.solicitud) LIKE '%comité%' 
                   THEN 'Mesas de trabajo'
+
+                WHEN LOWER(s.solicitud) LIKE '%ponenc%' 
+                  OR LOWER(s.solicitud) LIKE '%presenta%' 
+                  OR LOWER(s.solicitud) LIKE '%exposic%' 
+                  OR LOWER(s.solicitud) LIKE '%intervenc%' 
+                  OR LOWER(s.solicitud) LIKE '%comparec%' 
+                  THEN 'Presentaciones'
 
                 ELSE 'Otros'
               END AS categoria,
