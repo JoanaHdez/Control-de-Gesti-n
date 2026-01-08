@@ -252,8 +252,8 @@
                                         <div class="col-md-3">
                                             <label>Archivado en</label>
                                             <select name="folio_archivado" id="folio_archivado"
-                                                class="form-select pill-select" required>
-                                                <option value="">Seleccione...</option>
+                                                class="form-select pill-select">
+                                                <option value="">Selección</option>
                                                 <?php foreach ($archivados as $a): ?>
                                                 <option value="<?= $a['folio_archivado'] ?>">
                                                     <?= esc($a['archivado']) ?>
@@ -297,28 +297,6 @@
                                             <label>Sección Responsable</label>
                                             <input type="text" id="folio_seccion" class="form-control pill-input"
                                                 readonly>
-                                        </div>
-                                    </div>
-
-                                    <!-- ------------------------- PONENCIA/REUNION ------------------------- -->
-
-                                    <h5 class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">Ponencia
-                                        /
-                                        Reunión
-                                    </h5>
-
-                                    <div class="d-flex justify-content-center pt-3">
-                                        <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                    </div>
-
-                                    <div class="row g-3 mt-3">
-                                        <div class="col-md-3">
-                                            <label>Ponencia</label>
-                                            <input type="text" name="ponencia" class="form-control pill-input">
-                                        </div>
-                                        <div class="col-md-3">
-                                            <label>Reunión de coordinación</label>
-                                            <input type="text" name="reunion" class="form-control pill-input">
                                         </div>
                                     </div>
                                     <div class="d-flex justify-content-center mt-5">
@@ -922,31 +900,7 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- ------------------------- PONENCIA/REUNION ------------------------- -->
 
-                                                <h5
-                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
-                                                    Ponencia
-                                                    /
-                                                    Reunión
-                                                </h5>
-
-                                                <div class="d-flex justify-content-center pt-3">
-                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                                </div>
-
-                                                <div class="row g-3 mt-3">
-                                                    <div class="col-md-3">
-                                                        <label>Ponencia</label>
-                                                        <input type="text" id="ponencia" class="form-control pill-input"
-                                                            readonly>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label>Reunión de coordinación</label>
-                                                        <input type="text" id="reunion" class="form-control pill-input"
-                                                            readonly>
-                                                    </div>
-                                                </div>
                                                 <div class="d-flex justify-content-center mt-5">
                                                     <button type="submit" class="btn btn-submit">
                                                         Guardar Oficio

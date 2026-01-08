@@ -19,9 +19,8 @@ class Oficio_Model extends Model
         'folio_solicitud',
         'folio_atencion',
         'folio_estado',
-        'folio_pr',
         'folio_sec_resp',
-        'folio_archivado' 
+        'folio_archivado'
     ];
 
     public function getGeneral()
@@ -87,9 +86,6 @@ class Oficio_Model extends Model
 
             p.nombre_responsable,
             sec.nombre_seccion,
-
-            pr.ponencia,
-            pr.reunion
         ')
 
             /* ===== REGISTRO ===== */
@@ -116,9 +112,6 @@ class Oficio_Model extends Model
             ->join('seccion_responsable sr', 'sr.folio_sec_resp = o.folio_sec_resp', 'left')
             ->join('personal p', 'p.folio_personal = sr.folio_personal', 'left')
             ->join('seccion sec', 'sec.folio_seccion = p.folio_seccion', 'left')
-
-            /* ===== PONENCIA ===== */
-            ->join('ponencia_reunion pr', 'pr.folio_pr = o.folio_pr', 'left')
 
             ->where('o.folio_registro', $folio)
             ->get()
@@ -157,9 +150,6 @@ class Oficio_Model extends Model
             sr.folio_sec_resp,
             sec.nombre_seccion,
 
-            pr.folio_pr,
-            pr.ponencia,
-            pr.reunion
         ')
             ->join('registro_oficio ro', 'ro.folio_registro = o.folio_registro')
             ->join('remitente r', 'r.folio_remitente = o.folio_remitente')
@@ -178,11 +168,8 @@ class Oficio_Model extends Model
             ->join('personal p', 'p.folio_personal = sr.folio_personal', 'left')
             ->join('seccion sec', 'sec.folio_seccion = p.folio_seccion', 'left')
 
-            ->join('ponencia_reunion pr', 'pr.folio_pr = o.folio_pr', 'left')
-
             ->where('o.folio_registro', $folio)
             ->get()
             ->getRowArray();
     }
-
 }

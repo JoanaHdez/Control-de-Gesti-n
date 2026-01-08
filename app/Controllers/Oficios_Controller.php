@@ -33,8 +33,6 @@ class Oficios_Controller extends BaseController
         'fecha_contestacion'  => 'permit_empty|valid_date',
         'asunto'             => 'permit_empty',
         'folio_sec_resp'      => 'required|integer',
-        'ponencia'            => 'permit_empty|max_length[150]',
-        'reunion'             => 'permit_empty|max_length[150]',
         'folio_estado'        => 'required|integer',
     ];
 
@@ -120,23 +118,6 @@ class Oficios_Controller extends BaseController
         $folio_atencion = $db->insertID();
     }
 
-    // ================= PONENCIA / REUNIÓN =================
-    $folio_pr = $this->request->getPost('folio_pr');
-
-    $ponenciaData = [
-        'ponencia' => $this->request->getPost('ponencia') ?: null,
-        'reunion'  => $this->request->getPost('reunion') ?: null,
-    ];
-
-    if ($folio_pr) {
-        $db->table('ponencia_reunion')
-            ->where('folio_pr', $folio_pr)
-            ->update($ponenciaData);
-    } elseif (array_filter($ponenciaData)) {
-        $db->table('ponencia_reunion')->insert($ponenciaData);
-        $folio_pr = $db->insertID();
-    }
-
     // ================= CREAR =================
     if (!$esEdicion) {
 
@@ -152,7 +133,6 @@ class Oficios_Controller extends BaseController
             'folio_remitente'=> $this->request->getPost('folio_remitente'),
             'folio_solicitud'=> $folio_solicitud,
             'folio_atencion' => $folio_atencion,
-            'folio_pr'       => $folio_pr,
             'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
             'folio_estado'   => $this->request->getPost('folio_estado'),
             'folio_archivado'=> $this->request->getPost('folio_archivado') ?: null,
@@ -170,7 +150,6 @@ class Oficios_Controller extends BaseController
                 'folio_remitente'=> $this->request->getPost('folio_remitente'),
                 'folio_solicitud'=> $folio_solicitud,
                 'folio_atencion' => $folio_atencion,
-                'folio_pr'       => $folio_pr,
                 'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
                 'folio_estado'   => $this->request->getPost('folio_estado'),
             ]);

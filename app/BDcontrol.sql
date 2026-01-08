@@ -109,6 +109,7 @@ CREATE TABLE oficio (
   folio_pr INT,
   folio_sec_resp INT,
   folio_estado INT NOT NULL,
+  folio_archivado INT,
 
   FOREIGN KEY (folio_registro) REFERENCES registro_oficio(folio_registro),
   FOREIGN KEY (folio_remitente) REFERENCES remitente(folio_remitente),
@@ -116,7 +117,8 @@ CREATE TABLE oficio (
   FOREIGN KEY (folio_atencion) REFERENCES descripcion_atencion(folio_atencion),
   FOREIGN KEY (folio_pr) REFERENCES ponencia_reunion(folio_pr),
   FOREIGN KEY (folio_sec_resp) REFERENCES seccion_responsable(folio_sec_resp),
-  FOREIGN KEY (folio_estado) REFERENCES estado(folio_estado)
+  FOREIGN KEY (folio_estado) REFERENCES estado(folio_estado),
+  FOREIGN KEY (folio_archivado) REFERENCES archivado(folio_archivado),
 ) ENGINE=InnoDB;
 
 -- =========================

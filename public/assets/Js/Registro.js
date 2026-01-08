@@ -23,20 +23,20 @@ console.log("JS cargado");
 /* --------------------------------------- BUSCADOR --------------------------------------- */
 
 document.addEventListener("input", function (e) {
-    if (e.target.id === "buscadorGeneral") {
-        const filtro = e.target.value.toLowerCase();
-        const filas = document.querySelectorAll(".tbody-scroll tbody tr");
+  if (e.target.id === "buscadorGeneral") {
+    const filtro = e.target.value.toLowerCase();
+    const filas = document.querySelectorAll(".tbody-scroll tbody tr");
 
-        filas.forEach(function (fila) {
-            const textoFila = fila.textContent.toLowerCase();
+    filas.forEach(function (fila) {
+      const textoFila = fila.textContent.toLowerCase();
 
-            if (textoFila.includes(filtro)) {
-                fila.style.display = "";
-            } else {
-                fila.style.display = "none";
-            }
-        });
-    }
+      if (textoFila.includes(filtro)) {
+        fila.style.display = "";
+      } else {
+        fila.style.display = "none";
+      }
+    });
+  }
 });
 
 /* --------------------------------------- DETALLES --------------------------------------- */
@@ -64,7 +64,9 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("nombre_area").value = d.nombre_area;
 
           document.getElementById("tramite").value = d.tramite;
-          document.getElementById("solicitud").value = d.solicitud, "-", d.tramite;
+          (document.getElementById("solicitud").value = d.solicitud),
+            "-",
+            d.tramite;
 
           document.getElementById("oficio_contestacion").value =
             d.oficio_contestacion ?? "";
@@ -72,15 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
             d.fecha_contestacion ?? "";
           document.getElementById("asunto").value = d.asunto ?? "";
 
-document.getElementById("archivado").value = d.archivado ?? "";
+          document.getElementById("archivado").value = d.archivado ?? "";
           document.getElementById("estado").value = d.estado;
 
           document.getElementById("nombre_responsable").value =
             d.nombre_responsable;
           document.getElementById("nombre_seccion").value = d.nombre_seccion;
-
-          document.getElementById("ponencia").value = d.ponencia ?? "No aplica";
-          document.getElementById("reunion").value = d.reunion ?? "No aplica";
         })
         .catch(() => {
           alert("No se pudieron cargar los datos del oficio");
@@ -115,9 +114,9 @@ document.addEventListener("click", function (e) {
       document.getElementById("folio_original").value = d.folio_registro;
 
       console.log(
-    "folio_original:",
-    document.getElementById("folio_original").value
-  );
+        "folio_original:",
+        document.getElementById("folio_original").value
+      );
 
       document.getElementById("folio_registro_edit").value =
         d.folio_registro ?? "";
@@ -143,18 +142,14 @@ document.addEventListener("click", function (e) {
       document.getElementById("asunto_edit").value = d.asunto ?? "";
 
       // ================= ESTADO =================
-    document.getElementById("folio_archivado_edit").value = d.folio_archivado ?? "";
+      document.getElementById("folio_archivado_edit").value =
+        d.folio_archivado ?? "";
       document.getElementById("estado_edit").value = d.folio_estado ?? "";
 
       // ================= SECCIÓN RESPONSABLE =================
       const secRespSelect = document.getElementById("folio_sec_resp_edit");
       secRespSelect.value = d.folio_sec_resp ?? "";
       secRespSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
-
-      // ================= PONENCIA / REUNIÓN =================
-      document.getElementById("ponencia_edit").value =
-        d.ponencia ?? "No aplica";
-      document.getElementById("reunion_edit").value = d.reunion ?? "No aplica";
 
       // ================= ABRIR MODAL =================
       const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
@@ -188,8 +183,7 @@ document
       selected?.dataset.seccion || "";
   });
 
-
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
   const folioInput = document.querySelector('input[name="folio_registro"]');
   const form = folioInput.closest("form");
 
@@ -208,29 +202,35 @@ document
   });
 
   // ================= OPCIONAL: Si ya vino con error desde backend =================
-  if (folioInput && folioInput.value && form.querySelector(".invalid-feedback")) {
+  if (
+    folioInput &&
+    folioInput.value &&
+    form.querySelector(".invalid-feedback")
+  ) {
     folioInput.value = "";
   }
 });
 
 /* --------------------------------------- REPORTE --------------------------------------- */
 
-document.getElementById('btnDashboard').addEventListener('click', function () {
-    const url = this.dataset.url;
+document.getElementById("btnDashboard").addEventListener("click", function () {
+  const url = this.dataset.url;
 
-    fetch(url)
-        .then(res => res.text())
-        .then(html => {
-            document.getElementById('dashboardContent').innerHTML = html;
-            new bootstrap.Modal(document.getElementById('dashboardModal')).show();
-        });
+  fetch(url)
+    .then((res) => res.text())
+    .then((html) => {
+      document.getElementById("dashboardContent").innerHTML = html;
+      new bootstrap.Modal(document.getElementById("dashboardModal")).show();
+    });
 });
 
 function initTooltips() {
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    tooltipTriggerList.forEach(function (el) {
-        new bootstrap.Tooltip(el);
-    });
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  tooltipTriggerList.forEach(function (el) {
+    new bootstrap.Tooltip(el);
+  });
 }
 
 // Ejecutar al cargar
@@ -238,30 +238,27 @@ initTooltips();
 
 // Y volver a ejecutar cada vez que se cargue el dashboard en modal
 document.addEventListener("shown.bs.modal", function () {
-    initTooltips();
+  initTooltips();
 });
 
-
-document.addEventListener("click", function(e) {
-
-    // PERSONA
-    const btnPersona = e.target.closest(".toggle-persona");
-    if (btnPersona) {
-        const content = btnPersona.nextElementSibling;
-        if (content) {
-            content.classList.toggle("d-none");
-        }
-        return;
+document.addEventListener("click", function (e) {
+  // PERSONA
+  const btnPersona = e.target.closest(".toggle-persona");
+  if (btnPersona) {
+    const content = btnPersona.nextElementSibling;
+    if (content) {
+      content.classList.toggle("d-none");
     }
+    return;
+  }
 
-    // AÑO
-    const btnAnio = e.target.closest(".toggle-anio");
-    if (btnAnio) {
-        const content = btnAnio.nextElementSibling;
-        if (content) {
-            content.classList.toggle("d-none");
-        }
-        return;
+  // AÑO
+  const btnAnio = e.target.closest(".toggle-anio");
+  if (btnAnio) {
+    const content = btnAnio.nextElementSibling;
+    if (content) {
+      content.classList.toggle("d-none");
     }
-
+    return;
+  }
 });
