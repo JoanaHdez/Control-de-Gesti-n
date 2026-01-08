@@ -1165,31 +1165,6 @@
                                                     </div>
                                                 </div>
 
-                                                <!-- ------------------------- PONENCIA/REUNION ------------------------- -->
-
-                                                <h5
-                                                    class="CF-sub-1 d-flex justify-content-center fw-bold text-muted pt-5">
-                                                    Ponencia
-                                                    /
-                                                    Reunión
-                                                </h5>
-
-                                                <div class="d-flex justify-content-center pt-3">
-                                                    <div class="SPD-line-1 border-top border-4 border-muted"></div>
-                                                </div>
-
-                                                <div class="row g-3 mt-3">
-                                                    <div class="col-md-3">
-                                                        <label>Ponencia</label>
-                                                        <input type="text" id="ponencia_edit" name="ponencia"
-                                                            class="form-control pill-input" required>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <label>Reunión de coordinación</label>
-                                                        <input type="text" id="reunion_edit" name="reunion"
-                                                            class="form-control pill-input" required>
-                                                    </div>
-                                                </div>
                                                 <div class="d-flex justify-content-center mt-5">
                                                     <button type="submit" class="btn btn-submit btn-edit">
                                                         Guardar Cambios
@@ -1222,7 +1197,31 @@
                     </div>
 
                 </div>
+                <div class="modal fade" id="modalArchivoEstado" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+
+                            <div class="modal-header bg-warning">
+                                <h5 class="modal-title">⚠ Atención</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                            </div>
+
+                            <div class="modal-body">
+                                <p>
+                                    El estado ha cambiado o se ha marcado como <strong>ARCHIVADO</strong>.
+                                    Es obligatorio adjuntar el archivo correspondiente.
+                                </p>
+
+                                <input class="form-control mt-2" type="file" name="archivo_estado" id="archivo_estado">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
+
         </section>
     </main>
 

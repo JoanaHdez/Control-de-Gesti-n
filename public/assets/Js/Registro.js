@@ -1,3 +1,6 @@
+let estadoOriginal = null;
+let modalArchivo = null;
+
 document.addEventListener("DOMContentLoaded", function () {
   const selectRemitente = document.getElementById("folio_remitente");
   const inputCargo = document.getElementById("folio_cargo"); // coincide con tu HTML
@@ -92,6 +95,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
 console.log("Registro.js cargado correctamente");
 
+
+document.addEventListener("DOMContentLoaded", function () {
+
+  // Inicializamos el modal de archivo
+  const modalArchivoElement = document.getElementById("modalArchivoEstado");
+  if (modalArchivoElement) {
+    modalArchivo = new bootstrap.Modal(modalArchivoElement);
+  }
+
+  // ================= DETECTAR CAMBIO DE ESTADO =================
+  const estadoSelect = document.getElementById("estado_edit");
+
+  if (estadoSelect) {
+    estadoSelect.addEventListener("change", function () {
+      const estadoNuevo = this.value;
+
+      const ID_ARCHIVADO = "4"; // ⚠️ CAMBIA ESTE VALOR POR EL REAL
+
+      console.log("Estado original:", estadoOriginal);
+      console.log("Estado nuevo:", estadoNuevo);
+
+      if (estadoNuevo !== estadoOriginal || estadoNuevo === ID_ARCHIVADO) {
+        if (modalArchivo) {
+          modalArchivo.show();
+        } else {
+          alert("Debe adjuntar archivo (estado cambiado o archivado)"); // fallback
+        }
+      }
+    });
+  }
+
 document.addEventListener("click", function (e) {
   const btn = e.target.closest(".btn-editar");
   if (!btn) return;
@@ -146,6 +180,12 @@ document.addEventListener("click", function (e) {
         d.folio_archivado ?? "";
       document.getElementById("estado_edit").value = d.folio_estado ?? "";
 
+      // Guardamos estado original
+      estadoOriginal = d.folio_estado ?? "";
+
+      // Limpiamos archivo
+      document.getElementById("archivo_estado").value = "";
+
       // ================= SECCIÓN RESPONSABLE =================
       const secRespSelect = document.getElementById("folio_sec_resp_edit");
       secRespSelect.value = d.folio_sec_resp ?? "";
@@ -160,6 +200,8 @@ document.addEventListener("click", function (e) {
       alert("No se pudieron cargar los datos");
     });
 });
+});
+
 
 // ================= DEPENDENCIAS =================
 
