@@ -57,17 +57,21 @@ class Registros_Controller extends BaseController
             'personal' => $personalModel->findAll(),
             'seccion' => $seccionModel->findAll(),
             'remitentes' => $remitentes,
-            'seccion_responsable' => $seccionresponsableModel->getSeccionesResponsables(),
+            'seccion_responsable' => $seccion_responsable,
 
             'general' => $oficioModel->getGeneral(),
             'pendientes' => $pendientes,
             'tramiteOficio'    => $tramiteOficios,
         ];
 
-
+        // echo "<pre>";
+        // print_r($data);
+        // echo "</pre>";
+        // exit;
         $css = [
             'style' => 'assets/css/Registros.css'
         ];
+
         return view('head', $css)
             . view('Registros', $data);
     }

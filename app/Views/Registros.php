@@ -816,7 +816,7 @@
                                                 <div class="row g-3 mt-3">
                                                     <div class="col-md-3">
                                                         <label>Tipo de Tramite</label>
-                                                        <input id="tramite" class="form-select pill-select" readonly>
+                                                        <input id="tramite" class="form-select pill-select" value="<?= esc($general[0]['tramite']) ?>" readonly>
                                                         </input>
                                                     </div>
                                                     <div class="col-md-9 mt-3">
@@ -895,7 +895,8 @@
                                                 <div class="row g-3 mt-4">
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
-                                                        <input id="archivado" class="form-select pill-select" readonly>
+                                                        
+                                                        <input id="archivado" class="form-select pill-select" value="<?= $archivado['archivado'] ?>" readonly>
                                                         </input>
                                                     </div>
                                                     <div class="col-md-3">
@@ -1159,8 +1160,8 @@
                                                 <div class="row g-3 mt-4">
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
-                                                        <input id="archivado" class="form-select pill-select" readonly>
-                                                        </input>
+                                                        
+                                                        <input type="text" id="archivado" class="form-select pill-select" value="<?= $archivado["archivado"] ?>" readonly></input>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Estatus</label>

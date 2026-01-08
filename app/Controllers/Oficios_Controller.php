@@ -213,7 +213,7 @@ class Oficios_Controller extends BaseController
                 ->setStatusCode(404)
                 ->setJSON(['error' => 'Registro no encontrado']);
         }
-
+        
         return $this->response->setJSON($data);
     }
 

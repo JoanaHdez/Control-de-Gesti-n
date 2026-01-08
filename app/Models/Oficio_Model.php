@@ -81,6 +81,7 @@ class Oficio_Model extends Model
             da.fecha_contestacion,
             da.asunto,
 
+            
             e.estado,
 
             p.nombre_responsable,

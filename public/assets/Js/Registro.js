@@ -53,6 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return r.json();
         })
         .then((d) => {
+          console.log("DETALLES: ", d);
           document.getElementById("folio_registro").value = d.folio_registro;
           document.getElementById("fecha_oficio").value = d.fecha_oficio;
           document.getElementById("referencia").value = d.referencia;
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("nombre_area").value = d.nombre_area;
 
           document.getElementById("tramite").value = d.tramite;
-          document.getElementById("solicitud").value = d.solicitud;
+          document.getElementById("solicitud").value = d.solicitud, "-", d.tramite;
 
           document.getElementById("oficio_contestacion").value =
             d.oficio_contestacion ?? "";
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             d.fecha_contestacion ?? "";
           document.getElementById("asunto").value = d.asunto ?? "";
 
-          document.getElementById("archivado").value = d.archivado;
+          //document.getElementById("archivado").value = d.archivado;
           document.getElementById("estado").value = d.estado;
 
           document.getElementById("nombre_responsable").value =
