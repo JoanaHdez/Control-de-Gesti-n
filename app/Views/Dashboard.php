@@ -67,7 +67,8 @@ foreach ($oficios_persona_anio_mes as $row) {
 
         <div class="row g-3 mb-4">
             <div class="col-md-4">
-                <div class="panel-card">
+                <div class="panel-card"data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios atendidos por persona">
                     <div class="panel-title">✅ Atendidos por persona</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($atendidos_por_persona as $row): ?>
@@ -81,7 +82,8 @@ foreach ($oficios_persona_anio_mes as $row) {
             </div>
 
             <div class="col-md-4">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios que estan en proceso de trámite">
                     <div class="panel-title">⚠️ Trámite por persona</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($tramite_por_persona as $row): ?>
@@ -95,7 +97,8 @@ foreach ($oficios_persona_anio_mes as $row) {
             </div>
 
             <div class="col-md-4">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios que estan a la espera de respuesta">
                     <div class="panel-title">🚫 Pendientes por persona</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($pendientes_por_persona as $row): ?>
@@ -115,7 +118,8 @@ foreach ($oficios_persona_anio_mes as $row) {
         <div class="row g-3 mb-4">
 
             <div class="col-md-6">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios que son de áreas internas">
                     <div class="panel-title">🚓 Internos por sección</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($internos_por_area as $row): ?>
@@ -132,7 +136,8 @@ foreach ($oficios_persona_anio_mes as $row) {
             </div>
 
             <div class="col-md-6">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios que son de áreas externas">
                     <div class="panel-title">🏢 Externos por sección</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($externos_por_area as $row): ?>
@@ -156,7 +161,8 @@ foreach ($oficios_persona_anio_mes as $row) {
 
         <div class="row g-3 mb-4">
             <div class="col-md-6">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios que fueron atendidos por mes">
                     <div class="panel-title">🗓️ Oficios por mes</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($oficios_por_mes as $row): ?>
@@ -170,7 +176,8 @@ foreach ($oficios_persona_anio_mes as $row) {
             </div>
 
             <div class="col-md-6">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios que fueron atendidos por mes por persona">
                     <div class="panel-title">👤 Oficios por persona / año / mes</div>
 
                     <ul class="list-group list-group-flush">
@@ -220,7 +227,8 @@ foreach ($oficios_persona_anio_mes as $row) {
         <div class="row g-3 mb-4">
 
             <div class="col-md-6">
-                <div class="panel-card">
+                <div class="panel-card" data-bs-toggle="tooltip" data-bs-placement="top"
+                    title="Total de oficios por categoría relevante">
                     <div class="panel-title">🗃️ Solicitudes por categoría</div>
                     <ul class="list-group list-group-flush">
                         <?php foreach ($total_por_solicitud as $row): ?>
