@@ -251,16 +251,15 @@
                                     <div class="row g-3 mt-4">
                                         <div class="col-md-3">
                                             <label>Archivado en</label>
-                                            <select name="folio_archivado" class="form-select pill-select">
-                                                <option value="">Selección</option>
+                                            <select name="folio_archivado" id="folio_archivado" class="form-select pill-select" required>
+        <option value="">Seleccione...</option>
+        <?php foreach ($archivados as $a): ?>
+            <option value="<?= $a['folio_archivado'] ?>">
+                <?= esc($a['archivado']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
 
-                                                <?php foreach ($archivado as $archivado): ?>
-                                                <option value="<?= $archivado['folio_archivado'] ?>">
-                                                    <?= esc($archivado['archivado']) ?>
-                                                </option>
-                                                <?php endforeach; ?>
-
-                                            </select>
                                         </div>
                                         <div class="col-md-3">
                                             <label>Estatus</label>
@@ -816,7 +815,8 @@
                                                 <div class="row g-3 mt-3">
                                                     <div class="col-md-3">
                                                         <label>Tipo de Tramite</label>
-                                                        <input id="tramite" class="form-select pill-select" value="<?= esc($general[0]['tramite']) ?>" readonly>
+                                                        <input id="tramite" class="form-select pill-select"
+                                                            value="<?= esc($general[0]['tramite']) ?>" readonly>
                                                         </input>
                                                     </div>
                                                     <div class="col-md-9 mt-3">
@@ -895,9 +895,9 @@
                                                 <div class="row g-3 mt-4">
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
-                                                        
-                                                        <input id="archivado" class="form-select pill-select" value="<?= $archivado['archivado'] ?>" readonly>
-                                                        </input>
+    <input type="text" id="archivado" class="form-control pill-select" readonly>
+
+
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Estatus</label>
@@ -1160,8 +1160,15 @@
                                                 <div class="row g-3 mt-4">
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
-                                                        
-                                                        <input type="text" id="archivado" class="form-select pill-select" value="<?= $archivado["archivado"] ?>" readonly></input>
+
+                                                        <select name="folio_archivado" id="folio_archivado_edit" class="form-select pill-select" required>
+        <option value="">Seleccione...</option>
+        <?php foreach ($archivados as $a): ?>
+            <option value="<?= $a['folio_archivado'] ?>">
+                <?= esc($a['archivado']) ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Estatus</label>

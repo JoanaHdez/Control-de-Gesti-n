@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
             d.fecha_contestacion ?? "";
           document.getElementById("asunto").value = d.asunto ?? "";
 
-          //document.getElementById("archivado").value = d.archivado;
+document.getElementById("archivado").value = d.archivado ?? "";
           document.getElementById("estado").value = d.estado;
 
           document.getElementById("nombre_responsable").value =
@@ -143,6 +143,7 @@ document.addEventListener("click", function (e) {
       document.getElementById("asunto_edit").value = d.asunto ?? "";
 
       // ================= ESTADO =================
+    document.getElementById("folio_archivado_edit").value = d.folio_archivado ?? "";
       document.getElementById("estado_edit").value = d.folio_estado ?? "";
 
       // ================= SECCIÓN RESPONSABLE =================

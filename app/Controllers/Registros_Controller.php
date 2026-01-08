@@ -53,7 +53,8 @@ class Registros_Controller extends BaseController
             'areas'    => $areaModel->findAll(),
             'estados'  => $estadoModel->findAll(),
             'tramites' => $tramiteModel->findAll(),
-            'archivado' => $archivadoModel->findAll(),
+            'archivados' => $archivadoModel->findAll(),
+
             'personal' => $personalModel->findAll(),
             'seccion' => $seccionModel->findAll(),
             'remitentes' => $remitentes,

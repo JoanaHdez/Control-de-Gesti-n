@@ -20,7 +20,8 @@ class Oficio_Model extends Model
         'folio_atencion',
         'folio_estado',
         'folio_pr',
-        'folio_sec_resp'
+        'folio_sec_resp',
+        'folio_archivado' 
     ];
 
     public function getGeneral()
@@ -81,7 +82,7 @@ class Oficio_Model extends Model
             da.fecha_contestacion,
             da.asunto,
 
-            
+            ar.archivado,
             e.estado,
 
             p.nombre_responsable,
@@ -108,6 +109,7 @@ class Oficio_Model extends Model
             ->join('descripcion_atencion da', 'da.folio_atencion = o.folio_atencion', 'left')
 
             /* ===== ESTADO ===== */
+            ->join('archivado ar', 'ar.folio_archivado = o.folio_archivado', 'left')
             ->join('estado e', 'e.folio_estado = o.folio_estado')
 
             /* ===== SECCIÓN ===== */
@@ -131,6 +133,8 @@ class Oficio_Model extends Model
             ro.fecha_oficio,
             ro.referencia,
             ro.fecha_recepcion,
+
+            o.folio_archivado,
 
             r.folio_remitente,
             t.nombre_titular,
@@ -168,6 +172,7 @@ class Oficio_Model extends Model
 
             ->join('descripcion_atencion da', 'da.folio_atencion = o.folio_atencion', 'left')
             ->join('estado e', 'e.folio_estado = o.folio_estado')
+            ->join('archivado ar', 'ar.folio_archivado = o.folio_archivado', 'left')
 
             ->join('seccion_responsable sr', 'sr.folio_sec_resp = o.folio_sec_resp', 'left')
             ->join('personal p', 'p.folio_personal = sr.folio_personal', 'left')
