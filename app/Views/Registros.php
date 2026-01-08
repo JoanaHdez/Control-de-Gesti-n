@@ -345,54 +345,67 @@
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
-                            </nav>                            
-                            <div class="container-fluid pt-5">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
-                                        <colgroup>
-                                            <col style="width: 3%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 40%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                        </colgroup>
-                                        <thead class="table-1 text-center">
-                                            <tr>
-                                                <th>Folio</th>
-                                                <th>Fecha de Oficio</th>
-                                                <th>Referencia</th>
-                                                <th>Tipo de Tramite</th>
-                                                <th>Solicitud</th>
-                                                <th>Estatus</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </thead>
+                            </nav>
+                            <div class="container-fluid">
+                                <div class="table-wrapper">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover mb-0">
+                                            <colgroup>
+                                                <col style="width: 3%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 40%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                            </colgroup>
+                                            <thead class="table-1 text-center">
+                                                <tr>
+                                                    <th>Folio</th>
+                                                    <th>Fecha de Oficio</th>
+                                                    <th>Referencia</th>
+                                                    <th>Tipo de Tramite</th>
+                                                    <th>Solicitud</th>
+                                                    <th>Estatus</th>
+                                                    <th>Editar</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
 
-                                        <tbody class="text-center align-middle">
+                                        <div class="tbody-scroll">
+                                            <table class="table table-striped table-hover mb-0">
+                                                <colgroup>
+                                                    <col style="width: 3%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                </colgroup>
+                                                <tbody class="text-center align-middle">
 
-                                            <?php if (!empty($general)): ?>
-                                            <?php foreach ($general as $row): ?>
-                                            <tr>
-                                                <!-- Folio -->
-                                                <td><?= esc($row['folio_registro']) ?></td>
+                                                    <?php if (!empty($general)): ?>
+                                                    <?php foreach ($general as $row): ?>
+                                                    <tr>
+                                                        <!-- Folio -->
+                                                        <td><?= esc($row['folio_registro']) ?></td>
 
-                                                <!-- Fecha -->
-                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+                                                        <!-- Fecha -->
+                                                        <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
 
-                                                <!-- Referencia -->
-                                                <td><?= esc($row['referencia']) ?></td>
+                                                        <!-- Referencia -->
+                                                        <td><?= esc($row['referencia']) ?></td>
 
-                                                <!-- Trámite -->
-                                                <td><?= esc($row['tramite']) ?></td>
+                                                        <!-- Trámite -->
+                                                        <td><?= esc($row['tramite']) ?></td>
 
-                                                <!-- Solicitud -->
-                                                <td><?= esc($row['solicitud']) ?></td>
+                                                        <!-- Solicitud -->
+                                                        <td><?= esc($row['solicitud']) ?></td>
 
-                                                <!-- Estado -->
-                                                <td>
-                                                    <?php
+                                                        <!-- Estado -->
+                                                        <td>
+                                                            <?php
                                                             $estado = strtolower($row['estado']);
                                                             $clase = '';
 
@@ -411,39 +424,42 @@
                                                             }
                                                             ?>
 
-                                                    <span class="badge <?= $clase ?> d-inline-block text-center"
-                                                        style="width:80px;">
-                                                        <?= esc($row['estado']) ?>
-                                                    </span>
-                                                </td>
+                                                            <span class="badge <?= $clase ?> d-inline-block text-center"
+                                                                style="width:80px;">
+                                                                <?= esc($row['estado']) ?>
+                                                            </span>
+                                                        </td>
 
-                                                <!-- Acciones -->
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning btn-editar"
-                                                            data-folio="<?= esc($row['folio_registro']) ?>">
-                                                            ✏️
-                                                        </button>
-                                                        <button type="button" class="btn btn-info btn-detalles"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles"
-                                                            data-folio="<?= esc($row['folio_registro']) ?>">
-                                                            📄
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                        <!-- Acciones -->
+                                                        <td>
+                                                            <div class="d-flex justify-content-center gap-3">
+                                                                <button type="button" class="btn btn-warning btn-editar"
+                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                    ✏️
+                                                                </button>
+                                                                <button type="button" class="btn btn-info btn-detalles"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalDetalles"
+                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                    📄
+                                                                </button>
+                                                            </div>
+                                                        </td>
 
-                                            </tr>
-                                            <?php endforeach; ?>
-                                            <?php else: ?>
-                                            <tr>
-                                                <td colspan="10">No hay oficios pendientes</td>
-                                            </tr>
-                                            <?php endif; ?>
-                                        </tbody>
-                                    </table>
+                                                    </tr>
+                                                    <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                    <tr>
+                                                        <td colspan="10">No hay oficios pendientes</td>
+                                                    </tr>
+                                                    <?php endif; ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>                        
+                        </div>
                     </div>
 
                     <!-- ----------------------------------------------------------------------- SECCION 3 PENDIENTES ----------------------------------------------------------------------- -->
@@ -452,106 +468,123 @@
                         <div class="Pendientes container-fluid">
                             <nav class="nav-2 navbar">
                                 <div class="container-fluid">
-                                    <form class="d-flex w-50 pt-5">
+                                    <form class="d-flex w-50 mt-3">
                                         <input class="form-control me-3 flex-grow-1" type="search" placeholder="Search"
                                             aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
                             </nav>
-                            <div class="container-fluid pt-5">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
-                                        <colgroup>
-                                            <col style="width: 3%;">
-                                            <col style="width: 15%;">
-                                            <col style="width: 5%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 40%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                        </colgroup>
+                            <div class="container-fluid">
+                                <div class="table-wrapper">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover mb-0">
+                                            <colgroup>
+                                                <col style="width: 3%;">
+                                                <col style="width: 15%;">
+                                                <col style="width: 5%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 40%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                            </colgroup>
 
-                                        <thead class="table-1 text-center">
-                                            <tr>
-                                                <th></th>
-                                                <th>Nombre</th>
-                                                <th>Folio</th>
-                                                <th>Fecha de Oficio</th>
-                                                <th>Referencia</th>
-                                                <th>Solicitud</th>
-                                                <th>Estatus</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </thead>
+                                            <thead class="table-1 text-center">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Nombre</th>
+                                                    <th>Folio</th>
+                                                    <th>Fecha de Oficio</th>
+                                                    <th>Referencia</th>
+                                                    <th>Solicitud</th>
+                                                    <th>Estatus</th>
+                                                    <th>Editar</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
 
-                                        <tbody class="text-center align-middle">
+                                        <div class="tbody-scroll">
+                                            <table class="table table-striped table-hover mb-0">
+                                                <colgroup>
+                                                    <col style="width: 3%;">
+                                                    <col style="width: 15%;">
+                                                    <col style="width: 5%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 40%;">
+                                                    <col style="width: 10%;">
+                                                    <col style="width: 10%;">
+                                                </colgroup>
+                                                <tbody class="text-center align-middle">
 
-                                            <?php if (!empty($pendientes)): ?>
-                                            <?php foreach ($pendientes as $row): ?>
-                                            <tr>
+                                                    <?php if (!empty($pendientes)): ?>
+                                                    <?php foreach ($pendientes as $row): ?>
+                                                    <tr>
 
-                                                <!-- Ícono -->
-                                                <td>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                                        fill="currentColor" class="bi bi-person-circle"
-                                                        viewBox="0 0 16 16">
-                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
-                                                    </svg>
-                                                </td>
+                                                        <!-- Ícono -->
+                                                        <td>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                height="40" fill="currentColor"
+                                                                class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                                                <path fill-rule="evenodd"
+                                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
+                                                            </svg>
+                                                        </td>
 
-                                                <!-- Responsable -->
-                                                <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
+                                                        <!-- Responsable -->
+                                                        <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
 
-                                                <!-- Folio -->
-                                                <td><?= esc($row['folio_registro']) ?></td>
+                                                        <!-- Folio -->
+                                                        <td><?= esc($row['folio_registro']) ?></td>
 
-                                                <!-- Fecha -->
-                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+                                                        <!-- Fecha -->
+                                                        <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
 
-                                                <!-- Referencia -->
-                                                <td><?= esc($row['referencia']) ?></td>
+                                                        <!-- Referencia -->
+                                                        <td><?= esc($row['referencia']) ?></td>
 
-                                                <!-- Solicitud -->
-                                                <td><?= esc($row['solicitud']) ?></td>
+                                                        <!-- Solicitud -->
+                                                        <td><?= esc($row['solicitud']) ?></td>
 
-                                                <!-- Estado -->
-                                                <td>
-                                                    <span
-                                                        class="bg-danger badge <?= $clase ?> d-inline-block text-center"
-                                                        style="width:80px;">
-                                                        <?= esc($row['estado']) ?>
-                                                    </span>
-                                                </td>
+                                                        <!-- Estado -->
+                                                        <td>
+                                                            <span
+                                                                class="bg-danger badge <?= $clase ?> d-inline-block text-center"
+                                                                style="width:80px;">
+                                                                <?= esc($row['estado']) ?>
+                                                            </span>
+                                                        </td>
 
-                                                <!-- Acciones -->
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning btn-editar"
-                                                            data-folio="<?= esc($row['folio_registro']) ?>">
-                                                            ✏️
-                                                        </button>
-                                                        <button type="button" class="btn btn-info btn-detalles"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles"
-                                                            data-folio="<?= esc($row['folio_registro']) ?>">
-                                                            📄
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                        <!-- Acciones -->
+                                                        <td>
+                                                            <div class="d-flex justify-content-center gap-3">
+                                                                <button type="button" class="btn btn-warning btn-editar"
+                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                    ✏️
+                                                                </button>
+                                                                <button type="button" class="btn btn-info btn-detalles"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalDetalles"
+                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                    📄
+                                                                </button>
+                                                            </div>
+                                                        </td>
 
-                                            </tr>
-                                            <?php endforeach; ?>
-                                            <?php else: ?>
-                                            <tr>
-                                                <td colspan="8">No hay oficios registrados</td>
-                                            </tr>
-                                            <?php endif; ?>
+                                                    </tr>
+                                                    <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                    <tr>
+                                                        <td colspan="8">No hay oficios registrados</td>
+                                                    </tr>
+                                                    <?php endif; ?>
 
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -563,106 +596,122 @@
                         <div class="Tramites container-fluid">
                             <nav class="nav-2 navbar">
                                 <div class="container-fluid">
-                                    <form class="d-flex w-50 pt-5">
+                                    <form class="d-flex w-50 mt-3">
                                         <input class="form-control me-3 flex-grow-1" type="search" placeholder="Search"
                                             aria-label="Search">
                                         <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
                             </nav>
-                            <div class="container-fluid pt-5">
-                                <div class="table-responsive">
-                                    <table class="table table-striped table-hover">
-                                        <colgroup>
-                                            <col style="width: 3%;">
-                                            <col style="width: 15%;">
-                                            <col style="width: 5%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 40%;">
-                                            <col style="width: 10%;">
-                                            <col style="width: 10%;">
-                                        </colgroup>
+                            <div class="container-fluid">
+                                <div class="table-wrapper">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-hover mb-0">
+                                            <colgroup>
+                                                <col style="width: 3%;">
+                                                <col style="width: 15%;">
+                                                <col style="width: 5%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 40%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                            </colgroup>
 
-                                        <thead class="table-1 text-center">
-                                            <tr>
-                                                <th></th>
-                                                <th>Nombre</th>
-                                                <th>Folio</th>
-                                                <th>Fecha de Oficio</th>
-                                                <th>Referencia</th>
-                                                <th>Solicitud</th>
-                                                <th>Estatus</th>
-                                                <th>Editar</th>
-                                            </tr>
-                                        </thead>
+                                            <thead class="table-1 text-center">
+                                                <tr>
+                                                    <th></th>
+                                                    <th>Nombre</th>
+                                                    <th>Folio</th>
+                                                    <th>Fecha de Oficio</th>
+                                                    <th>Referencia</th>
+                                                    <th>Solicitud</th>
+                                                    <th>Estatus</th>
+                                                    <th>Editar</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="tbody-scroll">
+                                            <table class="table table-striped table-hover mb-0">
+                                                <colgroup>
+                                                <col style="width: 3%;">
+                                                <col style="width: 15%;">
+                                                <col style="width: 5%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 40%;">
+                                                <col style="width: 10%;">
+                                                <col style="width: 10%;">
+                                            </colgroup>
+                                                <tbody class="text-center align-middle">
 
-                                        <tbody class="text-center align-middle">
+                                                    <?php if (!empty($tramiteOficio)): ?>
+                                                    <?php foreach ($tramiteOficio as $row): ?>
+                                                    <tr>
 
-                                            <?php if (!empty($tramiteOficio)): ?>
-                                            <?php foreach ($tramiteOficio as $row): ?>
-                                            <tr>
+                                                        <!-- Ícono -->
+                                                        <td>
+                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                height="40" fill="currentColor"
+                                                                class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                                                <path fill-rule="evenodd"
+                                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
+                                                            </svg>
+                                                        </td>
 
-                                                <!-- Ícono -->
-                                                <td>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"
-                                                        fill="currentColor" class="bi bi-person-circle"
-                                                        viewBox="0 0 16 16">
-                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                        <path fill-rule="evenodd"
-                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
-                                                    </svg>
-                                                </td>
+                                                        <!-- Responsable -->
+                                                        <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
 
-                                                <!-- Responsable -->
-                                                <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
+                                                        <!-- Folio -->
+                                                        <td><?= esc($row['folio_registro']) ?></td>
 
-                                                <!-- Folio -->
-                                                <td><?= esc($row['folio_registro']) ?></td>
+                                                        <!-- Fecha -->
+                                                        <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
 
-                                                <!-- Fecha -->
-                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+                                                        <!-- Referencia -->
+                                                        <td><?= esc($row['referencia']) ?></td>
 
-                                                <!-- Referencia -->
-                                                <td><?= esc($row['referencia']) ?></td>
+                                                        <!-- Solicitud -->
+                                                        <td><?= esc($row['solicitud']) ?></td>
 
-                                                <!-- Solicitud -->
-                                                <td><?= esc($row['solicitud']) ?></td>
+                                                        <!-- Estado -->
+                                                        <td>
+                                                            <span
+                                                                class="bg-warning text-dark badge <?= $clase ?> d-inline-block text-center"
+                                                                style="width:80px;">
+                                                                <?= esc($row['estado']) ?>
+                                                            </span>
+                                                        </td>
 
-                                                <!-- Estado -->
-                                                <td>
-                                                    <span
-                                                        class="bg-warning text-dark badge <?= $clase ?> d-inline-block text-center"
-                                                        style="width:80px;">
-                                                        <?= esc($row['estado']) ?>
-                                                    </span>
-                                                </td>
+                                                        <!-- Acciones -->
+                                                        <td>
+                                                            <div class="d-flex justify-content-center gap-3">
+                                                                <button type="button" class="btn btn-warning btn-editar"
+                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                    ✏️
+                                                                </button>
+                                                                <button type="button" class="btn btn-info btn-detalles"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#modalDetalles"
+                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                    📄
+                                                                </button>
+                                                            </div>
+                                                        </td>
 
-                                                <!-- Acciones -->
-                                                <td>
-                                                    <div class="d-flex justify-content-center gap-3">
-                                                        <button type="button" class="btn btn-warning btn-editar"
-                                                            data-folio="<?= esc($row['folio_registro']) ?>">
-                                                            ✏️
-                                                        </button>
-                                                        <button type="button" class="btn btn-info btn-detalles"
-                                                            data-bs-toggle="modal" data-bs-target="#modalDetalles"
-                                                            data-folio="<?= esc($row['folio_registro']) ?>">
-                                                            📄
-                                                        </button>
-                                                    </div>
-                                                </td>
+                                                    </tr>
+                                                    <?php endforeach; ?>
+                                                    <?php else: ?>
+                                                    <tr>
+                                                        <td colspan="8">No hay oficios registrados</td>
+                                                    </tr>
+                                                    <?php endif; ?>
 
-                                            </tr>
-                                            <?php endforeach; ?>
-                                            <?php else: ?>
-                                            <tr>
-                                                <td colspan="8">No hay oficios registrados</td>
-                                            </tr>
-                                            <?php endif; ?>
-
-                                        </tbody>
-                                    </table>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -678,7 +727,8 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
+                                    <form method="post" action="<?= base_url('oficios/guardar') ?>">
+                                        <?= csrf_field() ?>
 
                                         <div class="Registro">
                                             <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
@@ -920,7 +970,8 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
+                                    <form method="post" action="<?= base_url('oficios/guardar') ?>">
+                                        <?= csrf_field() ?>
                                         <input type="hidden" id="folio_original" name="folio_original">
 
                                         <div class="Registro">
@@ -1206,7 +1257,7 @@
                             </div>
                         </div>
                     </div>
-                
+
                 </div>
             </div>
         </section>
