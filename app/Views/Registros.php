@@ -875,7 +875,7 @@
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
                                                         <input type="text" id="archivado"
-                                                            class="form-control pill-select" readonly>
+                                                            class="form-control pill-select">
 
 
                                                     </div>
@@ -1199,7 +1199,7 @@
                     </div>
 
                 </div>
-                <div class="modal fade" id="modalArchivoEstado" tabindex="-1" aria-hidden="true">
+                <!-- <div class="modal fade" id="modalArchivoEstado" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -1215,7 +1215,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
 
 
             </div>

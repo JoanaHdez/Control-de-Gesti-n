@@ -154,6 +154,7 @@ class Oficios_Controller extends BaseController
                 'folio_atencion' => $folio_atencion,
                 'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
                 'folio_estado'   => $this->request->getPost('folio_estado'),
+                'folio_archivado'=> $this->request->getPost('folio_archivado') ?: null, // ← agregar esto
             ]);
 
         // PADRE

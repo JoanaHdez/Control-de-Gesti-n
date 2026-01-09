@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
             d.fecha_contestacion ?? "";
           document.getElementById("asunto").value = d.asunto ?? "";
 
-          document.getElementById("archivado").value = d.archivado ?? "";
-          document.getElementById("estado").value = d.estado;
+/*           document.getElementById("archivado").value = d.archivado ?? "";
+ */          document.getElementById("estado").value = d.estado;
 
           document.getElementById("nombre_responsable").value =
             d.nombre_responsable;
@@ -106,11 +106,11 @@ document.addEventListener("DOMContentLoaded", function () {
 // ============================
 // DETECTAR CAMBIO DE ESTADO (DELEGADO)
 // ============================
-document.addEventListener("change", function (e) {
+/* document.addEventListener("change", function (e) {
     if (e.target && e.target.id === "estado_edit") {
 
         const estadoNuevo = e.target.value;
-        const ID_ARCHIVADO = "1"; // <-- CONFIRMA que 4 sea ARCHIVADO en tu BD
+        const ID_ARCHIVADO = "1"; 
 
         console.log("Estado original:", estadoOriginal);
         console.log("Estado nuevo:", estadoNuevo);
@@ -124,7 +124,7 @@ document.addEventListener("change", function (e) {
             }
         }
     }
-});
+}); */
 
 
   document.addEventListener("click", function (e) {
