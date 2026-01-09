@@ -1068,13 +1068,13 @@
                                                             <div class="col-12">
                                                                 <input type="text" id="oficio_contestacion_edit"
                                                                     name="oficio_contestacion"
-                                                                    class="form-control pill-input" required>
+                                                                    class="form-control pill-input">
                                                             </div>
                                                             <label for="">Fecha de Contestación</label>
                                                             <div class="col-12">
                                                                 <input type="date" id="fecha_contestacion_edit"
                                                                     name="fecha_contestacion"
-                                                                    class="form-control pill-input" required>
+                                                                    class="form-control pill-input">
                                                             </div>
                                                         </div>
                                                     </div>
