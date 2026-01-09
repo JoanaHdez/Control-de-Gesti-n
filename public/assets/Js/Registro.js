@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", () => {
             d.fecha_contestacion ?? "";
           document.getElementById("asunto").value = d.asunto ?? "";
 
-/*           document.getElementById("archivado").value = d.archivado ?? "";
- */          document.getElementById("estado").value = d.estado;
+document.getElementById("archivado").value = d.archivado_nombre ?? "Sin asignar";
+document.getElementById("estado").value = d.estado;
 
           document.getElementById("nombre_responsable").value =
             d.nombre_responsable;

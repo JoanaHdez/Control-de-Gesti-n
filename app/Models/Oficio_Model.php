@@ -85,7 +85,7 @@ class Oficio_Model extends Model
             da.fecha_contestacion,
             da.asunto,
 
-            ar.archivado,
+            ar.archivado AS archivado_nombre, 
             e.estado,
 
             p.nombre_responsable,
@@ -109,7 +109,7 @@ class Oficio_Model extends Model
             ->join('descripcion_atencion da', 'da.folio_atencion = o.folio_atencion', 'left')
 
             /* ===== ESTADO ===== */
-            ->join('archivado ar', 'ar.folio_archivado = o.folio_archivado', 'left')
+        ->join('archivado ar', 'ar.folio_archivado = o.folio_archivado')
             ->join('estado e', 'e.folio_estado = o.folio_estado')
 
             /* ===== SECCIÓN ===== */

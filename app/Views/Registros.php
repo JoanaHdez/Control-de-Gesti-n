@@ -874,15 +874,11 @@
                                                 <div class="row g-3 mt-4">
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
-                                                        <input type="text" id="archivado"
-                                                            class="form-control pill-select">
-
-
+                                                        <input type="text" id="archivado" class="form-control pill-select" readonly>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Estatus</label>
                                                         <input id="estado" class="form-select pill-select" readonly>
-                                                        </input>
                                                     </div>
 
                                                     <!-- ------------------------- SECCION QUE ATENDIO ------------------------- -->
