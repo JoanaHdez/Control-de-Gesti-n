@@ -20,7 +20,9 @@ class Oficio_Model extends Model
         'folio_atencion',
         'folio_estado',
         'folio_sec_resp',
-        'folio_archivado'
+        'folio_archivado',
+        'archivo_pdf',
+
     ];
 
     public function getGeneral()
@@ -31,7 +33,9 @@ class Oficio_Model extends Model
             'ro.referencia',
             'tt.tramite AS tramite',
             's.solicitud',
-            'e.estado'
+            'e.estado',
+            'oficio.archivo_pdf',
+
         ])
             ->join('registro_oficio ro', 'ro.folio_registro = oficio.folio_registro')
             ->join('solicitud s', 's.folio_solicitud = oficio.folio_solicitud')

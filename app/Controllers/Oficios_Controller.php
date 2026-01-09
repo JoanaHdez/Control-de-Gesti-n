@@ -49,6 +49,8 @@ class Oficios_Controller extends BaseController
     $db = Database::connect();
     $db->transStart();
 
+    $folio_nuevo = $this->request->getPost('folio_registro');
+
     // ================= SOLO EN EDICIÓN =================
     if ($esEdicion) {
         $db->query('SET FOREIGN_KEY_CHECKS = 0');
@@ -166,6 +168,24 @@ class Oficios_Controller extends BaseController
 
         $db->query('SET FOREIGN_KEY_CHECKS = 1');
     }
+
+    // ================= SUBIR ARCHIVO PDF =================
+$file = $this->request->getFile('archivo_estado');
+
+if ($file && $file->isValid() && !$file->hasMoved()) {
+
+    $newName = 'oficio_' . $folio_nuevo . '_' . time() . '.' . $file->getExtension();
+
+    $file->move(WRITEPATH . 'uploads/oficios', $newName);
+
+    // Guardar nombre en BD
+    $db->table('oficio')
+        ->where('folio_registro', $folio_nuevo)
+        ->update([
+            'archivo_pdf' => $newName
+        ]);
+}
+
 
     $db->transComplete();
 

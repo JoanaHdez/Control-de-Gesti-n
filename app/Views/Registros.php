@@ -925,10 +925,12 @@
                                 </div>
                                 <div class="modal-body">
 
-                                    <form method="post" action="<?= base_url('oficios/guardar') ?>">
+                                    <form method="post" action="<?= base_url('oficios/guardar') ?>"
+                                        enctype="multipart/form-data">
                                         <?= csrf_field() ?>
                                         <input type="hidden" id="folio_original" name="folio_original">
-
+                                        <input type="file" id="archivo_estado" name="archivo_estado" class="d-none"
+                                            accept=".pdf">
                                         <div class="Registro">
                                             <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
 
@@ -1200,24 +1202,23 @@
                 <div class="modal fade" id="modalArchivoEstado" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
-
-                            <div class="modal-header bg-warning">
-                                <h5 class="modal-title">⚠ Atención</h5>
+                            <div class="modal-header">
+                                <h5 class="modal-title">Archivo requerido</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                             </div>
-
                             <div class="modal-body">
-                                <p>
-                                    El estado ha cambiado o se ha marcado como <strong>ARCHIVADO</strong>.
-                                    Es obligatorio adjuntar el archivo correspondiente.
-                                </p>
-
-                                <input class="form-control mt-2" type="file" name="archivo_estado" id="archivo_estado">
+                                Este estado requiere subir el archivo PDF.
                             </div>
-
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary" id="btnConfirmarArchivo">Subir
+                                    archivo</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+
+            </div>
 
 
             </div>
