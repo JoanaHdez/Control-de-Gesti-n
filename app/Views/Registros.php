@@ -73,7 +73,8 @@
                         </div>
                         <?php endif; ?>
 
-                        <form method="post" action="<?= base_url('oficios/guardar') ?>"> <?= csrf_field() ?>
+                        <form method="post" action="<?= base_url('oficios/guardar') ?>" enctype="multipart/form-data">
+                            <?= csrf_field() ?>
 
                             <div class="Registro">
                                 <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
@@ -156,7 +157,6 @@
                                         </div>
 
                                     </div>
-
 
                                     <!-- ------------------------- SOLICITUD/INFORMACIÓN ------------------------- -->
 
@@ -299,6 +299,12 @@
                                                 readonly>
                                         </div>
                                     </div>
+                                    <!-- ================= ARCHIVO PDF (OCULTO) ================= -->
+                                    <input type="file" name="archivo_pdf" id="archivo_pdf_main" class="d-none"
+                                        accept="application/pdf">
+                                    <small id="nombreArchivoPdfMain" class="text-muted"></small>
+
+
                                     <div class="d-flex justify-content-center mt-5">
                                         <button type="submit" class="btn btn-submit">
                                             Guardar Oficio
@@ -874,7 +880,8 @@
                                                 <div class="row g-3 mt-4">
                                                     <div class="col-md-3">
                                                         <label>Archivado en</label>
-                                                        <input type="text" id="archivado" class="form-control pill-select" readonly>
+                                                        <input type="text" id="archivado"
+                                                            class="form-control pill-select" readonly>
                                                     </div>
                                                     <div class="col-md-3">
                                                         <label>Estatus</label>
@@ -925,7 +932,8 @@
                                         enctype="multipart/form-data">
                                         <?= csrf_field() ?>
                                         <input type="hidden" id="folio_original" name="folio_original">
-                                        <input type="file" id="archivo_pdf" name="archivo_pdf" class="d-none" accept="application/pdf">
+                                        <input type="file" id="archivo_pdf" name="archivo_pdf" class="d-none"
+                                            accept="application/pdf">
                                         <small id="nombreArchivoPdf" class="text-muted ms-2"></small>
 
                                         <div class="Registro">
@@ -1163,6 +1171,10 @@
                                                             class="form-control pill-input" readonly>
                                                     </div>
                                                 </div>
+
+                                                <input type="file" name="archivo_pdf" id="archivo_pdf_edit"
+                                                    class="d-none" accept="application/pdf">
+                                                <small id="nombreArchivoPdfEdit" class="text-muted"></small>
 
                                                 <div class="d-flex justify-content-center mt-5">
                                                     <button type="submit" class="btn btn-submit btn-edit">

@@ -13,15 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-document
-  .getElementById("folio_sec_resp")
-  .addEventListener("change", function () {
-    let selected = this.options[this.selectedIndex];
-    document.getElementById("folio_seccion").value =
-      selected.dataset.seccion || "";
-  });
 
-console.log("JS cargado");
+// PRINCIPAL
+document.getElementById('archivo_pdf_main')?.addEventListener('change', function () {
+    if (this.files.length > 0) {
+        document.getElementById('nombreArchivoPdfMain').textContent = this.files[0].name;
+    }
+});
+
 
 /* --------------------------------------- BUSCADOR --------------------------------------- */
 
@@ -41,6 +40,7 @@ document.addEventListener("input", function (e) {
     });
   }
 });
+
 
 /* --------------------------------------- DETALLES --------------------------------------- */
 
@@ -104,29 +104,23 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 });
 
-document
-  .getElementById("btnConfirmarArchivo")
-  ?.addEventListener("click", function () {
-    document.getElementById("archivo_pdf").click();
-  });
-
-document.getElementById("archivo_pdf")?.addEventListener("change", function () {
-  if (this.files.length > 0) {
-    const nombre = this.files[0].name;
-    document.getElementById("nombreArchivoPdf").textContent = nombre;
-
-    // 🔥 CERRAR MODAL DE ALERTA
-    if (modalArchivo) {
-      modalArchivo.hide();
-    }
-
-    // 🔥 ENVIAR FORM AUTOMÁTICAMENTE
-    const form = this.closest("form");
-    if (form) {
-      form.submit();
-    }
-  }
+// Botón del modal que abre el selector de archivo (EDITAR)
+document.getElementById('btnConfirmarArchivo')?.addEventListener('click', function () {
+    document.getElementById('archivo_pdf_edit').click();
 });
+
+// Cuando se selecciona archivo en EDITAR
+document.getElementById('archivo_pdf_edit')?.addEventListener('change', function () {
+    if (this.files.length > 0) {
+        document.getElementById('nombreArchivoPdfEdit').textContent = this.files[0].name;
+
+        // cerrar modal de advertencia
+        if (modalArchivo) {
+            modalArchivo.hide();
+        }
+    }
+});
+
 
 // ============================
 // DETECTAR CAMBIO DE ESTADO (DELEGADO)
@@ -205,9 +199,8 @@ document.addEventListener("click", function (e) {
       estadoOriginal = d.folio_estado ?? "";
 
       // Limpiamos archivo
-      // Limpiamos archivo
-      document.getElementById("archivo_pdf").value = "";
-      document.getElementById("nombreArchivoPdf").textContent = "";
+      document.getElementById("archivo_pdf_edit").value = "";
+document.getElementById("nombreArchivoPdfEdit").textContent = "";
 
       // ================= SECCIÓN RESPONSABLE =================
       const secRespSelect = document.getElementById("folio_sec_resp_edit");
