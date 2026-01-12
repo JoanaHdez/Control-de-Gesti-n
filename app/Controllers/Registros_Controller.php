@@ -75,5 +75,5 @@ class Registros_Controller extends BaseController
 
         return view('head', $css)
             . view('Registros', $data);
-    }
+    }    
 }

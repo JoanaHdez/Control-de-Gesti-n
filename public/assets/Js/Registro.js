@@ -77,8 +77,9 @@ document.addEventListener("DOMContentLoaded", () => {
             d.fecha_contestacion ?? "";
           document.getElementById("asunto").value = d.asunto ?? "";
 
-document.getElementById("archivado").value = d.archivado_nombre ?? "Sin asignar";
-document.getElementById("estado").value = d.estado;
+          document.getElementById("archivado").value =
+            d.archivado_nombre ?? "Sin asignar";
+          document.getElementById("estado").value = d.estado;
 
           document.getElementById("nombre_responsable").value =
             d.nombre_responsable;
@@ -97,113 +98,131 @@ console.log("Registro.js cargado correctamente");
 
 // Inicializamos modal UNA sola vez
 document.addEventListener("DOMContentLoaded", function () {
-    const modalArchivoElement = document.getElementById("modalArchivoEstado");
-    if (modalArchivoElement) {
-        modalArchivo = new bootstrap.Modal(modalArchivoElement);
+  const modalArchivoElement = document.getElementById("modalArchivoEstado");
+  if (modalArchivoElement) {
+    modalArchivo = new bootstrap.Modal(modalArchivoElement);
+  }
+});
+
+document
+  .getElementById("btnConfirmarArchivo")
+  ?.addEventListener("click", function () {
+    document.getElementById("archivo_pdf").click();
+  });
+
+document.getElementById("archivo_pdf")?.addEventListener("change", function () {
+  if (this.files.length > 0) {
+    const nombre = this.files[0].name;
+    document.getElementById("nombreArchivoPdf").textContent = nombre;
+
+    // 🔥 CERRAR MODAL DE ALERTA
+    if (modalArchivo) {
+      modalArchivo.hide();
     }
+
+    // 🔥 ENVIAR FORM AUTOMÁTICAMENTE
+    const form = this.closest("form");
+    if (form) {
+      form.submit();
+    }
+  }
 });
 
 // ============================
 // DETECTAR CAMBIO DE ESTADO (DELEGADO)
 // ============================
-/* document.addEventListener("change", function (e) {
-    if (e.target && e.target.id === "estado_edit") {
+document.addEventListener("change", function (e) {
+  if (e.target && e.target.id === "estado_edit") {
+    const estadoNuevo = e.target.value;
+    const ID_ARCHIVADO = "1";
 
-        const estadoNuevo = e.target.value;
-        const ID_ARCHIVADO = "1"; 
+    console.log("Estado original:", estadoOriginal);
+    console.log("Estado nuevo:", estadoNuevo);
 
-        console.log("Estado original:", estadoOriginal);
-        console.log("Estado nuevo:", estadoNuevo);
-
-        if (
-            estadoNuevo === ID_ARCHIVADO &&
-            estadoOriginal !== ID_ARCHIVADO
-        ) {
-            if (modalArchivo) {
-                modalArchivo.show();
-            }
-        }
+    if (estadoNuevo === ID_ARCHIVADO && estadoOriginal !== ID_ARCHIVADO) {
+      if (modalArchivo) {
+        modalArchivo.show();
+      }
     }
-}); */
+  }
+});
 
+document.addEventListener("click", function (e) {
+  const btn = e.target.closest(".btn-editar");
+  if (!btn) return;
 
-  document.addEventListener("click", function (e) {
-    const btn = e.target.closest(".btn-editar");
-    if (!btn) return;
+  const folio = btn.dataset.folio.trim();
+  console.log("FOLIO:", folio);
 
-    const folio = btn.dataset.folio.trim();
-    console.log("FOLIO:", folio);
+  fetch(BASE_URL_EDITAR + encodeURIComponent(folio))
+    .then((response) => {
+      console.log("STATUS:", response.status);
 
-    fetch(BASE_URL_EDITAR + encodeURIComponent(folio))
-      .then((response) => {
-        console.log("STATUS:", response.status);
+      if (!response.ok) throw new Error("Error en la respuesta");
 
-        if (!response.ok) throw new Error("Error en la respuesta");
+      return response.json();
+    })
+    .then((d) => {
+      console.log("Datos recibidos:", d);
 
-        return response.json();
-      })
-      .then((d) => {
-        console.log("Datos recibidos:", d);
+      // ================= DATOS GENERALES =================
+      document.getElementById("folio_original").value = d.folio_registro;
 
-        // ================= DATOS GENERALES =================
-        document.getElementById("folio_original").value = d.folio_registro;
+      console.log(
+        "folio_original:",
+        document.getElementById("folio_original").value
+      );
 
-        console.log(
-          "folio_original:",
-          document.getElementById("folio_original").value
-        );
+      document.getElementById("folio_registro_edit").value =
+        d.folio_registro ?? "";
+      document.getElementById("fecha_oficio_edit").value = d.fecha_oficio ?? "";
+      document.getElementById("referencia_edit").value = d.referencia ?? "";
+      document.getElementById("fecha_recepcion_edit").value =
+        d.fecha_recepcion ?? "";
 
-        document.getElementById("folio_registro_edit").value =
-          d.folio_registro ?? "";
-        document.getElementById("fecha_oficio_edit").value =
-          d.fecha_oficio ?? "";
-        document.getElementById("referencia_edit").value = d.referencia ?? "";
-        document.getElementById("fecha_recepcion_edit").value =
-          d.fecha_recepcion ?? "";
+      // ================= REMITENTE =================
+      const remitenteSelect = document.getElementById("folio_remitente_edit");
+      remitenteSelect.value = d.folio_remitente ?? "";
+      remitenteSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
 
-        // ================= REMITENTE =================
-        const remitenteSelect = document.getElementById("folio_remitente_edit");
-        remitenteSelect.value = d.folio_remitente ?? "";
-        remitenteSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
+      // ================= TRÁMITE =================
+      document.getElementById("tramite_edit").value = d.folio_tramite ?? "";
+      document.getElementById("solicitud_edit").value = d.solicitud ?? "";
 
-        // ================= TRÁMITE =================
-        document.getElementById("tramite_edit").value = d.folio_tramite ?? "";
-        document.getElementById("solicitud_edit").value = d.solicitud ?? "";
+      // ================= DESCRIPCIÓN =================
+      document.getElementById("oficio_contestacion_edit").value =
+        d.oficio_contestacion ?? "";
+      document.getElementById("fecha_contestacion_edit").value =
+        d.fecha_contestacion ?? "";
+      document.getElementById("asunto_edit").value = d.asunto ?? "";
 
-        // ================= DESCRIPCIÓN =================
-        document.getElementById("oficio_contestacion_edit").value =
-          d.oficio_contestacion ?? "";
-        document.getElementById("fecha_contestacion_edit").value =
-          d.fecha_contestacion ?? "";
-        document.getElementById("asunto_edit").value = d.asunto ?? "";
+      // ================= ESTADO =================
+      document.getElementById("folio_archivado_edit").value =
+        d.folio_archivado ?? "";
+      document.getElementById("estado_edit").value = d.folio_estado ?? "";
 
-        // ================= ESTADO =================
-        document.getElementById("folio_archivado_edit").value =
-          d.folio_archivado ?? "";
-        document.getElementById("estado_edit").value = d.folio_estado ?? "";
+      // Guardamos estado original
+      estadoOriginal = d.folio_estado ?? "";
 
-        // Guardamos estado original
-        estadoOriginal = d.folio_estado ?? "";
+      // Limpiamos archivo
+      // Limpiamos archivo
+      document.getElementById("archivo_pdf").value = "";
+      document.getElementById("nombreArchivoPdf").textContent = "";
 
-        // Limpiamos archivo
-        document.getElementById("archivo_estado").value = "";
+      // ================= SECCIÓN RESPONSABLE =================
+      const secRespSelect = document.getElementById("folio_sec_resp_edit");
+      secRespSelect.value = d.folio_sec_resp ?? "";
+      secRespSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
 
-        // ================= SECCIÓN RESPONSABLE =================
-        const secRespSelect = document.getElementById("folio_sec_resp_edit");
-        secRespSelect.value = d.folio_sec_resp ?? "";
-        secRespSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
-
-        // ================= ABRIR MODAL =================
-        const modal = new bootstrap.Modal(
-          document.getElementById("modalEditar")
-        );
-        modal.show();
-      })
-      .catch((err) => {
-        console.error("ERROR:", err);
-        alert("No se pudieron cargar los datos");
-      });
-  });
+      // ================= ABRIR MODAL =================
+      const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
+      modal.show();
+    })
+    .catch((err) => {
+      console.error("ERROR:", err);
+      alert("No se pudieron cargar los datos");
+    });
+});
 
 // ================= DEPENDENCIAS =================
 

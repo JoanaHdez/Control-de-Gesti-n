@@ -925,8 +925,9 @@
                                         enctype="multipart/form-data">
                                         <?= csrf_field() ?>
                                         <input type="hidden" id="folio_original" name="folio_original">
-                                        <input type="file" id="archivo_estado" name="archivo_estado" class="d-none"
-                                            accept=".pdf">
+                                        <input type="file" id="archivo_pdf" name="archivo_pdf" class="d-none" accept="application/pdf">
+                                        <small id="nombreArchivoPdf" class="text-muted ms-2"></small>
+
                                         <div class="Registro">
                                             <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
 
