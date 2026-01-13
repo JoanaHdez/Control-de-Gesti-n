@@ -1125,7 +1125,7 @@
                                                         <label>Archivado en</label>
 
                                                         <select name="folio_archivado" id="folio_archivado_edit"
-                                                            class="form-select pill-select" required>
+                                                            class="form-select pill-select" >
                                                             <option value="">Seleccione...</option>
                                                             <?php foreach ($archivados as $a): ?>
                                                             <option value="<?= $a['folio_archivado'] ?>">
