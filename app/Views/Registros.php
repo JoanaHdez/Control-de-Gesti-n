@@ -264,7 +264,7 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Estatus</label>
-                                            <select name="folio_estado" class="form-select pill-select" required>
+                                            <select name="folio_estado" id="folio_estado" class="form-select pill-select" required>
                                                 <option value="">Selección</option>
 
                                                 <?php foreach ($estados as $estado): ?>

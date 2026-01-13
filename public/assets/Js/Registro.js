@@ -1,5 +1,8 @@
 let estadoOriginal = null;
 let modalArchivo = null;
+let archivoTarget = null; 
+
+/*--------------------------------------- REMITENTE --------------------------------------- */
 
 document.addEventListener("DOMContentLoaded", function () {
   const selectRemitente = document.getElementById("folio_remitente");
@@ -13,12 +16,32 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-
 // PRINCIPAL
-document.getElementById('archivo_pdf_main')?.addEventListener('change', function () {
+/* document.getElementById('archivo_pdf_main')?.addEventListener('change', function () {
     if (this.files.length > 0) {
         document.getElementById('nombreArchivoPdfMain').textContent = this.files[0].name;
     }
+});
+ */
+
+/* --------------------------------------- MODAL --------------------------------------- */
+
+document.addEventListener("DOMContentLoaded", function () {
+  const modalElement = document.getElementById("modalArchivoEstado");
+  if (modalElement) {
+    modalArchivo = new bootstrap.Modal(modalElement);
+  }
+
+  const btnConfirmar = document.getElementById("btnConfirmarArchivo");
+
+  if (btnConfirmar) {
+    btnConfirmar.addEventListener("click", function () {
+      if (archivoTarget) {
+        archivoTarget.click();   // 👈 ABRE EL EXPLORADOR DE ARCHIVOS
+        modalArchivo.hide();     // 👈 CIERRA EL MODAL
+      }
+    });
+  }
 });
 
 
@@ -40,7 +63,6 @@ document.addEventListener("input", function (e) {
     });
   }
 });
-
 
 /* --------------------------------------- DETALLES --------------------------------------- */
 
@@ -92,54 +114,74 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+/* --------------------------------------- DETECCION DE CAMBIO DE ESTADO --------------------------------------- */
+
+// Cuando cambias estado en NUEVO
+document .getElementById("folio_estado") ?.addEventListener("change", function () {
+    const ID_ARCHIVADO = "1";
+    if (this.value === ID_ARCHIVADO) {
+      archivoTarget = document.getElementById("archivo_pdf_main"); // input del NUEVO
+      modalArchivo?.show();
+    }
+  });
+
+// Cuando cambias estado en EDITAR
+document.getElementById("estado_edit")?.addEventListener("change", function () {
+  const ID_ARCHIVADO = "1";
+  if (this.value === ID_ARCHIVADO) {
+    archivoTarget = document.getElementById("archivo_pdf_edit"); // input del EDITAR
+    modalArchivo?.show();
+  }
+});
+
+/* --------------------------------------- VALIDACION ANTES DE ENVIAR FORMULARIO --------------------------------------- */
+
+/* document.querySelectorAll("form").forEach((form) => {
+  form.addEventListener("submit", function (e) {
+    let estado, archivoInput;
+
+    // Detectar si es formulario NUEVO o EDITAR
+    if (form.querySelector("#folio_estado")) {
+      estado = form.querySelector("#folio_estado").value;
+      archivoInput = form.querySelector("#archivo_pdf_main");
+    } else if (form.querySelector("#estado_edit")) {
+      estado = form.querySelector("#estado_edit").value;
+      archivoInput = form.querySelector("#archivo_pdf_edit");
+    }
+
+    const ID_ARCHIVADO = "1";
+
+    if (estado === ID_ARCHIVADO && archivoInput && archivoInput.files.length === 0) {
+      e.preventDefault();  
+      if (modalArchivo && archivoInput) {
+        archivoTarget = archivoInput;  
+        modalArchivo.show();
+      }
+      return false;
+    }
+  });
+}); */
+
+
+/* --------------------------------------- MOSTRAR NOMBRE DEL ARCHIVO --------------------------------------- */
+
+document .getElementById("archivo_pdf_main") ?.addEventListener("change", function () {
+    if (this.files.length > 0) {
+      document.getElementById("nombreArchivoPdfMain").textContent =
+        this.files[0].name;
+    }
+  });
+
+document.getElementById("archivo_pdf_edit") ?.addEventListener("change", function () {
+    if (this.files.length > 0) {
+      document.getElementById("nombreArchivoPdfEdit").textContent =
+        this.files[0].name;
+    }
+  });
+
 /* --------------------------------------- EDITAR --------------------------------------- */
 
 console.log("Registro.js cargado correctamente");
-
-// Inicializamos modal UNA sola vez
-document.addEventListener("DOMContentLoaded", function () {
-  const modalArchivoElement = document.getElementById("modalArchivoEstado");
-  if (modalArchivoElement) {
-    modalArchivo = new bootstrap.Modal(modalArchivoElement);
-  }
-});
-
-// Botón del modal que abre el selector de archivo (EDITAR)
-document.getElementById('btnConfirmarArchivo')?.addEventListener('click', function () {
-    document.getElementById('archivo_pdf_edit').click();
-});
-
-// Cuando se selecciona archivo en EDITAR
-document.getElementById('archivo_pdf_edit')?.addEventListener('change', function () {
-    if (this.files.length > 0) {
-        document.getElementById('nombreArchivoPdfEdit').textContent = this.files[0].name;
-
-        // cerrar modal de advertencia
-        if (modalArchivo) {
-            modalArchivo.hide();
-        }
-    }
-});
-
-
-// ============================
-// DETECTAR CAMBIO DE ESTADO (DELEGADO)
-// ============================
-document.addEventListener("change", function (e) {
-  if (e.target && e.target.id === "estado_edit") {
-    const estadoNuevo = e.target.value;
-    const ID_ARCHIVADO = "1";
-
-    console.log("Estado original:", estadoOriginal);
-    console.log("Estado nuevo:", estadoNuevo);
-
-    if (estadoNuevo === ID_ARCHIVADO && estadoOriginal !== ID_ARCHIVADO) {
-      if (modalArchivo) {
-        modalArchivo.show();
-      }
-    }
-  }
-});
 
 document.addEventListener("click", function (e) {
   const btn = e.target.closest(".btn-editar");
@@ -191,6 +233,7 @@ document.addEventListener("click", function (e) {
       document.getElementById("asunto_edit").value = d.asunto ?? "";
 
       // ================= ESTADO =================
+
       document.getElementById("folio_archivado_edit").value =
         d.folio_archivado ?? "";
       document.getElementById("estado_edit").value = d.folio_estado ?? "";
@@ -200,14 +243,16 @@ document.addEventListener("click", function (e) {
 
       // Limpiamos archivo
       document.getElementById("archivo_pdf_edit").value = "";
-document.getElementById("nombreArchivoPdfEdit").textContent = "";
+      document.getElementById("nombreArchivoPdfEdit").textContent = "";
 
       // ================= SECCIÓN RESPONSABLE =================
+
       const secRespSelect = document.getElementById("folio_sec_resp_edit");
       secRespSelect.value = d.folio_sec_resp ?? "";
       secRespSelect.dispatchEvent(new Event("change")); // 👈 CLAVE
 
       // ================= ABRIR MODAL =================
+
       const modal = new bootstrap.Modal(document.getElementById("modalEditar"));
       modal.show();
     })

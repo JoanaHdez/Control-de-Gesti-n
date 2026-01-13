@@ -19,6 +19,12 @@ class Oficios_Controller extends BaseController
     public function guardar()
     {
 
+        /* echo "<pre>";
+        print_r($_POST);
+        print_r($_FILES);
+        echo "</pre>";
+        exit; */
+
         $folio_original = $this->request->getPost('folio_original');
         $esEdicion = !empty($folio_original);
 
@@ -51,6 +57,49 @@ class Oficios_Controller extends BaseController
         $db->transStart();
 
         $folio_nuevo = $this->request->getPost('folio_registro');
+
+        $estado = (int) $this->request->getPost('folio_estado');
+        $ID_ARCHIVADO = 1;
+
+        $archivoPdf = $this->request->getFile('archivo_pdf');
+
+        $archivoRutaFinal = null;
+
+        if ($estado === $ID_ARCHIVADO) {
+
+            // En edición: solo exigir archivo si antes NO estaba archivado
+            if (!$archivoPdf || $archivoPdf->getError() !== UPLOAD_ERR_OK) {
+                if (!$esEdicion) {
+                    $db->transRollback();
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Debe subir el archivo PDF para estado ARCHIVADO');
+                }
+            }
+
+            if ($archivoPdf && $archivoPdf->isValid()) {
+
+                $extension = strtolower($archivoPdf->getExtension());
+                if ($extension !== 'pdf') {
+                    $db->transRollback();
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'Solo se permiten archivos PDF');
+                }
+
+                $rutaBase = rtrim(env('OFICIOS_UPLOAD_PATH'), DIRECTORY_SEPARATOR);
+
+                if (!is_dir($rutaBase)) {
+                    mkdir($rutaBase, 0777, true);
+                }
+
+                $nombreFinal = 'oficio_' . $folio_nuevo . '.pdf';
+
+                $archivoPdf->move($rutaBase, $nombreFinal, true);
+
+                $archivoRutaFinal = rtrim(env('OFICIOS_UPLOAD_URL'), '/') . '/' . $nombreFinal;
+            }
+        }
 
         // ================= SOLO EN EDICIÓN =================
         if ($esEdicion) {
@@ -139,81 +188,32 @@ class Oficios_Controller extends BaseController
                 'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
                 'folio_estado'   => $this->request->getPost('folio_estado'),
                 'folio_archivado' => $this->request->getPost('folio_archivado') ?: null,
+                'archivo_pdf'    => $archivoRutaFinal,
             ]);
-        }
-
-        $estado = (int) $this->request->getPost('folio_estado');
-        $ID_ARCHIVADO = 1;
-
-        $archivoPdf = $this->request->getFile('archivo_pdf');
-        $archivoRutaFinal = null;
-
-        if ($estado === $ID_ARCHIVADO) {
-
-            // ================= VALIDAR EXISTENCIA =================
-            if (!$archivoPdf || !$archivoPdf->isValid()) {
-                $db->transRollback();
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Debe subir el archivo PDF para estado ARCHIVADO');
-            }
-
-            // ================= VALIDAR EXTENSIÓN =================
-            $extensionesPermitidas = ['pdf'];
-            $extension = $archivoPdf->getExtension();
-
-            if (!in_array($extension, $extensionesPermitidas)) {
-                $db->transRollback();
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'Solo se permiten archivos PDF');
-            }
-
-            // ================= VALIDAR TAMAÑO =================
-            $maxSize = (int) env('OFICIOS_MAX_SIZE', 2048) * 1024; // KB → bytes
-
-            if ($archivoPdf->getSize() > $maxSize) {
-                $db->transRollback();
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'El archivo excede el tamaño permitido (2MB)');
-            }
-
-            // ================= CREAR CARPETA SI NO EXISTE =================
-            $rutaBase = rtrim(env('OFICIOS_UPLOAD_PATH'), DIRECTORY_SEPARATOR);
-
-            if (!is_dir($rutaBase)) {
-                mkdir($rutaBase, 0777, true);
-            }
-
-            // ================= NOMBRE FINAL =================
-            $folio = $this->request->getPost('folio_registro');
-            $nombreFinal = 'oficio_' . $folio . '.pdf';
-
-            // ================= MOVER ARCHIVO =================
-            $archivoPdf->move($rutaBase, $nombreFinal, true);
-
-            // ================= URL =================
-            $archivoRutaFinal = rtrim(env('OFICIOS_UPLOAD_URL'), '/') . '/' . $nombreFinal;
         }
 
         // ================= EDITAR =================
         if ($esEdicion) {
 
             // HIJA
-            $db->table('oficio')
-                ->where('folio_registro', $folio_original)
-                ->update([
-                    'folio_registro' => $folio_nuevo,
-                    'folio_remitente' => $this->request->getPost('folio_remitente'),
-                    'folio_solicitud' => $folio_solicitud,
-                    'folio_atencion' => $folio_atencion,
-                    'folio_sec_resp' => $this->request->getPost('folio_sec_resp') ?: null,
-                    'folio_estado'   => $this->request->getPost('folio_estado'),
-                    'folio_archivado' => $this->request->getPost('folio_archivado') ?: null, // ← agregar esto
-                    'archivo_pdf' => $archivoRutaFinal,
+            $updateData = [
+    'folio_registro'   => $folio_nuevo,
+    'folio_remitente'  => $this->request->getPost('folio_remitente'),
+    'folio_solicitud'  => $folio_solicitud,
+    'folio_atencion'   => $folio_atencion,
+    'folio_sec_resp'   => $this->request->getPost('folio_sec_resp') ?: null,
+    'folio_estado'     => $this->request->getPost('folio_estado'),
+    'folio_archivado'  => $this->request->getPost('folio_archivado') ?: null,
+];
 
-                ]);
+if ($archivoRutaFinal !== null) {
+    $updateData['archivo_pdf'] = $archivoRutaFinal;
+}
+
+$db->table('oficio')
+    ->where('folio_registro', $folio_original)
+    ->update($updateData);
+
 
             // PADRE
             $db->table('registro_oficio')
