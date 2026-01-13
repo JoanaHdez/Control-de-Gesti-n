@@ -89,9 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("nombre_area").value = d.nombre_area;
 
           document.getElementById("tramite").value = d.tramite;
-          (document.getElementById("solicitud").value = d.solicitud),
-            "-",
-            d.tramite;
+          document.getElementById("solicitud").value = d.solicitud;
 
           document.getElementById("oficio_contestacion").value =
             d.oficio_contestacion ?? "";
@@ -284,6 +282,7 @@ document
       selected?.dataset.seccion || "";
   });
 
+
 document.addEventListener("DOMContentLoaded", function () {
   const folioInput = document.querySelector('input[name="folio_registro"]');
   const form = folioInput.closest("form");
@@ -301,6 +300,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // Quitar clase de error
     folioInput.classList.remove("is-invalid");
   });
+
+
 
   // ================= OPCIONAL: Si ya vino con error desde backend =================
   if (
