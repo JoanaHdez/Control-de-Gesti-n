@@ -1,6 +1,6 @@
 let estadoOriginal = null;
 let modalArchivo = null;
-let archivoTarget = null; 
+let archivoTarget = null;
 
 /*--------------------------------------- REMITENTE --------------------------------------- */
 
@@ -37,13 +37,12 @@ document.addEventListener("DOMContentLoaded", function () {
   if (btnConfirmar) {
     btnConfirmar.addEventListener("click", function () {
       if (archivoTarget) {
-        archivoTarget.click();   // 👈 ABRE EL EXPLORADOR DE ARCHIVOS
-        modalArchivo.hide();     // 👈 CIERRA EL MODAL
+        archivoTarget.click(); // 👈 ABRE EL EXPLORADOR DE ARCHIVOS
+        modalArchivo.hide(); // 👈 CIERRA EL MODAL
       }
     });
   }
 });
-
 
 /* --------------------------------------- BUSCADOR --------------------------------------- */
 
@@ -115,7 +114,9 @@ document.addEventListener("DOMContentLoaded", () => {
 /* --------------------------------------- DETECCION DE CAMBIO DE ESTADO --------------------------------------- */
 
 // Cuando cambias estado en NUEVO
-document .getElementById("folio_estado") ?.addEventListener("change", function () {
+document
+  .getElementById("folio_estado")
+  ?.addEventListener("change", function () {
     const ID_ARCHIVADO = "1";
     if (this.value === ID_ARCHIVADO) {
       archivoTarget = document.getElementById("archivo_pdf_main"); // input del NUEVO
@@ -160,17 +161,20 @@ document.getElementById("estado_edit")?.addEventListener("change", function () {
   });
 }); */
 
-
 /* --------------------------------------- MOSTRAR NOMBRE DEL ARCHIVO --------------------------------------- */
 
-document .getElementById("archivo_pdf_main") ?.addEventListener("change", function () {
+document
+  .getElementById("archivo_pdf_main")
+  ?.addEventListener("change", function () {
     if (this.files.length > 0) {
       document.getElementById("nombreArchivoPdfMain").textContent =
         this.files[0].name;
     }
   });
 
-document.getElementById("archivo_pdf_edit") ?.addEventListener("change", function () {
+document
+  .getElementById("archivo_pdf_edit")
+  ?.addEventListener("change", function () {
     if (this.files.length > 0) {
       document.getElementById("nombreArchivoPdfEdit").textContent =
         this.files[0].name;
@@ -282,6 +286,13 @@ document
       selected?.dataset.seccion || "";
   });
 
+document
+  .getElementById("folio_sec_resp")
+  ?.addEventListener("change", function () {
+    const selected = this.selectedOptions[0];
+    document.getElementById("folio_seccion").value =
+      selected?.dataset.seccion || "";
+  });
 
 document.addEventListener("DOMContentLoaded", function () {
   const folioInput = document.querySelector('input[name="folio_registro"]');
@@ -300,8 +311,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // Quitar clase de error
     folioInput.classList.remove("is-invalid");
   });
-
-
 
   // ================= OPCIONAL: Si ya vino con error desde backend =================
   if (
