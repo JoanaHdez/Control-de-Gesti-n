@@ -108,7 +108,7 @@
                                         <div class="col-md-3">
                                             <label>Referencia</label>
                                             <input type="text" name="referencia" class="form-control pill-input"
-                                                required>
+                                                oninput="this.value = this.value.toUpperCase();" required>
                                         </div>
                                         <div class="col-md-3">
                                             <label for="">Fecha de Recepción</label>
@@ -142,6 +142,7 @@
                                                     <?= esc($remitente['nombre_titular']) ?>
                                                 </option>
                                                 <?php endforeach; ?>
+
                                             </select>
                                         </div>
                                         <div class="col-md-3">
@@ -186,7 +187,7 @@
                                         <div class="col-md-9 mt-3">
                                             <label for="">Asunto</label>
                                             <textarea name="solicitud" class="form-control pill-textarea" rows="4"
-                                                required></textarea>
+                                                oninput="this.value = this.value.toUpperCase();" required></textarea>
                                         </div>
                                     </div>
 
@@ -207,7 +208,7 @@
                                                 <label>Folio de contestación de Oficio</label>
                                                 <div class="col-12">
                                                     <input type="text" name="oficio_contestacion"
-                                                        class="form-control pill-input">
+                                                        class="form-control pill-input" oninput="this.value = this.value.toUpperCase();">
                                                 </div>
                                                 <label for="">Fecha de Contestación</label>
                                                 <div class="col-12">
@@ -219,7 +220,7 @@
                                         <div class="col-md-9">
                                             <label>Respuesta</label>
                                             <textarea name="asunto" class="form-control pill-textarea h-100"
-                                                rows="4"></textarea>
+                                                rows="4" oninput="this.value = this.value.toUpperCase();"></textarea>
                                         </div>
                                     </div>
 
@@ -264,7 +265,8 @@
                                         </div>
                                         <div class="col-md-3">
                                             <label>Estatus</label>
-                                            <select name="folio_estado" id="folio_estado" class="form-select pill-select" required>
+                                            <select name="folio_estado" id="folio_estado"
+                                                class="form-select pill-select" required>
                                                 <option value="">Selección</option>
 
                                                 <?php foreach ($estados as $estado): ?>
@@ -1125,7 +1127,7 @@
                                                         <label>Archivado en</label>
 
                                                         <select name="folio_archivado" id="folio_archivado_edit"
-                                                            class="form-select pill-select" >
+                                                            class="form-select pill-select">
                                                             <option value="">Seleccione...</option>
                                                             <?php foreach ($archivados as $a): ?>
                                                             <option value="<?= $a['folio_archivado'] ?>">
@@ -1225,11 +1227,6 @@
                         </div>
                     </div>
                 </div>
-
-
-            </div>
-
-
             </div>
 
         </section>
