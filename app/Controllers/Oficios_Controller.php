@@ -197,22 +197,22 @@ class Oficios_Controller extends BaseController
 
             // HIJA
             $updateData = [
-    'folio_registro'   => $folio_nuevo,
-    'folio_remitente'  => $this->request->getPost('folio_remitente'),
-    'folio_solicitud'  => $folio_solicitud,
-    'folio_atencion'   => $folio_atencion,
-    'folio_sec_resp'   => $this->request->getPost('folio_sec_resp') ?: null,
-    'folio_estado'     => $this->request->getPost('folio_estado'),
-    'folio_archivado'  => $this->request->getPost('folio_archivado') ?: null,
-];
+                'folio_registro'   => $folio_nuevo,
+                'folio_remitente'  => $this->request->getPost('folio_remitente'),
+                'folio_solicitud'  => $folio_solicitud,
+                'folio_atencion'   => $folio_atencion,
+                'folio_sec_resp'   => $this->request->getPost('folio_sec_resp') ?: null,
+                'folio_estado'     => $this->request->getPost('folio_estado'),
+                'folio_archivado'  => $this->request->getPost('folio_archivado') ?: null,
+            ];
 
-if ($archivoRutaFinal !== null) {
-    $updateData['archivo_pdf'] = $archivoRutaFinal;
-}
+            if ($archivoRutaFinal !== null) {
+                $updateData['archivo_pdf'] = $archivoRutaFinal;
+            }
 
-$db->table('oficio')
-    ->where('folio_registro', $folio_original)
-    ->update($updateData);
+            $db->table('oficio')
+                ->where('folio_registro', $folio_original)
+                ->update($updateData);
 
 
             // PADRE
@@ -262,5 +262,58 @@ $db->table('oficio')
         }
 
         return $this->response->setJSON($data);
+    }
+
+
+
+
+
+
+    public function guardarTitularAjax()
+    {
+        $db = \Config\Database::connect();
+        $db->transStart();
+
+        $nombreTitular = trim($this->request->getPost('titular'));
+        $nombreCargo   = trim($this->request->getPost('cargo'));
+        $folioArea     = (int) $this->request->getPost('area');
+
+        if (!$nombreTitular || !$nombreCargo || !$folioArea) {
+            return $this->response->setStatusCode(400)
+                ->setJSON(['error' => 'Datos incompletos']);
+        }
+
+        // 1️⃣ Crear cargo
+        $db->table('cargo')->insert([
+            'nombre_cargo' => $nombreCargo
+        ]);
+        $folioCargo = $db->insertID();
+
+        // 2️⃣ Crear titular
+        $db->table('titular')->insert([
+            'nombre_titular' => $nombreTitular,
+            'folio_cargo'    => $folioCargo,
+            'folio_area'     => $folioArea
+        ]);
+        $folioTitular = $db->insertID();
+
+        // 3️⃣ Crear remitente
+        $db->table('remitente')->insert([
+            'folio_titular' => $folioTitular
+        ]);
+        $folioRemitente = $db->insertID();
+
+        $area = $db->table('tipo_area')
+            ->where('folio_area', $folioArea)
+            ->get()->getRowArray();
+
+        $db->transComplete();
+
+        return $this->response->setJSON([
+            'folio_remitente' => $folioRemitente,
+            'titular' => $nombreTitular,
+            'cargo' => $nombreCargo,
+            'area' => $area['nombre_area']
+        ]);
     }
 }

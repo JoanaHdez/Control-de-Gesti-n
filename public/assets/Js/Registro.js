@@ -375,3 +375,63 @@ document.addEventListener("click", function (e) {
   }
 });
 
+
+
+
+document.getElementById("guardarTitular").addEventListener("click", () => {
+  const titular = document.getElementById("nuevo_titular").value.trim();
+  const cargo = document.getElementById("nuevo_cargo").value.trim();
+  const area = document.getElementById("nuevo_area").value;
+
+  if (!titular || !cargo || !area) {
+    alert("Complete todos los campos");
+    return;
+  }
+
+  fetch(`${BASE_URL}/remitente/guardar`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: new URLSearchParams({
+      titular: titular,
+      cargo: cargo,
+      area: area,
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error al guardar el remitente");
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const select = document.getElementById("folio_remitente");
+
+      const option = document.createElement("option");
+      option.value = data.folio_remitente;
+      option.textContent = data.titular;
+      option.dataset.cargo = data.cargo;
+      option.dataset.area = data.area;
+
+      select.appendChild(option);
+      select.value = data.folio_remitente;
+
+      document.getElementById("folio_cargo").value = data.cargo;
+      document.getElementById("folio_area").value = data.area;
+
+      // Limpiar inputs
+      document.getElementById("nuevo_titular").value = "";
+      document.getElementById("nuevo_cargo").value = "";
+      document.getElementById("nuevo_area").value = "";
+
+      // Cerrar modal
+      bootstrap.Modal.getInstance(
+        document.getElementById("modalTitular")
+      ).hide();
+    })
+    .catch((error) => {
+      console.error(error);
+      alert("No se pudo guardar el titular");
+    });
+});

@@ -17,6 +17,8 @@ $routes->get('oficios/crear', 'Registros_Controller::crear');
 $routes->post('oficios/guardar', 'Oficios_Controller::guardar');
 $routes->get('oficios/detalles/(:any)', 'Oficios_Controller::detalles/$1');
 $routes->get('oficios/editar/(:any)', 'Oficios_Controller::editar/$1');
+$routes->post('remitente/guardar', 'Oficios_Controller::guardarTitularAjax');
+
 
 /* $routes->get('dashboard', 'Dashboard_Controller::index');
  */$routes->get('dashboard/modal', 'Dashboard_Controller::modal');

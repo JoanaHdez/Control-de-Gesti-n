@@ -154,9 +154,15 @@
                                         <div class="col-md-3">
                                             <label>Área</label>
                                             <input type="text" id="folio_area" class="form-control pill-input" readonly>
-
                                         </div>
 
+                                        <div class="col-md-3">
+                                            <label>Nuevo Titular (área)</label>
+                                            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                                data-bs-target="#modalTitular">
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
 
                                     <!-- ------------------------- SOLICITUD/INFORMACIÓN ------------------------- -->
@@ -208,7 +214,8 @@
                                                 <label>Folio de contestación de Oficio</label>
                                                 <div class="col-12">
                                                     <input type="text" name="oficio_contestacion"
-                                                        class="form-control pill-input" oninput="this.value = this.value.toUpperCase();">
+                                                        class="form-control pill-input"
+                                                        oninput="this.value = this.value.toUpperCase();">
                                                 </div>
                                                 <label for="">Fecha de Contestación</label>
                                                 <div class="col-12">
@@ -219,8 +226,8 @@
                                         </div>
                                         <div class="col-md-9">
                                             <label>Respuesta</label>
-                                            <textarea name="asunto" class="form-control pill-textarea h-100"
-                                                rows="4" oninput="this.value = this.value.toUpperCase();"></textarea>
+                                            <textarea name="asunto" class="form-control pill-textarea h-100" rows="4"
+                                                oninput="this.value = this.value.toUpperCase();"></textarea>
                                         </div>
                                     </div>
 
@@ -326,7 +333,6 @@
                                     <form class="d-flex w-50 mt-3">
                                         <input id="buscadorGeneral" class="form-control me-3 flex-grow-1" type="search"
                                             placeholder="Buscar..." aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
                             </nav>
@@ -455,7 +461,6 @@
                                     <form class="d-flex w-50 mt-3">
                                         <input id="buscadorGeneral" class="form-control me-3 flex-grow-1" type="search"
                                             placeholder="Buscar..." aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
                             </nav>
@@ -583,7 +588,6 @@
                                     <form class="d-flex w-50 mt-3">
                                         <input id="buscadorGeneral" class="form-control me-3 flex-grow-1" type="search"
                                             placeholder="Buscar..." aria-label="Search">
-                                        <button class="btn btn-outline-success" type="submit">Search</button>
                                     </form>
                                 </div>
                             </nav>
@@ -1209,6 +1213,48 @@
                         </div>
                     </div>
 
+
+                    <div class="modal fade" id="modalTitular" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Nuevo Titular</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="mb-2">
+                                        <label>Titular</label>
+                                        <input type="text" id="nuevo_titular" class="form-control">
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label>Cargo</label>
+                                        <input type="text" id="nuevo_cargo" class="form-control">
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label>Área</label>
+                                        <select id="nuevo_area" class="form-select">
+                                            <?php foreach ($areas as $area): ?>
+                                            <option value="<?= $area['folio_area'] ?>">
+                                                <?= esc($area['nombre_area']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-primary" id="guardarTitular">Guardar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
                 <div class="modal fade" id="modalArchivoEstado" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
@@ -1235,6 +1281,7 @@
     <script>
     const BASE_URL_DETALLES = "<?= base_url('oficios/detalles/') ?>";
     const BASE_URL_EDITAR = "<?= base_url('oficios/editar/') ?>";
+    const BASE_URL = "<?= base_url() ?>";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="<?= base_url('/assets/js/Registro.js') ?>"></script>
