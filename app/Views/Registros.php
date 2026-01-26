@@ -705,6 +705,49 @@
                         </div>
                     </div>
 
+                    <!-- ----------------------------------------------------------------------- MODAL NUEVO TITULAR ----------------------------------------------------------------------- -->
+
+                    <div class="modal fade" id="modalTitular" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Nuevo Titular</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="mb-2">
+                                        <label>Titular</label>
+                                        <input type="text" id="nuevo_titular" class="form-control">
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label>Cargo</label>
+                                        <input type="text" id="nuevo_cargo" class="form-control">
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label>Área</label>
+                                        <select id="nuevo_area" class="form-select">
+                                            <?php foreach ($areas as $area): ?>
+                                            <option value="<?= $area['folio_area'] ?>">
+                                                <?= esc($area['nombre_area']) ?>
+                                            </option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                    <button class="btn btn-primary" id="guardarTitular">Guardar</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- ----------------------------------------------------------------------- MODAL DETALLES ----------------------------------------------------------------------- -->
 
                     <div class="modal fade" id="modalDetalles" tabindex="-1" aria-hidden="true">
@@ -1212,50 +1255,8 @@
                             </div>
                         </div>
                     </div>
-
-
-                    <div class="modal fade" id="modalTitular" tabindex="-1">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Nuevo Titular</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                </div>
-
-                                <div class="modal-body">
-                                    <div class="mb-2">
-                                        <label>Titular</label>
-                                        <input type="text" id="nuevo_titular" class="form-control">
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <label>Cargo</label>
-                                        <input type="text" id="nuevo_cargo" class="form-control">
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <label>Área</label>
-                                        <select id="nuevo_area" class="form-select">
-                                            <?php foreach ($areas as $area): ?>
-                                            <option value="<?= $area['folio_area'] ?>">
-                                                <?= esc($area['nombre_area']) ?>
-                                            </option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="modal-footer">
-                                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                    <button class="btn btn-primary" id="guardarTitular">Guardar</button>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
+
                 <div class="modal fade" id="modalArchivoEstado" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
