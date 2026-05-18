@@ -51,11 +51,12 @@
                     <!-- ----------------------------------------------------------------------- SECCION 1 REGISTRO ----------------------------------------------------------------------- -->
 
                     <div class="tab-pane fade show active" id="registro">
-                        <?php if (session()->getFlashdata('errors')): ?>
+                        <?php $errors = session()->getFlashdata('errors'); ?>
+                        <?php if (! empty($errors)): ?>
                         <div class="alert alert-danger">
                             <ul>
-                                <?php foreach (session()->getFlashdata('errors') as $error): ?>
-                                <li><?= esc($error) ?></li>
+                                <?php foreach ((array) $errors as $error): ?>
+                                <li><?= esc(is_array($error) ? implode(', ', $error) : $error) ?></li>
                                 <?php endforeach; ?>
                             </ul>
                         </div>
