@@ -312,7 +312,23 @@
                                     <!-- ================= ARCHIVO PDF (OCULTO) ================= -->
                                     <input type="file" name="archivo_pdf" id="archivo_pdf_main" class="d-none"
                                         accept="application/pdf">
-                                    <small id="nombreArchivoPdfMain" class="text-muted"></small>
+                                    <div id="previewPdfMain" class="pdf-preview d-none mt-4">
+                                        <div class="pdf-preview__header">
+                                            <span id="nombreArchivoPdfMain" class="pdf-preview__name"></span>
+                                            <div class="pdf-preview__actions">
+                                                <button type="button" class="btn btn-sm btn-outline-primary"
+                                                    data-pdf-change="archivo_pdf_main">
+                                                    Cambiar
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-outline-danger"
+                                                    data-pdf-clear="archivo_pdf_main">
+                                                    Quitar
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <iframe id="visorArchivoPdfMain" class="pdf-preview__frame"
+                                            title="Vista previa del PDF"></iframe>
+                                    </div>
 
 
                                     <div class="d-flex justify-content-center mt-5">
@@ -953,6 +969,20 @@
                                                     </div>
                                                 </div>
 
+                                                <div id="previewPdfDetalles" class="pdf-preview d-none mt-4">
+                                                    <div class="pdf-preview__header">
+                                                        <span id="nombreArchivoPdfDetalles"
+                                                            class="pdf-preview__name"></span>
+                                                        <a id="enlaceArchivoPdfDetalles"
+                                                            class="btn btn-sm btn-outline-primary" href="#"
+                                                            target="_blank" rel="noopener">
+                                                            Abrir PDF
+                                                        </a>
+                                                    </div>
+                                                    <iframe id="visorArchivoPdfDetalles" class="pdf-preview__frame"
+                                                        title="Vista previa del PDF"></iframe>
+                                                </div>
+
 
                                                 <div class="d-flex justify-content-center mt-5">
                                                     <button type="submit" class="btn btn-submit">
@@ -982,9 +1012,6 @@
                                         enctype="multipart/form-data">
                                         <?= csrf_field() ?>
                                         <input type="hidden" id="folio_original" name="folio_original">
-                                        <input type="file" id="archivo_pdf" name="archivo_pdf" class="d-none"
-                                            accept="application/pdf">
-                                        <small id="nombreArchivoPdf" class="text-muted ms-2"></small>
 
                                         <div class="Registro">
                                             <!-- ------------------------- DATOS DEL OFICIO ------------------------- -->
@@ -1224,7 +1251,24 @@
 
                                                 <input type="file" name="archivo_pdf" id="archivo_pdf_edit"
                                                     class="d-none" accept="application/pdf">
-                                                <small id="nombreArchivoPdfEdit" class="text-muted"></small>
+                                                <div id="previewPdfEdit" class="pdf-preview d-none mt-4">
+                                                    <div class="pdf-preview__header">
+                                                        <span id="nombreArchivoPdfEdit"
+                                                            class="pdf-preview__name"></span>
+                                                        <div class="pdf-preview__actions">
+                                                            <button type="button" class="btn btn-sm btn-outline-primary"
+                                                                data-pdf-change="archivo_pdf_edit">
+                                                                Cambiar
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm btn-outline-danger"
+                                                                data-pdf-clear="archivo_pdf_edit">
+                                                                Quitar
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <iframe id="visorArchivoPdfEdit" class="pdf-preview__frame"
+                                                        title="Vista previa del PDF"></iframe>
+                                                </div>
 
                                                 <div class="d-flex justify-content-center mt-5">
                                                     <button type="submit" class="btn btn-submit btn-edit">
@@ -1286,7 +1330,7 @@
     const BASE_URL = "<?= base_url() ?>";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script src="<?= base_url('/assets/js/Registro.js') ?>"></script>
+    <script src="<?= base_url('/assets/Js/Registro.js') ?>?v=<?= filemtime(FCPATH . 'assets/Js/Registro.js') ?>"></script>
 </body>
 
 </html>

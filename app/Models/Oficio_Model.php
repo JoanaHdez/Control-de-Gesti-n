@@ -70,6 +70,7 @@ class Oficio_Model extends Model
         return $this->db->table('oficio o')
             ->select('
             ro.folio_registro,
+            o.archivo_pdf,
             ro.fecha_oficio,
             ro.referencia,
             ro.fecha_recepcion,
@@ -127,6 +128,7 @@ class Oficio_Model extends Model
         return $this->db->table('oficio o')
             ->select('
             o.folio_registro,
+            o.archivo_pdf,
             ro.fecha_oficio,
             ro.referencia,
             ro.fecha_recepcion,

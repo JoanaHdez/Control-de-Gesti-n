@@ -1,6 +1,7 @@
 let estadoOriginal = null;
 let modalArchivo = null;
 let archivoTarget = null;
+const pdfObjectUrls = {};
 
 /*--------------------------------------- REMITENTE --------------------------------------- */
 
@@ -104,6 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
           document.getElementById("nombre_responsable").value =
             d.nombre_responsable;
           document.getElementById("nombre_seccion").value = d.nombre_seccion;
+
+          clearPdfPreview("archivo_pdf_detalles");
+          if (d.archivo_pdf) {
+            showPdfPreview("archivo_pdf_detalles", d.archivo_pdf, "PDF del oficio");
+          }
         })
         .catch(() => {
           alert("No se pudieron cargar los datos del oficio");
@@ -162,25 +168,95 @@ document.getElementById("estado_edit")?.addEventListener("change", function () {
   });
 }); */
 
-/* --------------------------------------- MOSTRAR NOMBRE DEL ARCHIVO --------------------------------------- */
+/* --------------------------------------- VISTA PREVIA DEL PDF --------------------------------------- */
 
-document
-  .getElementById("archivo_pdf_main")
-  ?.addEventListener("change", function () {
-    if (this.files.length > 0) {
-      document.getElementById("nombreArchivoPdfMain").textContent =
-        this.files[0].name;
-    }
-  });
+function getPdfPreviewElements(inputId) {
+  const suffixMap = {
+    archivo_pdf_main: "Main",
+    archivo_pdf_edit: "Edit",
+    archivo_pdf_detalles: "Detalles",
+  };
+  const suffix = suffixMap[inputId];
 
-document
-  .getElementById("archivo_pdf_edit")
-  ?.addEventListener("change", function () {
-    if (this.files.length > 0) {
-      document.getElementById("nombreArchivoPdfEdit").textContent =
-        this.files[0].name;
-    }
-  });
+  return {
+    input: document.getElementById(inputId),
+    preview: document.getElementById(`previewPdf${suffix}`),
+    name: document.getElementById(`nombreArchivoPdf${suffix}`),
+    frame: document.getElementById(`visorArchivoPdf${suffix}`),
+    link: document.getElementById(`enlaceArchivoPdf${suffix}`),
+  };
+}
+
+function revokePdfObjectUrl(inputId) {
+  if (pdfObjectUrls[inputId]) {
+    URL.revokeObjectURL(pdfObjectUrls[inputId]);
+    delete pdfObjectUrls[inputId];
+  }
+}
+
+function showPdfPreview(inputId, url, name) {
+  const { preview, frame, name: nameElement, link } = getPdfPreviewElements(inputId);
+  if (!preview || !frame || !nameElement) return;
+
+  frame.src = url;
+  nameElement.textContent = name;
+  if (link) link.href = url;
+  preview.classList.remove("d-none");
+}
+
+function clearPdfPreview(inputId) {
+  const { input, preview, frame, name: nameElement, link } = getPdfPreviewElements(inputId);
+
+  revokePdfObjectUrl(inputId);
+
+  if (input) input.value = "";
+  if (frame) frame.removeAttribute("src");
+  if (nameElement) nameElement.textContent = "";
+  if (link) link.href = "#";
+  if (preview) preview.classList.add("d-none");
+}
+
+function handlePdfSelected(input) {
+  const file = input.files?.[0];
+
+  revokePdfObjectUrl(input.id);
+
+  if (!file) {
+    clearPdfPreview(input.id);
+    return;
+  }
+
+  if (file.type !== "application/pdf") {
+    alert("Solo se permiten archivos PDF");
+    clearPdfPreview(input.id);
+    return;
+  }
+
+  const fileUrl = URL.createObjectURL(file);
+  pdfObjectUrls[input.id] = fileUrl;
+  showPdfPreview(input.id, fileUrl, file.name);
+}
+
+document.getElementById("archivo_pdf_main")?.addEventListener("change", function () {
+  handlePdfSelected(this);
+});
+
+document.getElementById("archivo_pdf_edit")?.addEventListener("change", function () {
+  handlePdfSelected(this);
+});
+
+document.addEventListener("click", function (e) {
+  const changeButton = e.target.closest("[data-pdf-change]");
+  if (changeButton) {
+    document.getElementById(changeButton.dataset.pdfChange)?.click();
+    return;
+  }
+
+  const clearButton = e.target.closest("[data-pdf-clear]");
+  if (clearButton) {
+    clearPdfPreview(clearButton.dataset.pdfClear);
+  }
+});
 
 /* --------------------------------------- EDITAR --------------------------------------- */
 
@@ -244,9 +320,11 @@ document.addEventListener("click", function (e) {
       // Guardamos estado original
       estadoOriginal = d.folio_estado ?? "";
 
-      // Limpiamos archivo
-      document.getElementById("archivo_pdf_edit").value = "";
-      document.getElementById("nombreArchivoPdfEdit").textContent = "";
+      // Limpiamos archivo seleccionado y mostramos el PDF actual si existe
+      clearPdfPreview("archivo_pdf_edit");
+      if (d.archivo_pdf) {
+        showPdfPreview("archivo_pdf_edit", d.archivo_pdf, "PDF actual");
+      }
 
       // ================= SECCIÓN RESPONSABLE =================
 
