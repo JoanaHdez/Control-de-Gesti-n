@@ -5,12 +5,77 @@
                 <!-- ----------------------------------------------------------------------- MENU ----------------------------------------------------------------------- -->
 
                 <div class="container-fluid">
-                    <div class="fondo-1">
+                    <!-- <div class="fondo-1">
                         <h1 class="fw-bold mb-1 text-white">Coordinación de Estudio, Planeación y Control</h1>
-                        <div class="border-start border-4 border-primary ps-3">
+                        <div class="header-logos-row border-start border-4 border-primary ps-3">
                             <h5 class="text-muted mb-0">
                                 Comisaría General de Seguridad Ciudadana
                             </h5>
+                        </div>                        
+                    </div> -->
+
+                    <div class="fondo-1 position-relative">
+                        <h1 class="fw-bold mb-1 text-white">
+                            Coordinación de Estudio, Planeación y Control
+                        </h1>
+
+                        <div class="header-logos-row border-start border-4 border-primary ps-3">
+                            <h5 class="text-muted mb-0">
+                                Comisaría General de Seguridad Ciudadana
+                            </h5>
+                        </div>
+
+                        <!-- <img 
+                            src="<?= base_url('assets/img/dgsc-01.png') ?>"
+                            class="position-absolute top-0 end-0 me-5 mt-3"
+                            style="height:100px;"
+                        > -->
+
+                        <!-- <img
+                            src="<?= base_url('assets/img/dgsc-01.png') ?>"
+                            class="position-absolute top-0 end-0 me-5 mt-3"
+                            style="
+                                top: clamp(30px, 5vw, 70px);
+                                right: clamp(120px, 16vw, 240px);
+                                height: clamp(60px, 8vw, 120px);
+                                width: auto;
+                                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+                            ">
+                        <img
+                            src="<?= base_url('assets/img/ayum2025-01.png') ?>"
+                            class="position-absolute"
+                            style="
+                                top: clamp(75px, 8vw, 120px);
+                                right: clamp(30px, 5vw, 90px);
+                                height: clamp(60px, 8vw, 120px);
+                                width: auto;
+                                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+                            "> -->
+
+                        <div
+                            class="position-absolute"
+                            style="
+                            top: clamp(30px, 5vw, 70px);
+                            right: clamp(30px, 5vw, 90px);
+                            display: flex;
+                            align-items: center;
+                            gap: clamp(26px, 3vw, 42px);
+                        ">
+                            <img
+                                src="<?= base_url('assets/img/ayum2025-01.png') ?>"
+                                style="
+                                height: clamp(60px, 8vw, 120px);
+                                width: auto;
+                                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+                            ">
+
+                            <img
+                                src="<?= base_url('assets/img/dgsc-01.png') ?>"
+                                style="
+                                height: clamp(60px, 8vw, 120px);
+                                width: auto;
+                                filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.9));
+                            ">
                         </div>
                     </div>
                     <div class="container-fluid pt-5">
@@ -39,9 +104,6 @@
                                 <a class="nav-link" id="btnDashboard" data-url="<?= base_url('dashboard/modal') ?>">
                                     Reporte
                                 </a>
-                                <!-- <button id="btnDashboard" data-url="<?= base_url('dashboard/modal') ?>">
-                                            Abrir Dashboard
-                                        </button> -->
                             </li>
                         </ul>
                     </div>
@@ -53,25 +115,25 @@
                     <div class="tab-pane fade show active" id="registro">
                         <?php $errors = session()->getFlashdata('errors'); ?>
                         <?php if (! empty($errors)): ?>
-                        <div class="alert alert-danger">
-                            <ul>
-                                <?php foreach ((array) $errors as $error): ?>
-                                <li><?= esc(is_array($error) ? implode(', ', $error) : $error) ?></li>
-                                <?php endforeach; ?>
-                            </ul>
-                        </div>
+                            <div class="alert alert-danger">
+                                <ul>
+                                    <?php foreach ((array) $errors as $error): ?>
+                                        <li><?= esc(is_array($error) ? implode(', ', $error) : $error) ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
                         <?php endif; ?>
 
                         <?php if (session()->getFlashdata('success')): ?>
-                        <div class="alert alert-success">
-                            <?= session()->getFlashdata('success') ?>
-                        </div>
+                            <div class="alert alert-success">
+                                <?= session()->getFlashdata('success') ?>
+                            </div>
                         <?php endif; ?>
 
                         <?php if (session()->getFlashdata('error')): ?>
-                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                            <?= session()->getFlashdata('error') ?>
-                        </div>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <?= session()->getFlashdata('error') ?>
+                            </div>
                         <?php endif; ?>
 
                         <form method="post" action="<?= base_url('oficios/guardar') ?>" enctype="multipart/form-data">
@@ -95,9 +157,9 @@
                                                 class="form-control pill-input <?= session()->getFlashdata('error') ? 'is-invalid' : '' ?>"
                                                 required>
                                             <?php if (session()->getFlashdata('error')): ?>
-                                            <div class="invalid-feedback">
-                                                <?= session()->getFlashdata('error') ?>
-                                            </div>
+                                                <div class="invalid-feedback">
+                                                    <?= session()->getFlashdata('error') ?>
+                                                </div>
                                             <?php endif; ?>
                                         </div>
 
@@ -137,11 +199,11 @@
                                                 <option value="">Seleccione</option>
 
                                                 <?php foreach ($remitentes as $remitente): ?>
-                                                <option value="<?= $remitente['folio_remitente'] ?>"
-                                                    data-cargo="<?= esc($remitente['nombre_cargo']) ?>"
-                                                    data-area="<?= esc($remitente['nombre_area']) ?>">
-                                                    <?= esc($remitente['nombre_titular']) ?>
-                                                </option>
+                                                    <option value="<?= $remitente['folio_remitente'] ?>"
+                                                        data-cargo="<?= esc($remitente['nombre_cargo']) ?>"
+                                                        data-area="<?= esc($remitente['nombre_area']) ?>">
+                                                        <?= esc($remitente['nombre_titular']) ?>
+                                                    </option>
                                                 <?php endforeach; ?>
 
                                             </select>
@@ -184,9 +246,9 @@
                                                 <option value=""> Seleccione</option>
 
                                                 <?php foreach ($tramites as $tramite): ?>
-                                                <option value="<?= $tramite['folio_tramite'] ?>">
-                                                    <?= esc($tramite['tramite']) ?>
-                                                </option>
+                                                    <option value="<?= $tramite['folio_tramite'] ?>">
+                                                        <?= esc($tramite['tramite']) ?>
+                                                    </option>
                                                 <?php endforeach; ?>
 
                                             </select>
@@ -264,9 +326,9 @@
                                                 class="form-select pill-select">
                                                 <option value="">Selección</option>
                                                 <?php foreach ($archivados as $a): ?>
-                                                <option value="<?= $a['folio_archivado'] ?>">
-                                                    <?= esc($a['archivado']) ?>
-                                                </option>
+                                                    <option value="<?= $a['folio_archivado'] ?>">
+                                                        <?= esc($a['archivado']) ?>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
 
@@ -278,9 +340,9 @@
                                                 <option value="">Selección</option>
 
                                                 <?php foreach ($estados as $estado): ?>
-                                                <option value="<?= $estado['folio_estado'] ?>">
-                                                    <?= esc($estado['estado']) ?>
-                                                </option>
+                                                    <option value="<?= $estado['folio_estado'] ?>">
+                                                        <?= esc($estado['estado']) ?>
+                                                    </option>
                                                 <?php endforeach; ?>
 
                                             </select>
@@ -295,11 +357,11 @@
                                                 <option value="">Selección</option>
 
                                                 <?php foreach ($seccion_responsable as $sr): ?>
-                                                <option value="<?= $sr['folio_sec_resp'] ?>"
-                                                    data-seccion="<?= esc($sr['nombre_seccion']) ?>">
-                                                    <?= esc($sr['nombre_responsable']) ?>
+                                                    <option value="<?= $sr['folio_sec_resp'] ?>"
+                                                        data-seccion="<?= esc($sr['nombre_seccion']) ?>">
+                                                        <?= esc($sr['nombre_responsable']) ?>
 
-                                                </option>
+                                                    </option>
                                                 <?php endforeach; ?>
                                             </select>
                                         </div>
@@ -393,72 +455,72 @@
                                                 <tbody class="text-center align-middle">
 
                                                     <?php if (!empty($general)): ?>
-                                                    <?php foreach ($general as $row): ?>
-                                                    <tr>
-                                                        <!-- Folio -->
-                                                        <td><?= esc($row['folio_registro']) ?></td>
+                                                        <?php foreach ($general as $row): ?>
+                                                            <tr>
+                                                                <!-- Folio -->
+                                                                <td><?= esc($row['folio_registro']) ?></td>
 
-                                                        <!-- Fecha -->
-                                                        <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+                                                                <!-- Fecha -->
+                                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
 
-                                                        <!-- Referencia -->
-                                                        <td><?= esc($row['referencia']) ?></td>
+                                                                <!-- Referencia -->
+                                                                <td><?= esc($row['referencia']) ?></td>
 
-                                                        <!-- Trámite -->
-                                                        <td><?= esc($row['tramite']) ?></td>
+                                                                <!-- Trámite -->
+                                                                <td><?= esc($row['tramite']) ?></td>
 
-                                                        <!-- Solicitud -->
-                                                        <td><?= esc($row['solicitud']) ?></td>
+                                                                <!-- Solicitud -->
+                                                                <td><?= esc($row['solicitud']) ?></td>
 
-                                                        <!-- Estado -->
-                                                        <td>
-                                                            <?php
-                                                            $estado = strtolower($row['estado']);
-                                                            $clase = '';
+                                                                <!-- Estado -->
+                                                                <td>
+                                                                    <?php
+                                                                    $estado = strtolower($row['estado']);
+                                                                    $clase = '';
 
-                                                            switch ($estado) {
-                                                                case 'archivado':
-                                                                    $clase = 'bg-success'; // verde
-                                                                    break;
-                                                                case 'tramite':
-                                                                    $clase = 'bg-warning text-dark'; // amarillo
-                                                                    break;
-                                                                case 'pendiente':
-                                                                    $clase = 'bg-danger'; // rojo
-                                                                    break;
-                                                                default:
-                                                                    $clase = 'bg-secondary';
-                                                            }
-                                                            ?>
+                                                                    switch ($estado) {
+                                                                        case 'archivado':
+                                                                            $clase = 'bg-success'; // verde
+                                                                            break;
+                                                                        case 'tramite':
+                                                                            $clase = 'bg-warning text-dark'; // amarillo
+                                                                            break;
+                                                                        case 'pendiente':
+                                                                            $clase = 'bg-danger'; // rojo
+                                                                            break;
+                                                                        default:
+                                                                            $clase = 'bg-secondary';
+                                                                    }
+                                                                    ?>
 
-                                                            <span class="badge <?= $clase ?> d-inline-block text-center"
-                                                                style="width:80px;">
-                                                                <?= esc($row['estado']) ?>
-                                                            </span>
-                                                        </td>
+                                                                    <span class="badge <?= $clase ?> d-inline-block text-center"
+                                                                        style="width:80px;">
+                                                                        <?= esc($row['estado']) ?>
+                                                                    </span>
+                                                                </td>
 
-                                                        <!-- Acciones -->
-                                                        <td>
-                                                            <div class="d-flex justify-content-center gap-3">
-                                                                <button type="button" class="btn btn-warning btn-editar"
-                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
-                                                                    ✏️
-                                                                </button>
-                                                                <button type="button" class="btn btn-info btn-detalles"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalDetalles"
-                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
-                                                                    📄
-                                                                </button>
-                                                            </div>
-                                                        </td>
+                                                                <!-- Acciones -->
+                                                                <td>
+                                                                    <div class="d-flex justify-content-center gap-3">
+                                                                        <button type="button" class="btn btn-warning btn-editar"
+                                                                            data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                            ✏️
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-info btn-detalles"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalDetalles"
+                                                                            data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                            📄
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
 
-                                                    </tr>
-                                                    <?php endforeach; ?>
+                                                            </tr>
+                                                        <?php endforeach; ?>
                                                     <?php else: ?>
-                                                    <tr>
-                                                        <td colspan="10">No hay oficios pendientes</td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td colspan="10">No hay oficios pendientes</td>
+                                                        </tr>
                                                     <?php endif; ?>
                                                 </tbody>
                                             </table>
@@ -525,66 +587,66 @@
                                                 <tbody class="text-center align-middle">
 
                                                     <?php if (!empty($pendientes)): ?>
-                                                    <?php foreach ($pendientes as $row): ?>
-                                                    <tr>
+                                                        <?php foreach ($pendientes as $row): ?>
+                                                            <tr>
 
-                                                        <!-- Ícono -->
-                                                        <td>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                                                height="40" fill="currentColor"
-                                                                class="bi bi-person-circle" viewBox="0 0 16 16">
-                                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                                <path fill-rule="evenodd"
-                                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
-                                                            </svg>
-                                                        </td>
+                                                                <!-- Ícono -->
+                                                                <td>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                        height="40" fill="currentColor"
+                                                                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
+                                                                    </svg>
+                                                                </td>
 
-                                                        <!-- Responsable -->
-                                                        <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
+                                                                <!-- Responsable -->
+                                                                <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
 
-                                                        <!-- Folio -->
-                                                        <td><?= esc($row['folio_registro']) ?></td>
+                                                                <!-- Folio -->
+                                                                <td><?= esc($row['folio_registro']) ?></td>
 
-                                                        <!-- Fecha -->
-                                                        <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+                                                                <!-- Fecha -->
+                                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
 
-                                                        <!-- Referencia -->
-                                                        <td><?= esc($row['referencia']) ?></td>
+                                                                <!-- Referencia -->
+                                                                <td><?= esc($row['referencia']) ?></td>
 
-                                                        <!-- Solicitud -->
-                                                        <td><?= esc($row['solicitud']) ?></td>
+                                                                <!-- Solicitud -->
+                                                                <td><?= esc($row['solicitud']) ?></td>
 
-                                                        <!-- Estado -->
-                                                        <td>
-                                                            <span
-                                                                class="bg-danger badge <?= $clase ?> d-inline-block text-center"
-                                                                style="width:80px;">
-                                                                <?= esc($row['estado']) ?>
-                                                            </span>
-                                                        </td>
+                                                                <!-- Estado -->
+                                                                <td>
+                                                                    <span
+                                                                        class="bg-danger badge <?= $clase ?> d-inline-block text-center"
+                                                                        style="width:80px;">
+                                                                        <?= esc($row['estado']) ?>
+                                                                    </span>
+                                                                </td>
 
-                                                        <!-- Acciones -->
-                                                        <td>
-                                                            <div class="d-flex justify-content-center gap-3">
-                                                                <button type="button" class="btn btn-warning btn-editar"
-                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
-                                                                    ✏️
-                                                                </button>
-                                                                <button type="button" class="btn btn-info btn-detalles"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalDetalles"
-                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
-                                                                    📄
-                                                                </button>
-                                                            </div>
-                                                        </td>
+                                                                <!-- Acciones -->
+                                                                <td>
+                                                                    <div class="d-flex justify-content-center gap-3">
+                                                                        <button type="button" class="btn btn-warning btn-editar"
+                                                                            data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                            ✏️
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-info btn-detalles"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalDetalles"
+                                                                            data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                            📄
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
 
-                                                    </tr>
-                                                    <?php endforeach; ?>
+                                                            </tr>
+                                                        <?php endforeach; ?>
                                                     <?php else: ?>
-                                                    <tr>
-                                                        <td colspan="8">No hay oficios registrados</td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td colspan="8">No hay oficios registrados</td>
+                                                        </tr>
                                                     <?php endif; ?>
 
                                                 </tbody>
@@ -651,66 +713,66 @@
                                                 <tbody class="text-center align-middle">
 
                                                     <?php if (!empty($tramiteOficio)): ?>
-                                                    <?php foreach ($tramiteOficio as $row): ?>
-                                                    <tr>
+                                                        <?php foreach ($tramiteOficio as $row): ?>
+                                                            <tr>
 
-                                                        <!-- Ícono -->
-                                                        <td>
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="40"
-                                                                height="40" fill="currentColor"
-                                                                class="bi bi-person-circle" viewBox="0 0 16 16">
-                                                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                                                                <path fill-rule="evenodd"
-                                                                    d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
-                                                            </svg>
-                                                        </td>
+                                                                <!-- Ícono -->
+                                                                <td>
+                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="40"
+                                                                        height="40" fill="currentColor"
+                                                                        class="bi bi-person-circle" viewBox="0 0 16 16">
+                                                                        <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                                                                        <path fill-rule="evenodd"
+                                                                            d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8" />
+                                                                    </svg>
+                                                                </td>
 
-                                                        <!-- Responsable -->
-                                                        <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
+                                                                <!-- Responsable -->
+                                                                <td><?= esc($row['responsable'] ?? 'Sin asignar') ?></td>
 
-                                                        <!-- Folio -->
-                                                        <td><?= esc($row['folio_registro']) ?></td>
+                                                                <!-- Folio -->
+                                                                <td><?= esc($row['folio_registro']) ?></td>
 
-                                                        <!-- Fecha -->
-                                                        <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
+                                                                <!-- Fecha -->
+                                                                <td><?= date('d/m/Y', strtotime($row['fecha_oficio'])) ?></td>
 
-                                                        <!-- Referencia -->
-                                                        <td><?= esc($row['referencia']) ?></td>
+                                                                <!-- Referencia -->
+                                                                <td><?= esc($row['referencia']) ?></td>
 
-                                                        <!-- Solicitud -->
-                                                        <td><?= esc($row['solicitud']) ?></td>
+                                                                <!-- Solicitud -->
+                                                                <td><?= esc($row['solicitud']) ?></td>
 
-                                                        <!-- Estado -->
-                                                        <td>
-                                                            <span
-                                                                class="bg-warning text-dark badge <?= $clase ?> d-inline-block text-center"
-                                                                style="width:80px;">
-                                                                <?= esc($row['estado']) ?>
-                                                            </span>
-                                                        </td>
+                                                                <!-- Estado -->
+                                                                <td>
+                                                                    <span
+                                                                        class="bg-warning text-dark badge <?= $clase ?> d-inline-block text-center"
+                                                                        style="width:80px;">
+                                                                        <?= esc($row['estado']) ?>
+                                                                    </span>
+                                                                </td>
 
-                                                        <!-- Acciones -->
-                                                        <td>
-                                                            <div class="d-flex justify-content-center gap-3">
-                                                                <button type="button" class="btn btn-warning btn-editar"
-                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
-                                                                    ✏️
-                                                                </button>
-                                                                <button type="button" class="btn btn-info btn-detalles"
-                                                                    data-bs-toggle="modal"
-                                                                    data-bs-target="#modalDetalles"
-                                                                    data-folio="<?= esc($row['folio_registro']) ?>">
-                                                                    📄
-                                                                </button>
-                                                            </div>
-                                                        </td>
+                                                                <!-- Acciones -->
+                                                                <td>
+                                                                    <div class="d-flex justify-content-center gap-3">
+                                                                        <button type="button" class="btn btn-warning btn-editar"
+                                                                            data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                            ✏️
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-info btn-detalles"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#modalDetalles"
+                                                                            data-folio="<?= esc($row['folio_registro']) ?>">
+                                                                            📄
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
 
-                                                    </tr>
-                                                    <?php endforeach; ?>
+                                                            </tr>
+                                                        <?php endforeach; ?>
                                                     <?php else: ?>
-                                                    <tr>
-                                                        <td colspan="8">No hay oficios registrados</td>
-                                                    </tr>
+                                                        <tr>
+                                                            <td colspan="8">No hay oficios registrados</td>
+                                                        </tr>
                                                     <?php endif; ?>
 
                                                 </tbody>
@@ -748,9 +810,9 @@
                                         <label>Área</label>
                                         <select id="nuevo_area" class="form-select">
                                             <?php foreach ($areas as $area): ?>
-                                            <option value="<?= $area['folio_area'] ?>">
-                                                <?= esc($area['nombre_area']) ?>
-                                            </option>
+                                                <option value="<?= $area['folio_area'] ?>">
+                                                    <?= esc($area['nombre_area']) ?>
+                                                </option>
                                             <?php endforeach; ?>
                                         </select>
                                     </div>
@@ -1070,13 +1132,13 @@
                                                             class="form-select pill-select" required>
                                                             <option value="">Seleccione</option>
                                                             <?php if (!empty($remitentes) && is_array($estados)): ?>
-                                                            <?php foreach ($remitentes as $remitente): ?>
-                                                            <option value="<?= $remitente['folio_remitente'] ?>"
-                                                                data-cargo="<?= esc($remitente['nombre_cargo']) ?>"
-                                                                data-area="<?= esc($remitente['nombre_area']) ?>">
-                                                                <?= esc($remitente['nombre_titular']) ?>
-                                                            </option>
-                                                            <?php endforeach; ?>
+                                                                <?php foreach ($remitentes as $remitente): ?>
+                                                                    <option value="<?= $remitente['folio_remitente'] ?>"
+                                                                        data-cargo="<?= esc($remitente['nombre_cargo']) ?>"
+                                                                        data-area="<?= esc($remitente['nombre_area']) ?>">
+                                                                        <?= esc($remitente['nombre_titular']) ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>
@@ -1116,10 +1178,10 @@
                                                             class="form-select pill-select" required>
                                                             <option value="">Seleccione</option>
                                                             <?php if (!empty($tramites) && is_array($estados)): ?>
-                                                            <?php foreach ($tramites as $tramite): ?>
-                                                            <option value="<?= $tramite['folio_tramite'] ?>">
-                                                                <?= esc($tramite['tramite']) ?></option>
-                                                            <?php endforeach; ?>
+                                                                <?php foreach ($tramites as $tramite): ?>
+                                                                    <option value="<?= $tramite['folio_tramite'] ?>">
+                                                                        <?= esc($tramite['tramite']) ?></option>
+                                                                <?php endforeach; ?>
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>
@@ -1205,9 +1267,9 @@
                                                             class="form-select pill-select">
                                                             <option value="">Seleccione...</option>
                                                             <?php foreach ($archivados as $a): ?>
-                                                            <option value="<?= $a['folio_archivado'] ?>">
-                                                                <?= esc($a['archivado']) ?>
-                                                            </option>
+                                                                <option value="<?= $a['folio_archivado'] ?>">
+                                                                    <?= esc($a['archivado']) ?>
+                                                                </option>
                                                             <?php endforeach; ?>
                                                         </select>
                                                     </div>
@@ -1217,10 +1279,10 @@
                                                             class="form-select pill-select" required>
                                                             <option value="">Seleccione</option>
                                                             <?php if (!empty($estados) && is_array($estados)): ?>
-                                                            <?php foreach ($estados as $estado): ?>
-                                                            <option value="<?= $estado['folio_estado'] ?>">
-                                                                <?= esc($estado['estado']) ?></option>
-                                                            <?php endforeach; ?>
+                                                                <?php foreach ($estados as $estado): ?>
+                                                                    <option value="<?= $estado['folio_estado'] ?>">
+                                                                        <?= esc($estado['estado']) ?></option>
+                                                                <?php endforeach; ?>
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>
@@ -1233,12 +1295,12 @@
                                                             class="form-select pill-select">
                                                             <option value="">Seleccione</option>
                                                             <?php if (!empty($seccion_responsable) && is_array($estados)): ?>
-                                                            <?php foreach ($seccion_responsable as $sr): ?>
-                                                            <option value="<?= $sr['folio_sec_resp'] ?>"
-                                                                data-seccion="<?= esc($sr['nombre_seccion']) ?>">
-                                                                <?= esc($sr['nombre_responsable']) ?>
-                                                            </option>
-                                                            <?php endforeach; ?>
+                                                                <?php foreach ($seccion_responsable as $sr): ?>
+                                                                    <option value="<?= $sr['folio_sec_resp'] ?>"
+                                                                        data-seccion="<?= esc($sr['nombre_seccion']) ?>">
+                                                                        <?= esc($sr['nombre_responsable']) ?>
+                                                                    </option>
+                                                                <?php endforeach; ?>
                                                             <?php endif; ?>
                                                         </select>
                                                     </div>
@@ -1325,9 +1387,9 @@
     </main>
 
     <script>
-    const BASE_URL_DETALLES = "<?= base_url('oficios/detalles/') ?>";
-    const BASE_URL_EDITAR = "<?= base_url('oficios/editar/') ?>";
-    const BASE_URL = "<?= base_url() ?>";
+        const BASE_URL_DETALLES = "<?= base_url('oficios/detalles/') ?>";
+        const BASE_URL_EDITAR = "<?= base_url('oficios/editar/') ?>";
+        const BASE_URL = "<?= base_url() ?>";
     </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
     <script src="<?= base_url('/assets/Js/Registro.js') ?>?v=<?= filemtime(FCPATH . 'assets/Js/Registro.js') ?>"></script>

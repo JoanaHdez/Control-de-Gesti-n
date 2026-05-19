@@ -25,6 +25,40 @@ body {
     background: linear-gradient(135deg, #0F4C75, #1F3A5F, #2C5282);
 }
 
+.header-logos-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.header-logos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
+.header-logo {
+    width: min(260px, 28vw);
+    max-height: 115px;
+    object-fit: contain;
+}
+
+@media (max-width: 768px) {
+    .header-logos-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .header-logo {
+        width: min(220px, 70vw);
+        max-height: 90px;
+    }
+}
+
 /* --------------------------------------------------------------------- MENU --------------------------------------------------------------------- */
 
 .nav-tabs {
